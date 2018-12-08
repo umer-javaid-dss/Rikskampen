@@ -1,0 +1,312 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.kampen.riks.app.rikskampen.leader.activity.fragments.account.AccountFragment">
+
+    <android.support.constraint.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        tools:context=".SignUpActivity">
+
+
+        <LinearLayout
+            android:id="@+id/top1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/top_pos_one_background"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/topPositionOne"
+
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+
+                android:src="@drawable/profile_img"
+                app:civ_border_color="#00000000"
+                app:civ_border_width="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-5dp"
+                android:text="Jons"
+                android:textColor="@android:color/white"
+                android:textSize="9dp" />
+
+
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/editText_fName"
+            fontPath="fonts/MontserratAlternates-Regular.ttf"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:ems="10"
+            android:gravity="center_vertical"
+            android:hint="@string/user_fnam_hint"
+            android:inputType="textEmailAddress"
+            android:maxLength="30"
+            android:text=""
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/top1"
+            app:layout_constraintVertical_bias="0.050000012" />
+
+
+        <EditText
+            android:id="@+id/editText_lName"
+            fontPath="fonts/MontserratAlternates-Regular.ttf"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:ems="10"
+            android:gravity="center_vertical"
+            android:hint="@string/user_lnam_hint"
+
+            android:maxLength="30"
+            android:text=""
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText_fName" />
+
+
+        <EditText
+            android:id="@+id/editText_email"
+            fontPath="fonts/MontserratAlternates-Regular.ttf"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:ems="10"
+            android:gravity="center_vertical"
+            android:hint="@string/user_email_hint"
+            android:inputType="textEmailAddress"
+            android:maxLength="30"
+            android:text=""
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText_lName" />
+
+
+        <EditText
+            android:id="@+id/editText_pass"
+            fontPath="fonts/MontserratAlternates-Regular.ttf"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:ems="10"
+            android:gravity="center_vertical"
+            android:hint="@string/user_pass_hint"
+            android:inputType="numberPassword"
+            android:maxLength="30"
+            android:text=""
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText_email" />
+
+
+        <EditText
+            android:id="@+id/editText_DOB"
+            fontPath="fonts/MontserratAlternates-Regular.ttf"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:ems="10"
+            android:focusable="false"
+            android:gravity="center_vertical"
+            android:hint="Birthday"
+            android:inputType="textEmailAddress"
+            android:maxLength="30"
+            android:text=""
+            android:clickable="true"
+
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText_pass"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+        <TextView
+            android:id="@+id/textViewHeight"
+            fontPath="fonts/MontserratAlternates-Regular.ttf"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:text="Height"
+            android:textSize="16dp"
+            android:textColor="@android:color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText_DOB" />
+
+
+        <EditText
+            android:id="@+id/editText_Height_F"
+            fontPath="fonts/MontserratAlternates-Regular.ttf"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:text=""
+            android:hint="ft"
+            android:clickable="true"
+            android:focusable="false"
+
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:textColor="@android:color/black"
+            app:layout_constraintStart_toEndOf="@+id/textViewHeight"
+            app:layout_constraintTop_toBottomOf="@+id/editText_DOB" />
+
+
+        <EditText
+            android:id="@+id/editText_Height_I"
+            fontPath="fonts/MontserratAlternates-Regular.ttf"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:hint="in"
+            android:paddingLeft="5dp"
+            android:text=""
+            android:clickable="true"
+            android:focusable="false"
+
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="@+id/editText_DOB"
+            app:layout_constraintStart_toEndOf="@id/editText_Height_F"
+            app:layout_constraintTop_toBottomOf="@+id/editText_DOB" />
+
+
+        <EditText
+            android:id="@+id/editText_Weight"
+            fontPath="fonts/MontserratAlternates-Regular.ttf"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:ems="10"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:hint="Weight"
+            android:inputType="textEmailAddress"
+            android:maxLength="30"
+            android:text=""
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewHeight"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+        <EditText
+            android:id="@+id/editText_Sex"
+            fontPath="fonts/MontserratAlternates-Regular.ttf"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:ems="10"
+            android:focusable="false"
+            android:gravity="center_vertical"
+            android:hint="Sex"
+            android:clickable="true"
+
+            android:maxLength="30"
+            android:text=""
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText_Weight"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+        <TextView
+            android:id="@+id/button_save"
+            fontPath="fonts/MontserratAlternates-Bold.ttf"
+            android:layout_width="200dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_background"
+            android:clickable="true"
+            android:gravity="center"
+
+            android:text="Save"
+            android:textColor="@android:color/white"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText_Sex" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</FrameLayout>

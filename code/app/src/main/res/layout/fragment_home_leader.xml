@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+    <RelativeLayout
+        android:id="@+id/topLeaders"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:elevation="4dp"
+        android:background="#DEDEDE"
+        android:paddingBottom="15dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/top1"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+
+            android:layout_centerHorizontal="true"
+            android:layout_width="100dp"
+            android:background="@drawable/top_pos_one_background"
+            android:layout_height="100dp">
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/topPositionOne"
+
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+
+            android:src="@drawable/profile_img"
+            app:civ_border_color="#00000000"
+            app:civ_border_width="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_marginTop="-5dp"
+                android:layout_width="wrap_content"
+                android:textSize="9dp"
+                android:text="Jons"
+                android:textColor="@android:color/white"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/top2"
+            android:orientation="vertical"
+            android:layout_below="@id/top1"
+            android:layout_toLeftOf="@id/top1"
+            android:layout_marginTop="-65dp"
+            android:layout_marginRight="-10dp"
+            android:gravity="center"
+
+            android:layout_centerHorizontal="true"
+            android:layout_width="78dp"
+            android:background="@drawable/top_pos_two_background"
+            android:layout_height="78dp">
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/topPositionTwo"
+
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+
+                android:src="@drawable/profile2"
+                app:civ_border_color="#00000000"
+                app:civ_border_width="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:layout_marginTop="-5dp"
+                android:layout_width="wrap_content"
+                android:textSize="9dp"
+                android:text="Gamil"
+                android:textColor="@android:color/white"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/top4"
+            android:orientation="vertical"
+            android:layout_below="@id/top2"
+            android:layout_toRightOf="@id/top2"
+            android:layout_marginTop="-15dp"
+            android:layout_marginRight="-30dp"
+            android:gravity="center"
+
+            android:layout_centerHorizontal="true"
+            android:layout_width="55dp"
+            android:background="@drawable/top_pos_four_background"
+            android:layout_height="55dp">
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/topPositionFour"
+                android:layout_marginBottom="5dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+
+                android:src="@drawable/profile3"
+                app:civ_border_color="#00000000"
+                app:civ_border_width="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+
+                android:layout_marginTop="-10dp"
+                android:layout_width="wrap_content"
+                android:textSize="8dp"
+                android:text="Sarah"
+                android:textColor="@android:color/white"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/top3"
+            android:layout_below="@id/top1"
+            android:layout_toRightOf="@id/top1"
+            android:layout_marginTop="-55dp"
+            android:layout_marginLeft="-8dp"
+           android:gravity="center_horizontal"
+           android:orientation="vertical"
+            android:layout_centerHorizontal="true"
+            android:layout_width="65dp"
+            android:background="@drawable/top_pos_thr_background"
+            android:layout_height="65dp">
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/topPositionThree"
+
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+
+                android:src="@drawable/profile4"
+                app:civ_border_color="#00000000"
+                app:civ_border_width="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+
+                android:layout_marginTop="-5dp"
+                android:layout_width="wrap_content"
+                android:textSize="9dp"
+                android:text="Meryum"
+                android:textColor="@android:color/white"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/top5"
+            android:layout_below="@id/top3"
+            android:layout_toLeftOf="@id/top3"
+            android:layout_marginTop="-15dp"
+            android:layout_marginRight="-10dp"
+
+
+            android:layout_centerHorizontal="true"
+            android:layout_width="45dp"
+            android:background="@drawable/top_pos_five_background"
+            android:layout_height="45dp">
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/topPositionFive"
+
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+
+                android:src="@drawable/profile5"
+                app:civ_border_color="#00000000"
+                app:civ_border_width="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="-5dp"
+                android:layout_width="wrap_content"
+                android:textSize="7dp"
+                android:text="Veena"
+                android:textColor="@android:color/white"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="15dp"
+        android:id="@+id/leaderRV"
+        android:layout_below="@id/topLeaders"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+
+
+
+
+
+</RelativeLayout>

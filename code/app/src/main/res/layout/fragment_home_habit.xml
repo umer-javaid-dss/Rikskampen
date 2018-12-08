@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".leader.activity.fragments.home.HomeFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_height="match_parent">
+
+
+
+
+        <TextView
+            android:layout_marginTop="10dp"
+
+            android:layout_width="wrap_content"
+            android:textSize="18dp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/colorPrimary"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="HABITS"
+            android:layout_height="25dp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/habitsRV"
+
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginTop="2dp"
+            android:background="@color/colorPrimary"
+            android:layout_height="1dp">
+
+        </View>
+
+        <TextView
+            android:layout_marginTop="10dp"
+
+            android:layout_width="wrap_content"
+            android:textSize="18dp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/colorPrimary"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="HEALTH AND FITNESS"
+            android:layout_height="25dp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/health_and_fitnessRV"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginTop="2dp"
+            android:background="@color/colorPrimary"
+            android:layout_height="1dp">
+
+        </View>
+
+        <TextView
+            android:layout_marginTop="10dp"
+
+            android:layout_width="wrap_content"
+            android:textSize="18dp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/colorPrimary"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="STRESS AND RELIEF"
+            android:layout_height="25dp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/stress_and_reliefRV"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+
+</FrameLayout>
