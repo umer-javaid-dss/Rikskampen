@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="90dp"
-    android:elevation="3dp"
+
     android:layout_marginLeft="3dp"
     android:layout_marginRight="3dp"
     android:background="@drawable/item_background"
-    android:layout_height="90dp">
+    android:layout_height="100dp">
 
 
     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -35,8 +35,10 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:text="Health 1"
-        android:textColor="@android:color/white"
+        android:layout_marginTop="2dp"
+        android:textStyle="bold"
+        android:text="Meditation"
+        android:textColor="@android:color/darker_gray"
         android:textSize="9dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +68,7 @@
         android:layout_marginStart="24dp"
 
         android:text="150 Joined"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/darker_gray"
         android:textSize="9dp"
 
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,7 +89,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:text="2 weeks"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/darker_gray"
         android:textSize="9dp"
         app:layout_constraintEnd_toEndOf="@+id/healthJoinTV"
         app:layout_constraintStart_toEndOf="@+id/imageView2"

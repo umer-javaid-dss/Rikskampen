@@ -31,7 +31,7 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return 4;
+        return 0;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

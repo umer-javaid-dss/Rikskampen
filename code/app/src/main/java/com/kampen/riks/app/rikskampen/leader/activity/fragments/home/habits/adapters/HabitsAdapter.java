@@ -9,11 +9,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kampen.riks.app.rikskampen.R;
+import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.habits.models.HabitModel;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class HabitsAdapter extends RecyclerView.Adapter<HabitsAdapter.ViewHolder>  {
 
 
+    ArrayList<HabitModel> mHabitsArrayList;
 
+
+    public HabitsAdapter()
+    {
+        mHabitsArrayList=generateDummyData();
+    }
 
     @NonNull
     @Override
@@ -27,20 +37,54 @@ public class HabitsAdapter extends RecyclerView.Adapter<HabitsAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
+        viewHolder.habitNameTV.setText(mHabitsArrayList.get(i).getHabitName());
+        viewHolder.habitJoinTV.setText(mHabitsArrayList.get(i).getJoinedPersons());
+        viewHolder.habitStartFromTV.setText(mHabitsArrayList.get(i).getWorkingFrom());
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        return mHabitsArrayList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
+        public  TextView habitNameTV,habitJoinTV,habitStartFromTV;
+
         public ViewHolder(View v) {
             super(v);
-
+            habitNameTV=v.findViewById(R.id.habitNameTV);
+            habitJoinTV=v.findViewById(R.id.habitJoinTV);
+            habitStartFromTV=v.findViewById(R.id.habitTimeTV);
         }
 
 
+    }
+
+
+    private   ArrayList<HabitModel> generateDummyData()
+    {
+        ArrayList<HabitModel> hmArray=new ArrayList<>();
+        String [] habitNames=new String[4];
+        habitNames[0]="Cleaning";
+        habitNames[1]="Nail Biting";
+        habitNames[2]="Quit Smoking";
+        habitNames[3]="TV Watching";
+
+        Random  random=new Random();
+
+          for(int i=0; i<4; i++)
+          {
+              HabitModel hm=new HabitModel();
+              hm.setHabitId(i+"");
+              hm.setHabitName(habitNames[i]);
+              int joinedPersons=random.nextInt(100);
+              hm.setJoinedPersons(joinedPersons+" joined");
+              hm.setWorkingFrom(i+" weeks");
+              hmArray.add(hm);
+          }
+
+
+          return  hmArray;
     }
 }

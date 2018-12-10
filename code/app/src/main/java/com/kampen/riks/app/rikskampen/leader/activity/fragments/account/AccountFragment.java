@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,16 +14,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.kampen.riks.app.rikskampen.MyApplication;
 import com.kampen.riks.app.rikskampen.R;
 import com.kampen.riks.app.rikskampen.SignUpActivity;
-import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.HomeFragment;
+import com.kampen.riks.app.rikskampen.user.model.DB_User;
 import com.kampen.riks.app.rikskampen.utils.Constants;
 
 import java.util.Calendar;
 
 import adil.dev.lib.materialnumberpicker.dialog.GenderPickerDialog;
 import biz.kasual.materialnumberpicker.MaterialNumberPicker;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 
 /**
@@ -35,9 +38,7 @@ import biz.kasual.materialnumberpicker.MaterialNumberPicker;
  */
 public class AccountFragment extends Fragment {
 
-    private int mYear, mMonth, mDay;
-
-    private EditText mUserFname;
+    private  EditText mUserFname;
     private  EditText mUserLname;
     private  EditText mUserEmail;
     private  EditText mUserPass;
@@ -46,10 +47,13 @@ public class AccountFragment extends Fragment {
     private  EditText mUserHeightInInches;
     private  EditText mUserWeight;
     private  EditText mUserGender;
+
+    private Realm mRealm;
+
     private  View     mSaveData;
 
     public AccountFragment() {
-        // Required empty public constructor
+
     }
 
     public static AccountFragment newInstance() {
@@ -60,7 +64,7 @@ public class AccountFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_account, container, false);
     }
 
@@ -80,7 +84,7 @@ public class AccountFragment extends Fragment {
         mUserLname=view.findViewById(R.id.editText_lName);
         mUserEmail=view.findViewById(R.id.editText_email);
         mUserPass=view.findViewById(R.id.editText_pass);
-        mUserDOB=view.findViewById(R.id.editText_DOB);
+        mUserDOB=view.findViewById(R.id.editText_Age);
         mUserHeightInFeet=view.findViewById(R.id.editText_Height_F);
         mUserHeightInInches=view.findViewById(R.id.editText_Height_I);
         mUserWeight=view.findViewById(R.id.editText_Weight);
@@ -88,6 +92,8 @@ public class AccountFragment extends Fragment {
         mSaveData=view.findViewById(R.id.button_save);
 
         manageClicks();
+
+        setProfileLocal();
     }
 
     private void manageClicks()
@@ -96,7 +102,7 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                onDOBClick(v);
+                onAgeClick(v);
             }
         });
         mUserHeightInFeet.setOnClickListener(new View.OnClickListener() {
@@ -115,6 +121,14 @@ public class AccountFragment extends Fragment {
             }
         });
 
+        mUserWeight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                onWeightClick(v);
+            }
+        });
+
 
         mSaveData.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,12 +137,106 @@ public class AccountFragment extends Fragment {
                 if(validateData( ))
                 {
 
+                    if(editProfileLocal())
+                    {
+                        Toast.makeText(getActivity(), "Data saved", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
             }
         });
 
     }
+
+
+    private  boolean setProfileLocal()
+    {
+
+
+        DB_User user=MyApplication.tempUser;
+
+       if(user!=null )
+       {
+           final String fName=user.getF_name();
+           final String lName= user.getL_name();
+           final String email= user.getEmail();
+           final String pass =user.getPass();
+           final int    age  =user.getAge();
+           final int    height_ft= user.getHeight_in_feet();
+           final int    height_in= user.getHeight_in_inches();
+           final int    weight=user.getWeight();
+           final int    gender=user.getUser_gender();
+
+           mUserFname.setText(fName);
+           mUserLname.setText(lName);
+           mUserEmail.setText(email);
+           mUserPass.setText(pass);
+           mUserDOB.setText(age+"");
+           mUserHeightInFeet.setText(height_ft+"");
+           mUserHeightInInches.setText(height_in+"");
+           mUserWeight.setText(weight+"");
+           mUserGender.setText(""+(gender==1?"Male":"Female"));
+       }
+
+
+        return true;
+    }
+
+    private  boolean editProfileLocal()
+    {
+
+
+
+        final String fName= mUserFname.getText().toString();
+        final String lName= mUserLname.getText().toString();
+        final String email= mUserEmail.getText().toString();
+        final String pass =mUserPass.getText().toString();
+        final int    age  =Integer.parseInt(mUserDOB.getText().toString());
+        final int    height_ft= Integer.parseInt(mUserHeightInFeet.getText().toString());
+        final int    height_in= Integer.parseInt(mUserHeightInInches.getText().toString());
+        final int    weight=Integer.parseInt(mUserWeight.getText().toString());
+
+
+
+        int temGender=1;
+
+        if(mUserGender.getText().toString().toLowerCase().equals("male"))
+        {
+            temGender=1;
+        }
+        else
+        {
+            temGender=2;
+        }
+        final int    gender=temGender;
+
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+
+                DB_User db_user = realm.createObject(DB_User.class);
+                db_user.setId("12345");
+                db_user.setAge(age);
+                db_user.setEmail(email);
+                db_user.setPass(pass);
+                db_user.setF_name(fName);
+                db_user.setL_name(lName);
+                db_user.setProfile_image("");
+                db_user.setRole("c");
+                db_user.setUser_gender(gender);
+                db_user.setHeight_in_feet(height_ft);
+                db_user.setHeight_in_inches(height_in);
+                db_user.setHeight_unit("ft");
+                db_user.setWeight(weight);
+                db_user.setWeight_unit("kg");
+
+
+            }
+        });
+
+        return true;
+    }
+
 
     @Override
     public void onAttach(Context context) {
@@ -257,8 +365,7 @@ public class AccountFragment extends Fragment {
 
     }
 
-
-    public void onDOBClick(View view) {
+    public void onAgeClick(View view) {
 
 
         Constants.hideSoftKeyboard(view,getActivity());
@@ -266,25 +373,31 @@ public class AccountFragment extends Fragment {
         final EditText DOB= (EditText) view;
 
 
+        final MaterialNumberPicker numberPicker = new MaterialNumberPicker.Builder(getActivity())
+                .minValue(1)
+                .maxValue(120)
+                .defaultValue(30)
+                .backgroundColor(Color.WHITE)
+                .separatorColor(Color.TRANSPARENT)
+                .textColor(Color.BLACK)
+                .textSize(20)
+                .enableFocusability(false)
+                .wrapSelectorWheel(true)
+                .build();
 
-        final Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
 
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
-                new DatePickerDialog.OnDateSetListener() {
-
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Your Age")
+                .setView(numberPicker)
+                .setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
                     @Override
-                    public void onDateSet(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
+                    public void onClick(DialogInterface dialog, int which) {
 
-                        DOB.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-
+                        DOB.setText(numberPicker.getValue()+"");
                     }
-                }, mYear, mMonth, mDay);
-        datePickerDialog.show();
+                })
+                .show();
+
 
     }
 
@@ -341,6 +454,35 @@ public class AccountFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
 
                         mUserHeightInInches.setText(numberPicker.getValue()+"");
+                    }
+                })
+                .show();
+
+    }
+
+    public void onWeightClick(View view) {
+
+        final MaterialNumberPicker numberPicker = new MaterialNumberPicker.Builder(getActivity())
+                .minValue(1)
+                .maxValue(200)
+                .defaultValue(70)
+                .backgroundColor(Color.WHITE)
+                .separatorColor(Color.TRANSPARENT)
+                .textColor(Color.BLACK)
+                .textSize(20)
+                .enableFocusability(false)
+                .wrapSelectorWheel(true)
+                .build();
+
+
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Weight in kg")
+                .setView(numberPicker)
+                .setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        mUserWeight.setText(numberPicker.getValue()+"");
                     }
                 })
                 .show();

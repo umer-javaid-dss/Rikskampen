@@ -1,26 +1,34 @@
 package com.kampen.riks.app.rikskampen.leader.activity;
 
+import android.app.Application;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 
 import com.kampen.riks.app.rikskampen.LoginSignupActivity;
+import com.kampen.riks.app.rikskampen.MyApplication;
 import com.kampen.riks.app.rikskampen.R;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.account.AccountFragment;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.HomeFragment;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.map.MapFragment;
+import com.kampen.riks.app.rikskampen.leader.activity.fragments.me.MyWork;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.order_history.OrderHistoryFragment;
+import com.kampen.riks.app.rikskampen.utils.SaveSharedPreference;
 
 public class MainLeaderActivity extends AppCompatActivity {
 
 
-    private Fragment[] mFragments=new Fragment[4];
+    private Fragment[] mFragments=new Fragment[5];
+
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -38,6 +46,8 @@ public class MainLeaderActivity extends AppCompatActivity {
                     addFragment(mFragments[0]);
 
                     return  true;
+
+
 
                 case R.id.navigation_map:
 
@@ -61,12 +71,16 @@ public class MainLeaderActivity extends AppCompatActivity {
                         mFragments[3]= AccountFragment.newInstance();
                     }
                     addFragment(mFragments[3]);
-
                     return  true;
 
+                case R.id.navigation_me:
 
+                    if(mFragments[4]==null) {
+                        mFragments[4]= MyWork.newInstance();
+                    }
 
-
+                    addFragment(mFragments[4]);
+                    return  true;
 
 
             }
@@ -105,11 +119,26 @@ public class MainLeaderActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-       // super.onBackPressed();
 
-        Intent intent = new Intent(getApplicationContext(),LoginSignupActivity.class);
-        startActivity(intent);
-        finish();
+
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Logout")
+                .setMessage("Are you sure you want to logout?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(getApplicationContext(),LoginSignupActivity.class);
+                        startActivity(intent);
+                        MyApplication.tempUser=null;
+                        SaveSharedPreference.setLoggedIn(getApplicationContext(), false);
+                        finish();
+                    }
+
+                })
+                .setNegativeButton("No", null)
+                .show();
 
     }
 

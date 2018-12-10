@@ -4,10 +4,17 @@ import android.app.Application;
 import android.content.Intent;
 import android.support.multidex.MultiDexApplication;
 
+import com.facebook.stetho.Stetho;
+import com.kampen.riks.app.rikskampen.user.model.DB_User;
+import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
+
+import io.realm.Realm;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class MyApplication  extends MultiDexApplication {
 
+
+    public  static DB_User  tempUser;
 
     @Override
     public void onCreate() {
@@ -20,6 +27,16 @@ public class MyApplication  extends MultiDexApplication {
                     .setFontAttrId(R.attr.fontPath)
                     .build()
             );
+        }catch (Exception ex)
+        {
+            ex.toString();
+        }
+
+
+        try
+        {
+            Realm.init(this);
+
         }catch (Exception ex)
         {
             ex.toString();

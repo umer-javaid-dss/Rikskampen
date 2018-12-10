@@ -53,7 +53,6 @@
 
         </LinearLayout>
 
-
         <EditText
             android:id="@+id/editText_fName"
             fontPath="fonts/MontserratAlternates-Regular.ttf"
@@ -61,7 +60,6 @@
             android:layout_height="40dp"
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
             android:layout_marginRight="32dp"
             android:layout_marginBottom="8dp"
@@ -75,7 +73,6 @@
             android:textColor="@android:color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/top1"
             app:layout_constraintVertical_bias="0.050000012" />
@@ -148,7 +145,7 @@
 
 
         <EditText
-            android:id="@+id/editText_DOB"
+            android:id="@+id/editText_Age"
             fontPath="fonts/MontserratAlternates-Regular.ttf"
             android:layout_width="0dp"
             android:layout_height="40dp"
@@ -161,12 +158,12 @@
             android:ems="10"
             android:focusable="false"
             android:gravity="center_vertical"
-            android:hint="Birthday"
+            android:hint="Age"
             android:inputType="textEmailAddress"
             android:maxLength="30"
             android:text=""
             android:clickable="true"
-
+            android:onClick="onAgeClick"
             android:textColor="@android:color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -188,7 +185,7 @@
             android:textSize="16dp"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText_DOB" />
+            app:layout_constraintTop_toBottomOf="@+id/editText_Age" />
 
 
         <EditText
@@ -204,11 +201,11 @@
             android:hint="ft"
             android:clickable="true"
             android:focusable="false"
-
+            android:onClick="onHeightInFeetClick"
             android:backgroundTint="@color/colorPrimaryDark"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toEndOf="@+id/textViewHeight"
-            app:layout_constraintTop_toBottomOf="@+id/editText_DOB" />
+            app:layout_constraintTop_toBottomOf="@+id/editText_Age" />
 
 
         <EditText
@@ -227,11 +224,11 @@
             android:text=""
             android:clickable="true"
             android:focusable="false"
-
+            android:onClick="onHeightInIncheClick"
             android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="@+id/editText_DOB"
+            app:layout_constraintEnd_toEndOf="@+id/editText_Age"
             app:layout_constraintStart_toEndOf="@id/editText_Height_F"
-            app:layout_constraintTop_toBottomOf="@+id/editText_DOB" />
+            app:layout_constraintTop_toBottomOf="@+id/editText_Age" />
 
 
         <EditText
@@ -246,12 +243,15 @@
             android:layout_marginBottom="8dp"
             android:backgroundTint="@color/colorPrimaryDark"
             android:ems="10"
-            android:focusable="true"
+
             android:gravity="center_vertical"
-            android:hint="Weight"
-            android:inputType="textEmailAddress"
+            android:hint="Weight in kg"
+
             android:maxLength="30"
             android:text=""
+            android:clickable="true"
+            android:focusable="false"
+            android:onClick="onWeightClick"
             android:textColor="@android:color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -276,7 +276,7 @@
             android:gravity="center_vertical"
             android:hint="Sex"
             android:clickable="true"
-
+            android:onClick="onSexClick"
             android:maxLength="30"
             android:text=""
             android:textColor="@android:color/black"

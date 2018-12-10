@@ -5,25 +5,31 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.kampen.riks.app.rikskampen.leader.activity.MainLeaderActivity;
+import com.kampen.riks.app.rikskampen.user.model.DB_User;
+import com.kampen.riks.app.rikskampen.user.module.DB_User_Module;
 import com.kampen.riks.app.rikskampen.utils.Constants;
+import com.kampen.riks.app.rikskampen.utils.SaveSharedPreference;
 
 import java.util.Calendar;
 
 import adil.dev.lib.materialnumberpicker.dialog.GenderPickerDialog;
 import biz.kasual.materialnumberpicker.MaterialNumberPicker;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 
 public class SignUpActivity extends AppCompatActivity {
 
 
-    private int mYear, mMonth, mDay;
+
 
     private  EditText mUserFname;
     private  EditText mUserLname;
@@ -35,6 +41,8 @@ public class SignUpActivity extends AppCompatActivity {
     private  EditText mUserWeight;
     private  EditText mUserGender;
 
+    private Realm mRealm;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +53,29 @@ public class SignUpActivity extends AppCompatActivity {
         mUserLname=findViewById(R.id.editText_lName);
         mUserEmail=findViewById(R.id.editText_email);
         mUserPass=findViewById(R.id.editText_pass);
-        mUserDOB=findViewById(R.id.editText_DOB);
+        mUserDOB=findViewById(R.id.editText_Age);
         mUserHeightInFeet=findViewById(R.id.editText_Height_F);
         mUserHeightInInches=findViewById(R.id.editText_Height_I);
         mUserWeight=findViewById(R.id.editText_Weight);
         mUserGender=findViewById(R.id.editText_Sex);
+
+
+        setUpDB();
     }
 
+
+    private void  setUpDB()
+    {
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                .name(getPackageName() + ".realm")
+                .schemaVersion(2)
+                .modules(new DB_User_Module())
+                .build();
+
+        mRealm = Realm.getInstance(config);
+
+
+    }
 
     private  boolean  validateData( )
     {
@@ -148,10 +172,87 @@ public class SignUpActivity extends AppCompatActivity {
     public void onNextClick(View view) {
 
         if(validateData( )) {
-            Intent intent = new Intent(getApplicationContext(), MainLeaderActivity.class);
-            startActivity(intent);
-            finish();
+
+
+            if(createProfileLocal()) {
+
+                SaveSharedPreference.setLoggedIn(getApplicationContext(), true,MyApplication.tempUser.getEmail(),MyApplication.tempUser.getPass());
+
+                Intent intent = new Intent(getApplicationContext(), MainLeaderActivity.class);
+                startActivity(intent);
+                finish();
+            }
         }
+    }
+
+
+    private  boolean createProfileLocal()
+    {
+
+
+
+       final String fName= mUserFname.getText().toString();
+       final String lName= mUserLname.getText().toString();
+       final String email= mUserEmail.getText().toString();
+       final String pass =mUserPass.getText().toString();
+       final int    age  =Integer.parseInt(mUserDOB.getText().toString());
+       final int    height_ft= Integer.parseInt(mUserHeightInFeet.getText().toString());
+       final int    height_in= Integer.parseInt(mUserHeightInInches.getText().toString());
+       final int    weight=Integer.parseInt(mUserWeight.getText().toString());
+
+        final RealmResults<DB_User> user = mRealm.where(DB_User.class)
+                .equalTo("email",email.trim())
+                .and()
+                .equalTo("pass",pass.trim())
+                .findAll();
+
+        if(user!=null && user.size()>0) {
+
+            Toast.makeText(this, "user already exits!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+
+       int temGender=1;
+
+       if(mUserGender.getText().toString().toLowerCase().equals("male"))
+       {
+           temGender=1;
+       }
+       else
+       {
+           temGender=2;
+       }
+       final int    gender=temGender;
+
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+
+                DB_User db_user = realm.createObject(DB_User.class);
+                db_user.setId("12345");
+                db_user.setAge(age);
+                db_user.setEmail(email);
+                db_user.setPass(pass);
+                db_user.setF_name(fName);
+                db_user.setL_name(lName);
+                db_user.setProfile_image("");
+                db_user.setRole("c");
+                db_user.setUser_gender(gender);
+                db_user.setHeight_in_feet(height_ft);
+                db_user.setHeight_in_inches(height_in);
+                db_user.setHeight_unit("ft");
+                db_user.setWeight(weight);
+                db_user.setWeight_unit("kg");
+
+
+                MyApplication.tempUser=db_user;
+
+
+            }
+        });
+
+        return true;
     }
 
     @Override
@@ -184,7 +285,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-    public void onDOBClick(View view) {
+    public void onAgeClick(View view) {
 
 
         Constants.hideSoftKeyboard(view,SignUpActivity.this);
@@ -192,25 +293,31 @@ public class SignUpActivity extends AppCompatActivity {
         final EditText DOB= (EditText) view;
 
 
+        final MaterialNumberPicker numberPicker = new MaterialNumberPicker.Builder(SignUpActivity.this)
+                .minValue(1)
+                .maxValue(120)
+                .defaultValue(30)
+                .backgroundColor(Color.WHITE)
+                .separatorColor(Color.TRANSPARENT)
+                .textColor(Color.BLACK)
+                .textSize(20)
+                .enableFocusability(false)
+                .wrapSelectorWheel(true)
+                .build();
 
-        final Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
 
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                new DatePickerDialog.OnDateSetListener() {
-
+        new AlertDialog.Builder(this)
+                .setTitle("Your Age")
+                .setView(numberPicker)
+                .setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
                     @Override
-                    public void onDateSet(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
+                    public void onClick(DialogInterface dialog, int which) {
 
-                        DOB.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-
+                        DOB.setText(numberPicker.getValue()+"");
                     }
-                }, mYear, mMonth, mDay);
-        datePickerDialog.show();
+                })
+                .show();
+
 
     }
 
@@ -267,6 +374,35 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
 
                         mUserHeightInInches.setText(numberPicker.getValue()+"");
+                    }
+                })
+                .show();
+
+    }
+
+    public void onWeightClick(View view) {
+
+        final MaterialNumberPicker numberPicker = new MaterialNumberPicker.Builder(SignUpActivity.this)
+                .minValue(1)
+                .maxValue(200)
+                .defaultValue(70)
+                .backgroundColor(Color.WHITE)
+                .separatorColor(Color.TRANSPARENT)
+                .textColor(Color.BLACK)
+                .textSize(20)
+                .enableFocusability(false)
+                .wrapSelectorWheel(true)
+                .build();
+
+
+        new AlertDialog.Builder(this)
+                .setTitle("Weight in kg")
+                .setView(numberPicker)
+                .setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        mUserWeight.setText(numberPicker.getValue()+"");
                     }
                 })
                 .show();

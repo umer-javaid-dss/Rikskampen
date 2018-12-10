@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <RelativeLayout
@@ -11,7 +11,7 @@
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:elevation="4dp"
-        android:background="#DEDEDE"
+
         android:paddingBottom="15dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
@@ -207,7 +207,17 @@
     </RelativeLayout>
 
 
+    <View
+        android:layout_below="@id/topLeaders"
+        android:id="@+id/guidLine"
+        android:layout_width="match_parent"
+        android:background="@color/colortabselected"
+        android:layout_height="1dp">
+
+    </View>
+
     <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
         android:layout_marginTop="15dp"
         android:id="@+id/leaderRV"
         android:layout_below="@id/topLeaders"
@@ -217,6 +227,409 @@
         android:paddingRight="10dp">
 
     </android.support.v7.widget.RecyclerView>
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_below="@id/guidLine"
+        android:fillViewport="true"
+        android:layout_marginTop="10dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:id="@+id/item1"
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/leftContainer1"
+                android:layout_width="280dp"
+                android:gravity="end|center_vertical"
+                android:layout_centerVertical="true"
+                android:background="@color/colortabselected"
+                android:layout_height="38dp">
+
+                <TextView
+                    android:layout_marginRight="25dp"
+                    android:text="Katie - 365,765 steps"
+                    android:textSize="15dp"
+                    android:textColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profileImage1"
+                android:layout_marginLeft="-15dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/leftContainer1"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+
+                android:src="@drawable/profile5"
+                app:civ_border_color="@color/colortabselected"
+                app:civ_border_width="2dp"
+                 />
+
+             <TextView
+                 android:layout_toRightOf="@id/profileImage1"
+                 android:id="@+id/position1"
+                 android:layout_marginLeft="10dp"
+                 android:layout_centerVertical="true"
+                 android:elevation="2dp"
+                 android:textSize="18dp"
+                 android:textStyle="bold"
+                 android:textColor="@color/colortabselected"
+                 android:text="#1"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:id="@+id/item2"
+            android:layout_marginTop="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/leftContainer2"
+                android:layout_width="265dp"
+                android:gravity="end|center_vertical"
+                android:layout_centerVertical="true"
+                android:background="@color/colortabselected"
+                android:layout_height="38dp">
+
+                <TextView
+                    android:layout_marginRight="25dp"
+                    android:text="Sami - 365,500 steps"
+                    android:textSize="15dp"
+                    android:textColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profileImage2"
+                android:layout_marginLeft="-15dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/leftContainer2"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+
+                android:src="@drawable/profile3"
+                app:civ_border_color="@color/colortabselected"
+                app:civ_border_width="2dp"
+                />
+
+            <TextView
+                android:layout_toRightOf="@id/profileImage2"
+                android:id="@+id/position2"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:elevation="2dp"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/colortabselected"
+                android:text="#2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/item3"
+            android:layout_marginTop="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/leftContainer3"
+                android:layout_width="240dp"
+                android:gravity="end|center_vertical"
+                android:layout_centerVertical="true"
+                android:background="@color/colortabselected"
+                android:layout_height="38dp">
+
+                <TextView
+                    android:layout_marginRight="25dp"
+                    android:text="Kayel - 364,001 steps"
+                    android:textSize="15dp"
+                    android:textColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profileImage3"
+                android:layout_marginLeft="-15dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/leftContainer3"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+
+                android:src="@drawable/profile2"
+                app:civ_border_color="@color/colortabselected"
+                app:civ_border_width="2dp"
+                />
+
+            <TextView
+                android:layout_toRightOf="@id/profileImage3"
+                android:id="@+id/position3"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:elevation="2dp"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/colortabselected"
+                android:text="#3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_marginTop="3dp"
+            android:id="@+id/item4"
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/leftContainer4"
+                android:layout_width="230dp"
+                android:gravity="end|center_vertical"
+                android:layout_centerVertical="true"
+                android:background="@color/colortabselected"
+                android:layout_height="38dp">
+
+                <TextView
+                    android:layout_marginRight="25dp"
+                    android:text="Ikram - 365,765 steps"
+                    android:textSize="15dp"
+                    android:textColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profileImage4"
+                android:layout_marginLeft="-15dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/leftContainer4"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+
+                android:src="@drawable/profile_img"
+                app:civ_border_color="@color/colortabselected"
+                app:civ_border_width="2dp"
+                />
+
+            <TextView
+                android:layout_toRightOf="@id/profileImage4"
+                android:id="@+id/position4"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:elevation="2dp"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/colortabselected"
+                android:text="#4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_marginTop="3dp"
+            android:id="@+id/item5"
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/leftContainer5"
+                android:layout_width="200dp"
+                android:gravity="end|center_vertical"
+                android:layout_centerVertical="true"
+                android:background="@color/colortabselected"
+                android:layout_height="38dp">
+
+                <TextView
+                    android:layout_marginRight="25dp"
+                    android:text="Yami - 363,120 steps"
+                    android:textSize="15dp"
+                    android:textColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profileImage5"
+                android:layout_marginLeft="-15dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/leftContainer5"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+
+                android:src="@drawable/profile5"
+                app:civ_border_color="@color/colortabselected"
+                app:civ_border_width="2dp"
+                />
+
+            <TextView
+                android:layout_toRightOf="@id/profileImage5"
+                android:id="@+id/position5"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:elevation="2dp"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/colortabselected"
+                android:text="#5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginTop="3dp"
+            android:id="@+id/item6"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/leftContainer6"
+                android:layout_width="195dp"
+                android:gravity="end|center_vertical"
+                android:layout_centerVertical="true"
+                android:background="@color/colortabselected"
+                android:layout_height="38dp">
+
+                <TextView
+                    android:layout_marginRight="25dp"
+                    android:text="Komal - 356,987 steps"
+                    android:textSize="15dp"
+                    android:textColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profileImage6"
+                android:layout_marginLeft="-15dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/leftContainer6"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+
+                android:src="@drawable/profile5"
+                app:civ_border_color="@color/colortabselected"
+                app:civ_border_width="2dp"
+                />
+
+            <TextView
+                android:layout_toRightOf="@id/profileImage6"
+                android:id="@+id/position6"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:elevation="2dp"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/colortabselected"
+                android:text="#6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/item7"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/leftContainer7"
+                android:layout_width="180dp"
+                android:gravity="end|center_vertical"
+                android:layout_centerVertical="true"
+                android:background="@color/colortabselected"
+                android:layout_height="38dp">
+
+                <TextView
+                    android:layout_marginRight="25dp"
+                    android:text="Katie - 356,956 steps"
+                    android:textSize="15dp"
+                    android:textColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profileImage7"
+                android:layout_marginLeft="-15dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/leftContainer7"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+
+                android:src="@drawable/profile5"
+                app:civ_border_color="@color/colortabselected"
+                app:civ_border_width="2dp"
+                />
+
+            <TextView
+                android:layout_toRightOf="@id/profileImage7"
+                android:id="@+id/position7"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:elevation="2dp"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/colortabselected"
+                android:text="#7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
 
 
