@@ -14,9 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.kampen.riks.app.rikskampen.R;
-import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.HomeFragment;
-import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.habits.HabitsFragment;
-import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.leaderboard.LeaderBoardFragment;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.order_history.fragments.CancelOrderFragment;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.order_history.fragments.CompletedOrderFragment;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.order_history.fragments.PendingOrderFragment;

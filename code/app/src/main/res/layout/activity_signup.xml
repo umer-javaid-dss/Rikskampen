@@ -24,19 +24,17 @@
 
 
     <EditText
-        android:id="@+id/editText_fName"
+        android:id="@+id/editText_fullName"
         fontPath="fonts/MontserratAlternates-Regular.ttf"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="38dp"
         android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/colorPrimaryDark"
         android:ems="10"
         android:gravity="center_vertical"
-        android:hint="@string/user_fnam_hint"
+        android:hint="Name"
         android:inputType="textEmailAddress"
         android:maxLength="30"
         android:text=""
@@ -45,36 +43,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.050000012" />
+        app:layout_constraintVertical_bias="0.0" />
 
 
-    <EditText
-        android:id="@+id/editText_lName"
-        fontPath="fonts/MontserratAlternates-Regular.ttf"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:ems="10"
-        android:gravity="center_vertical"
-        android:hint="@string/user_lnam_hint"
 
-        android:maxLength="30"
-        android:text=""
-        android:textColor="@android:color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_fName" />
 
 
     <EditText
         android:id="@+id/editText_email"
         fontPath="fonts/MontserratAlternates-Regular.ttf"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="38dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginEnd="32dp"
@@ -89,14 +68,14 @@
         android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_lName" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_fullName" />
 
 
     <EditText
         android:id="@+id/editText_pass"
         fontPath="fonts/MontserratAlternates-Regular.ttf"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="38dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginEnd="32dp"
@@ -113,12 +92,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_email" />
 
+    <EditText
+        android:id="@+id/editText_pass_c"
+        fontPath="fonts/MontserratAlternates-Regular.ttf"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:ems="10"
+        android:gravity="center_vertical"
+        android:hint="@string/user_pass_hint_c"
+        android:inputType="numberPassword"
+        android:maxLength="30"
+        android:text=""
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_pass" />
+
 
     <EditText
         android:id="@+id/editText_Age"
         fontPath="fonts/MontserratAlternates-Regular.ttf"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="38dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginEnd="32dp"
@@ -138,31 +138,36 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_pass"
+        app:layout_constraintTop_toBottomOf="@+id/editText_pass_c"
         app:layout_constraintVertical_bias="0.0" />
 
 
-    <TextView
-        android:id="@+id/textViewHeight"
+    <EditText
+        android:id="@+id/editTextHeight"
+
         fontPath="fonts/MontserratAlternates-Regular.ttf"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
+        android:layout_marginEnd="32dp"
         android:gravity="center_vertical"
         android:paddingLeft="5dp"
-        android:text="Height"
+        android:hint="Height in cm"
+        android:text=""
+        android:inputType="number"
         android:textSize="16dp"
+        android:backgroundTint="@color/colorPrimaryDark"
         android:textColor="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_Age" />
 
 
-    <EditText
+   <!-- <EditText
         android:id="@+id/editText_Height_F"
         fontPath="fonts/MontserratAlternates-Regular.ttf"
         android:layout_width="60dp"
-        android:layout_height="40dp"
+        android:layout_height="38dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:gravity="center"
@@ -182,7 +187,7 @@
         android:id="@+id/editText_Height_I"
         fontPath="fonts/MontserratAlternates-Regular.ttf"
         android:layout_width="60dp"
-        android:layout_height="40dp"
+        android:layout_height="38dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
@@ -198,43 +203,40 @@
         android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="@+id/editText_Age"
         app:layout_constraintStart_toEndOf="@id/editText_Height_F"
-        app:layout_constraintTop_toBottomOf="@+id/editText_Age" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_Age" />-->
 
 
     <EditText
         android:id="@+id/editText_Weight"
         fontPath="fonts/MontserratAlternates-Regular.ttf"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="38dp"
         android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="8dp"
         android:backgroundTint="@color/colorPrimaryDark"
+
+        android:clickable="true"
         android:ems="10"
 
+        android:focusable="false"
         android:gravity="center_vertical"
         android:hint="Weight in kg"
-
         android:maxLength="30"
-        android:text=""
-        android:clickable="true"
-        android:focusable="false"
         android:onClick="onWeightClick"
+        android:text=""
+
         android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewHeight"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextHeight" />
 
 
     <EditText
+
         android:id="@+id/editText_Sex"
         fontPath="fonts/MontserratAlternates-Regular.ttf"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="38dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginEnd="32dp"
@@ -261,23 +263,54 @@
         android:id="@+id/button_signup"
         fontPath="fonts/MontserratAlternates-Bold.ttf"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="42dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:background="@drawable/button_background"
         android:clickable="true"
         android:gravity="center"
         android:onClick="onNextClick"
-        android:text="Create"
+        android:text="Sign up"
         android:textColor="@android:color/white"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_Sex" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="15dp"
+
+        android:layout_marginEnd="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_signup">
+
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="20dp"
+            android:rotation="90"
+            android:src="@android:drawable/arrow_down_float" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:onClick="onBackClick"
+            android:text="Back"
+            android:textSize="18dp" />
+
+    </LinearLayout>
 
 
 

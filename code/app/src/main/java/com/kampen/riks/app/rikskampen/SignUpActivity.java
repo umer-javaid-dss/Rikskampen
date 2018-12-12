@@ -32,12 +32,15 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     private  EditText mUserFname;
-    private  EditText mUserLname;
+
     private  EditText mUserEmail;
     private  EditText mUserPass;
+    private  EditText mUserPassC;
     private  EditText mUserDOB;
-    private  EditText mUserHeightInFeet;
-    private  EditText mUserHeightInInches;
+    private  EditText mUserHeight;
+
+    /*private  EditText mUserHeightInFeet;
+    private  EditText mUserHeightInInches;*/
     private  EditText mUserWeight;
     private  EditText mUserGender;
 
@@ -49,13 +52,15 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        mUserFname=findViewById(R.id.editText_fName);
-        mUserLname=findViewById(R.id.editText_lName);
+        mUserFname=findViewById(R.id.editText_fullName);
+        //mUserLname=findViewById(R.id.editText_lName);
         mUserEmail=findViewById(R.id.editText_email);
         mUserPass=findViewById(R.id.editText_pass);
+        mUserPassC=findViewById(R.id.editText_pass_c);
         mUserDOB=findViewById(R.id.editText_Age);
-        mUserHeightInFeet=findViewById(R.id.editText_Height_F);
-        mUserHeightInInches=findViewById(R.id.editText_Height_I);
+        mUserHeight=findViewById(R.id.editTextHeight);
+
+        //mUserHeightInInches=findViewById(R.id.editText_Height_I);
         mUserWeight=findViewById(R.id.editText_Weight);
         mUserGender=findViewById(R.id.editText_Sex);
 
@@ -88,13 +93,6 @@ public class SignUpActivity extends AppCompatActivity {
 
         }
 
-        if(mUserLname.getText().toString().trim().length()==0)
-        {
-            mUserLname.requestFocus();
-            mUserLname.setError("Enter last name");
-            return false;
-
-        }
 
 
 
@@ -121,6 +119,24 @@ public class SignUpActivity extends AppCompatActivity {
 
         }
 
+        if(mUserPassC.getText().toString().trim().length()==0)
+        {
+            mUserPassC.requestFocus();
+            mUserPassC.setError("Enter confirm password");
+            return false;
+
+        }
+
+        String temp1=mUserPass.getText().toString();
+        String temp2=mUserPassC.getText().toString();
+
+        if(!temp1.equals(temp2))
+        {
+            mUserPass.requestFocus();
+            mUserPass.setError("Password do not match");
+            return false;
+        }
+
         if(mUserDOB.getText().toString().trim().length()==0)
         {
             mUserDOB.requestFocus();
@@ -129,7 +145,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         }
 
-        if(mUserHeightInFeet.getText().toString().trim().length()==0)
+       /* if(mUserHeightInFeet.getText().toString().trim().length()==0)
         {
             mUserHeightInFeet.requestFocus();
             mUserHeightInFeet.setError("Enter height in feet");
@@ -143,7 +159,7 @@ public class SignUpActivity extends AppCompatActivity {
             mUserHeightInInches.setError("Enter height in feet");
             return false;
 
-        }
+        }*/
 
         if(mUserWeight.getText().toString().trim().length()==0)
         {
@@ -186,18 +202,24 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
+    public void onBackClick(View view) {
+
+        onBackPressed();
+    }
+
+
     private  boolean createProfileLocal()
     {
 
 
 
        final String fName= mUserFname.getText().toString();
-       final String lName= mUserLname.getText().toString();
+       //final String lName= mUserLname.getText().toString();
        final String email= mUserEmail.getText().toString();
        final String pass =mUserPass.getText().toString();
        final int    age  =Integer.parseInt(mUserDOB.getText().toString());
-       final int    height_ft= Integer.parseInt(mUserHeightInFeet.getText().toString());
-       final int    height_in= Integer.parseInt(mUserHeightInInches.getText().toString());
+       final int    height_ft= Integer.parseInt(mUserHeight.getText().toString());
+      // final int    height_in= Integer.parseInt(mUserHeightInInches.getText().toString());
        final int    weight=Integer.parseInt(mUserWeight.getText().toString());
 
         final RealmResults<DB_User> user = mRealm.where(DB_User.class)
@@ -235,12 +257,12 @@ public class SignUpActivity extends AppCompatActivity {
                 db_user.setEmail(email);
                 db_user.setPass(pass);
                 db_user.setF_name(fName);
-                db_user.setL_name(lName);
+                db_user.setL_name("");
                 db_user.setProfile_image("");
                 db_user.setRole("c");
                 db_user.setUser_gender(gender);
                 db_user.setHeight_in_feet(height_ft);
-                db_user.setHeight_in_inches(height_in);
+                //db_user.setHeight_in_inches(height_in);
                 db_user.setHeight_unit("ft");
                 db_user.setWeight(weight);
                 db_user.setWeight_unit("kg");
@@ -321,36 +343,9 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    public void onHeightInFeetClick(View view) {
-
-        final MaterialNumberPicker numberPicker = new MaterialNumberPicker.Builder(SignUpActivity.this)
-                .minValue(1)
-                .maxValue(10)
-                .defaultValue(5)
-                .backgroundColor(Color.WHITE)
-                .separatorColor(Color.TRANSPARENT)
-                .textColor(Color.BLACK)
-                .textSize(20)
-                .enableFocusability(false)
-                .wrapSelectorWheel(true)
-                .build();
 
 
-        new AlertDialog.Builder(this)
-                .setTitle("Height in Feet")
-                .setView(numberPicker)
-                .setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        mUserHeightInFeet.setText(numberPicker.getValue()+"");
-                    }
-                })
-                .show();
-
-    }
-
-    public void onHeightInIncheClick(View view) {
+    /*public void onHeightInIncheClick(View view) {
 
 
         final MaterialNumberPicker numberPicker = new MaterialNumberPicker.Builder(SignUpActivity.this)
@@ -378,7 +373,7 @@ public class SignUpActivity extends AppCompatActivity {
                 })
                 .show();
 
-    }
+    }*/
 
     public void onWeightClick(View view) {
 

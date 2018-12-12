@@ -67,11 +67,19 @@ public class MapFragment extends Fragment implements PlacesListener,GoogleMap.On
     private boolean mPermissionDenied = false;
 
     private SupportMapFragment mMapFragment;
+
     private GoogleMap mMap;
+
+    private  View mStar1Button,mStar2Button,mStar3Button;
+
+    private  View mStarContainer;
 
     private  Marker userMarker;
 
     private  Marker targetMarker;
+
+
+    private  int  mStarClicked=1;
 
 
 
@@ -105,8 +113,86 @@ public class MapFragment extends Fragment implements PlacesListener,GoogleMap.On
 
 
 
+        mStar1Button=view.findViewById(R.id.star1Button);
+        mStar2Button=view.findViewById(R.id.star2Button);
+        mStar3Button=view.findViewById(R.id.star3Button);
+        mStarContainer=view.findViewById(R.id.starContainer);
+
+        manageStatButtonClick();
 
     }
+
+    private void manageStatButtonClick()
+    {
+        mStar1Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mStarClicked=1;
+                mStarContainer.setVisibility(View.GONE);
+
+                getPlaces();
+
+            }
+        });
+
+        mStar2Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mStarClicked=2;
+                mStarContainer.setVisibility(View.GONE);
+
+                getPlaces();
+
+            }
+        });
+
+        mStar3Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mStarClicked=3;
+                mStarContainer.setVisibility(View.GONE);
+
+
+                getPlaces();
+
+
+            }
+        });
+
+
+    }
+
+
+    private  void   getPlaces()
+    {
+
+        if(userMarker!=null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                    try {
+                        new NRPlaces.Builder()
+                                .listener(MapFragment.this)
+                                .key(Constants.MAP_KEY)
+                                .latlng(userMarker.getPosition().latitude, userMarker.getPosition().longitude)
+                                .radius(Constants.MAP_RADIUS)
+                                .type(PlaceType.GYM)
+                                .build()
+                                .execute();
+                    } catch (Exception ex) {
+                        ex.toString();
+                    }
+                }
+            });
+        }
+
+    }
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -155,12 +241,12 @@ public class MapFragment extends Fragment implements PlacesListener,GoogleMap.On
                 try {
 
                     if (places != null && places.size() > 0) {
-                        Random rnd = new Random(places.size() - 1);
 
-                        int nearByRandomPlace = rnd.nextInt();
+                        Random rnd = new Random();
 
-                        Place targetPlace = places.get(nearByRandomPlace);
+                        int nearByRandomPlace1 = rnd.nextInt(places.size() - 1);
 
+                        Place targetPlace = places.get(nearByRandomPlace1);
                         LatLng latlng = new LatLng(targetPlace.getLatitude(), targetPlace.getLongitude());
 
                         if (targetMarker == null) {
@@ -329,25 +415,6 @@ public class MapFragment extends Fragment implements PlacesListener,GoogleMap.On
 
                             //fetchStores(location.getLatitude() + "," + location.getLongitude());
 
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-
-                                    try {
-                                        new NRPlaces.Builder()
-                                                .listener(MapFragment.this)
-                                                .key(Constants.MAP_KEY)
-                                                .latlng(location.getLatitude(),location.getLongitude())
-                                                .radius(1500)
-                                                .type(PlaceType.GYM)
-                                                .build()
-                                                .execute();
-                                    }catch (Exception ex)
-                                    {
-                                        ex.toString();
-                                    }
-                                }
-                            });
 
 
 

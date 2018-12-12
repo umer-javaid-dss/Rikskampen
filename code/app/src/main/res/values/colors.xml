@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#c8a167</color>
-    <color name="colorPrimaryDark">#ffe59b</color>
-    <color name="colorAccent">#ffe59b</color>
+    <color name="colorPrimaryDark">#c8a167</color>
+    <color name="colorAccent">#c8a167</color>
 
 
     <color name="colortabselected">#c8a167</color>
-    <color name="colortabunselected">#ffe59b</color>
+    <color name="colortabunselected">#DDB958</color>
 
     <color name="colorPrimaryWithAlpha">#50ffe59b</color>
 
     <color name="colorProgressIconBg">#E98758</color>
+
+    <color name="colorHomeBg">#F2F2F2</color>
 
 
 
@@ -45,6 +47,20 @@
     <color name="MPD_pickerItemTextColorUnSelected">#444</color>
     <color name="MPD_pickerItemTextColorSelected">#bbffffff</color>
     <color name="MPD_pickerSelectedTextColor">#FFF</color>
+
+
+
+
+
+    <color name="tabMedium">#2B2B2B</color>
+    <color name="tabDark">#000000</color>
+    <color name="tabTransparent">#10ffffff</color>
+
+
+
+
+    <color name="tab_border">#a7a7aa</color>
+    <color name="tab_background">#f6f6f7</color>
 
 
 

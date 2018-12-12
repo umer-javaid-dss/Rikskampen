@@ -1,6 +1,8 @@
 package com.kampen.riks.app.rikskampen.leader.activity.fragments.home;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,17 +10,16 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.kampen.riks.app.rikskampen.R;
-import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.habits.HabitsFragment;
-import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.habits.adapters.HabitsAdapter;
-import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.leaderboard.LeaderBoardFragment;
+import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.addactivity.ActivityFragment;
+import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.HabitsFragment;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,10 +34,21 @@ public class HomeFragment extends Fragment {
     private HomePagerAdapter homePagerAdapter;
 
 
+    private   TabLayout mTablayout;
+
+
+    private   TextView  tabLeft,tabRight;
+
+
+
+    Fragment[] PAGES;
+
+
 
     private final String[] PAGE_TITLES = new String[]{
-            "Leader Board",
-            "Habits & Programs",
+            "Activity",
+            "Health & Programs",
+
 
     };
 
@@ -44,15 +56,16 @@ public class HomeFragment extends Fragment {
     public Fragment[] getFragments() {
 
 
-      Fragment[] PAGES = new Fragment[]{
+     PAGES = new Fragment[]{
 
-            LeaderBoardFragment.newInstance(),
+             ActivityFragment.newInstance(),
             HabitsFragment.newInstance(),
+
 
     };
 
         return PAGES;
-}
+    }
 
     public HomeFragment() {
         // Required empty public constructor
@@ -76,15 +89,65 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
+        tabLeft=(TextView) view.findViewById(R.id.tabLeft);
+        tabRight=(TextView) view.findViewById(R.id.tabRight);
+
+
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        mTablayout=(TabLayout) view.findViewById(R.id.tab_layout);
         homePagerAdapter=new HomePagerAdapter(getChildFragmentManager(),getFragments());
         mViewPager.setAdapter(homePagerAdapter);
-        //mViewPager.invalidate();
+
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(mViewPager);
 
 
+
+
+        manageTab();
+
+
+
     }
+
+    private  void manageTab()
+    {
+
+        tabLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                tabLeft.setBackgroundResource(R.drawable.tab_left_selected);
+                tabLeft.setTextColor(Color.WHITE);
+                tabRight.setBackgroundResource(R.drawable.tab_right_unselected);
+                tabRight.setTextColor(Color.parseColor("#c8a167"));
+
+
+                mViewPager.setCurrentItem(0);
+
+            }
+        });
+
+
+        tabRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                tabLeft.setBackgroundResource(R.drawable.tab_left_unselected);
+                tabLeft.setTextColor(Color.parseColor("#c8a167"));
+                tabRight.setBackgroundResource(R.drawable.tab_right_selected);
+                tabRight.setTextColor(Color.WHITE);
+
+                mViewPager.setCurrentItem(1);
+
+            }
+        });
+
+
+
+
+    }
+
 
     @Override
     public void onAttach(Context context) {
@@ -128,6 +191,35 @@ public class HomeFragment extends Fragment {
         @Override
         public CharSequence getPageTitle(int position) {
             return PAGE_TITLES[position];
+        }
+
+    }
+
+
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if(PAGES[2]!=null)
+        {
+            PAGES[2].onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+    }
+
+
+
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        try {
+
+            if (PAGES[2] != null) {
+                PAGES[2].onActivityResult(requestCode, resultCode, data);
+            }
+        }catch (Exception ex)
+        {
+            ex.toString();
         }
 
     }

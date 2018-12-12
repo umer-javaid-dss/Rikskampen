@@ -7,6 +7,62 @@
     tools:context=".leader.activity.fragments.home.HomeFragment">
 
 
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_height="match_parent">
+
+        <!--
+                <LinearLayout
+                    android:id="@+id/userDetails"
+                    android:layout_below="@id/tab_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:layout_height="wrap_content">
+
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/profile_image"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/profile_img"
+                        app:civ_border_width="2dp"
+                        app:civ_border_color="#00000000"/>
+
+                    <TextView
+                        android:layout_marginLeft="15dp"
+                        android:layout_width="180dp"
+                        android:textSize="16dp"
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
+                        android:background="@drawable/button_background"
+                        android:text="Sami"
+                        android:layout_height="25dp" />
+
+                    <TextView
+                        android:layout_marginLeft="15dp"
+                        android:layout_width="wrap_content"
+                        android:textSize="18dp"
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:text="1678"
+                        android:layout_height="25dp" />
+
+                </LinearLayout>
+        -->
+
+
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
@@ -26,7 +82,7 @@
             android:textColor="@android:color/darker_gray"
             android:gravity="center"
             android:textStyle="bold"
-            android:text="HABITS"
+            android:text="NUTRITION"
             android:layout_height="25dp" />
 
         <android.support.v7.widget.RecyclerView
@@ -83,7 +139,7 @@
             android:textColor="@android:color/darker_gray"
             android:gravity="center"
             android:textStyle="bold"
-            android:text="STRESS AND RELIEF"
+            android:text="TRAININGS"
             android:layout_height="25dp" />
 
         <android.support.v7.widget.RecyclerView
@@ -93,6 +149,10 @@
             android:layout_height="110dp">
 
         </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+
 
     </LinearLayout>
 

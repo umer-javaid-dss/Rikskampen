@@ -1,10 +1,10 @@
 package com.kampen.riks.app.rikskampen.leader.activity;
 
-import android.app.Application;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -16,10 +16,10 @@ import android.view.MenuItem;
 import com.kampen.riks.app.rikskampen.LoginSignupActivity;
 import com.kampen.riks.app.rikskampen.MyApplication;
 import com.kampen.riks.app.rikskampen.R;
-import com.kampen.riks.app.rikskampen.leader.activity.fragments.account.AccountFragment;
+import com.kampen.riks.app.rikskampen.leader.activity.fragments.LeaderBordTab.LeaderBoardFragment;
+import com.kampen.riks.app.rikskampen.leader.activity.fragments.account.ProfileFragment;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.HomeFragment;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.map.MapFragment;
-import com.kampen.riks.app.rikskampen.leader.activity.fragments.me.MyWork;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.order_history.OrderHistoryFragment;
 import com.kampen.riks.app.rikskampen.utils.SaveSharedPreference;
 
@@ -68,7 +68,7 @@ public class MainLeaderActivity extends AppCompatActivity {
                 case R.id.navigation_profile:
 
                     if(mFragments[3]==null) {
-                        mFragments[3]= AccountFragment.newInstance();
+                        mFragments[3]= ProfileFragment.newInstance();
                     }
                     addFragment(mFragments[3]);
                     return  true;
@@ -76,7 +76,7 @@ public class MainLeaderActivity extends AppCompatActivity {
                 case R.id.navigation_me:
 
                     if(mFragments[4]==null) {
-                        mFragments[4]= MyWork.newInstance();
+                        mFragments[4]= LeaderBoardFragment.newInstance();
                     }
 
                     addFragment(mFragments[4]);
@@ -139,6 +139,35 @@ public class MainLeaderActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("No", null)
                 .show();
+
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if(mFragments[0]!=null)
+        {
+            mFragments[0].onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        try {
+
+            if (mFragments[0] != null) {
+                mFragments[0].onActivityResult(requestCode, resultCode, data);
+            }
+        }catch (Exception ex)
+        {
+            ex.toString();
+        }
 
     }
 

@@ -4,65 +4,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#F2F2F2">
+    android:background="@color/colorHomeBg">
+
+
+
+
+    <LinearLayout
+        android:id="@+id/tabsContainer"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        android:layout_height="35dp">
+
+
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/tabLeft"
+
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:text="Activity"
+            android:textColor="@android:color/white"
+            android:background="@drawable/tab_left_selected"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/tabRight"
+            android:layout_width="100dp"
+              android:gravity="center"
+            android:layout_height="35dp"
+            android:text="Health &amp;\n programing"
+
+            android:textColor="@color/colortabselected"
+            android:background="@drawable/tab_right_unselected"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+
 
     <android.support.design.widget.TabLayout
 
         android:id="@+id/tab_layout"
+        android:visibility="gone"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:elevation="3dp"
+        app:tabIndicator="@null"
+        app:tabIndicatorColor="@android:color/holo_blue_dark"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:background="@color/colortabselected"
+
         />
 
 
-    <LinearLayout
-        android:id="@+id/userDetails"
-        android:layout_below="@id/tab_layout"
-        android:layout_width="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:gravity="center_vertical"
-        android:layout_height="wrap_content">
 
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/profile_image"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/profile_img"
-            app:civ_border_width="2dp"
-            app:civ_border_color="#00000000"/>
-
-        <TextView
-            android:layout_marginLeft="15dp"
-            android:layout_width="180dp"
-            android:textSize="16dp"
-            android:textColor="@android:color/black"
-            android:gravity="center"
-            android:background="@drawable/button_background"
-            android:text="Sami"
-            android:layout_height="25dp" />
-
-        <TextView
-            android:layout_marginLeft="15dp"
-            android:layout_width="wrap_content"
-            android:textSize="18dp"
-            android:textColor="@android:color/black"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:text="1678"
-            android:layout_height="25dp" />
-
-    </LinearLayout>
 
     <android.support.v4.view.ViewPager
 
-        android:layout_below="@id/userDetails"
+       android:layout_below="@+id/tabsContainer"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/viewpager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"

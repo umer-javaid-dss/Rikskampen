@@ -159,4 +159,22 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+
+
+    public void onBackClick(View view) {
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void onForgotPasswordClick(View view) {
+
+        Intent intent = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
+        startActivity(intent);
+        finish();
+
+    }
 }

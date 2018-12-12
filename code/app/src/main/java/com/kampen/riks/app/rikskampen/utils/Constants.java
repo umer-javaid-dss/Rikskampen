@@ -8,14 +8,8 @@ import java.util.regex.Pattern;
 
 public class Constants {
 
-    public final static  String MAP_KEY="AIzaSyDpGipfKQXGO1JU9Z4A1dMD3BZxjh5dJDg";
-
-
-
-
-
-
-
+    public final static  String MAP_KEY="AIzaSyDZb6POB0XTX0m2eNMbgXruT56dyRsTDXQ";                //"AIzaSyDpGipfKQXGO1JU9Z4A1dMD3BZxjh5dJDg";
+    public final static  int   MAP_RADIUS=1500;                //"AIzaSyDpGipfKQXGO1JU9Z4A1dMD3BZxjh5dJDg";
 
 
 
