@@ -1,0 +1,9 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tab"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:textColor="@color/colortabselected"
+    android:background="@drawable/tab_left_unselected"
+    android:textSize="16dp"
+    android:textStyle="bold" />
