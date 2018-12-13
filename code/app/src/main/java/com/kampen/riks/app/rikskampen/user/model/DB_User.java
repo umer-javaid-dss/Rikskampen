@@ -15,10 +15,12 @@ public class DB_User extends RealmObject {
     private  String  profile_image;
     private  String role;
     private  int  age;
+    private  String  dob;
     private  int  height_in_feet;
     private  int  height_in_inches;
     private  String  height_unit;
     private   int     weight;
+
     private  String  weight_unit;
     private   int    user_gender;
 
@@ -133,5 +135,13 @@ public class DB_User extends RealmObject {
 
     public void setUser_gender(int user_gender) {
         this.user_gender = user_gender;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 }

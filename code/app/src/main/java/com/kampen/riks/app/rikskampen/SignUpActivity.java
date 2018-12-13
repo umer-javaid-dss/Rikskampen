@@ -13,12 +13,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.kampen.riks.app.rikskampen.leader.activity.MainLeaderActivity;
+import com.kampen.riks.app.rikskampen.leader.activity.fragments.account.EditProfileActivity;
 import com.kampen.riks.app.rikskampen.user.model.DB_User;
 import com.kampen.riks.app.rikskampen.user.module.DB_User_Module;
 import com.kampen.riks.app.rikskampen.utils.Constants;
 import com.kampen.riks.app.rikskampen.utils.SaveSharedPreference;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import adil.dev.lib.materialnumberpicker.dialog.GenderPickerDialog;
 import biz.kasual.materialnumberpicker.MaterialNumberPicker;
@@ -217,7 +220,10 @@ public class SignUpActivity extends AppCompatActivity {
        //final String lName= mUserLname.getText().toString();
        final String email= mUserEmail.getText().toString();
        final String pass =mUserPass.getText().toString();
-       final int    age  =Integer.parseInt(mUserDOB.getText().toString());
+       final int    age  =0;
+
+        final String dob=mUserDOB.getText().toString();
+
        final int    height_ft= Integer.parseInt(mUserHeight.getText().toString());
       // final int    height_in= Integer.parseInt(mUserHeightInInches.getText().toString());
        final int    weight=Integer.parseInt(mUserWeight.getText().toString());
@@ -254,6 +260,7 @@ public class SignUpActivity extends AppCompatActivity {
                 DB_User db_user = realm.createObject(DB_User.class);
                 db_user.setId("12345");
                 db_user.setAge(age);
+                db_user.setDob(dob);
                 db_user.setEmail(email);
                 db_user.setPass(pass);
                 db_user.setF_name(fName);
@@ -312,7 +319,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         Constants.hideSoftKeyboard(view,SignUpActivity.this);
 
-        final EditText DOB= (EditText) view;
+       /* final EditText DOB= (EditText) view;
 
 
         final MaterialNumberPicker numberPicker = new MaterialNumberPicker.Builder(SignUpActivity.this)
@@ -338,7 +345,26 @@ public class SignUpActivity extends AppCompatActivity {
                         DOB.setText(numberPicker.getValue()+"");
                     }
                 })
-                .show();
+                .show();*/
+
+
+
+        final Calendar myCalendar = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                String myFormat = "dd/MM/yyyy"; // your format
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
+
+                mUserDOB.setText(sdf.format(myCalendar.getTime()));
+            }
+
+        };
+        new DatePickerDialog(SignUpActivity.this, date, 1990, 0, 1).show();
 
 
     }
@@ -403,4 +429,6 @@ public class SignUpActivity extends AppCompatActivity {
                 .show();
 
     }
+
+
 }

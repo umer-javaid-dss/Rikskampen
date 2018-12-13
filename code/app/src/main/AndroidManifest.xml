@@ -17,7 +17,6 @@
         android:name="com.google.maps.android.utils.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
 
-
     <application
         android:name=".MyApplication"
         android:allowBackup="false"
@@ -25,8 +24,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_test"
         android:supportsRtl="true"
-        tools:replace="allowBackup,supportsRtl"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="allowBackup,supportsRtl">
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashScreenTheme">
@@ -42,22 +41,16 @@
         <activity
             android:name=".LoginActivity"
             android:theme="@style/AppThemeFullScreen" />
-
-
         <activity
             android:name=".ForgotPasswordActivity"
             android:theme="@style/AppThemeFullScreen" />
-
         <activity
             android:name=".SignUpActivity"
             android:theme="@style/AppThemeFullScreen" />
-
         <activity
             android:name=".leader.activity.MainLeaderActivity"
-            android:theme="@style/AppThemeFullScreen"
-            android:label="@string/title_activity_main_leader"></activity>
-
-
+            android:label="@string/title_activity_main_leader"
+            android:theme="@style/AppThemeFullScreen" />
 
         <uses-library
             android:name="com.google.android.maps"
@@ -70,6 +63,10 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <activity android:name=".leader.activity.fragments.account.EditProfileActivity"
+            android:theme="@style/AppThemeFullScreen">
+
+        </activity>
     </application>
 
 </manifest>

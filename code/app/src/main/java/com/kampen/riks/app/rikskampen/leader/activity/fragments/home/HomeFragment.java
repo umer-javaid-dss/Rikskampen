@@ -53,6 +53,9 @@ public class HomeFragment extends Fragment {
     };
 
 
+    public  static int selectedTab=0;
+
+
     public Fragment[] getFragments() {
 
 
@@ -110,8 +113,33 @@ public class HomeFragment extends Fragment {
 
     }
 
+
+
+
     private  void manageTab()
     {
+
+
+        if(selectedTab==0)
+        {
+
+            tabLeft.setBackgroundResource(R.drawable.tab_left_selected);
+            tabLeft.setTextColor(Color.WHITE);
+            tabRight.setBackgroundResource(R.drawable.tab_right_unselected);
+            tabRight.setTextColor(Color.parseColor("#c8a167"));
+
+        }
+
+        else
+        {
+
+            tabLeft.setBackgroundResource(R.drawable.tab_left_unselected);
+            tabLeft.setTextColor(Color.parseColor("#c8a167"));
+            tabRight.setBackgroundResource(R.drawable.tab_right_selected);
+            tabRight.setTextColor(Color.WHITE);
+        }
+
+
 
         tabLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,6 +152,8 @@ public class HomeFragment extends Fragment {
 
 
                 mViewPager.setCurrentItem(0);
+
+                selectedTab=0;
 
             }
         });
@@ -139,7 +169,7 @@ public class HomeFragment extends Fragment {
                 tabRight.setTextColor(Color.WHITE);
 
                 mViewPager.setCurrentItem(1);
-
+                selectedTab=1;
             }
         });
 

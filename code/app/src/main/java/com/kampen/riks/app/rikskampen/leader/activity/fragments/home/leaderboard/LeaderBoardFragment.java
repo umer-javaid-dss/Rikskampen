@@ -31,6 +31,9 @@ public class LeaderBoardFragment extends Fragment {
     private LeaderAdapterCalories mLeaderAdapterCal;
     private TabLayout         mTablayout;
 
+
+
+
     public LeaderBoardFragment() {
 
     }

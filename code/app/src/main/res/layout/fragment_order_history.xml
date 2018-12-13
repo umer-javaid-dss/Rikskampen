@@ -7,9 +7,64 @@
 
 
 
-    <android.support.design.widget.TabLayout
+
+
+    <LinearLayout
+        android:id="@+id/tabsContainer"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:layout_height="35dp">
+
+
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/tabLeft"
+
+            android:layout_width="90dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:text="Pending"
+            android:textColor="@android:color/white"
+            android:background="@drawable/tab_left_selected"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/tabMiddle"
+
+            android:layout_width="90dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:text="Completed"
+            android:textColor="@color/colortabselected"
+            android:background="@drawable/tab_middle_unselected"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/tabRight"
+            android:layout_width="90dp"
+            android:gravity="center"
+            android:layout_height="35dp"
+            android:text="Canceled"
+
+            android:textColor="@color/colortabselected"
+            android:background="@drawable/tab_right_unselected"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+
+
+  <!--  <android.support.design.widget.TabLayout
 
         android:id="@+id/tab_layout"
+        android:visibility="gone"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:elevation="10dp"
@@ -17,15 +72,15 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:background="@color/colortabselected"
-        />
+        />-->
 
 
     <android.support.v4.view.ViewPager
 
-        android:layout_below="@id/tab_layout"
+        android:layout_below="@id/tabsContainer"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/viewpager"
-
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />

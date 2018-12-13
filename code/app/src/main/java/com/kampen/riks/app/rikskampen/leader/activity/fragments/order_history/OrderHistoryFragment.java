@@ -1,6 +1,7 @@
 package com.kampen.riks.app.rikskampen.leader.activity.fragments.order_history;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.kampen.riks.app.rikskampen.R;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.order_history.fragments.CancelOrderFragment;
@@ -30,6 +32,11 @@ public class OrderHistoryFragment extends Fragment {
 
     private ViewPager mViewPager;
     private OrderPagerAdapter orderPagerAdapter;
+
+
+    private TextView tabLeft,tabMiddle,tabRight;
+
+    public  static int selectedTab=0;
 
 
     private final String[] PAGE_TITLES = new String[]{
@@ -79,15 +86,115 @@ public class OrderHistoryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
+        tabLeft=view.findViewById(R.id.tabLeft);
+        tabMiddle=view.findViewById(R.id.tabMiddle);
+        tabRight=view.findViewById(R.id.tabRight);
+
+
+
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
         orderPagerAdapter=new OrderPagerAdapter(getChildFragmentManager(),getFragments());
         mViewPager.setAdapter(orderPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
-        tabLayout.setupWithViewPager(mViewPager);
+        /*TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
+        tabLayout.setupWithViewPager(mViewPager);*/
+
+        manageTab();
+
+    }
+
+
+
+    private  void manageTab()
+    {
+
+        if(selectedTab==0)
+        {
+            tabLeft.setBackgroundResource(R.drawable.tab_left_selected);
+            tabLeft.setTextColor(Color.WHITE);
+            tabRight.setBackgroundResource(R.drawable.tab_right_unselected);
+            tabRight.setTextColor(Color.parseColor("#c8a167"));
+            tabMiddle.setBackgroundResource(R.drawable.tab_middle_unselected);
+            tabMiddle.setTextColor(Color.parseColor("#c8a167"));
+        }
+        else if(selectedTab==1)
+        {
+            tabMiddle.setBackgroundResource(R.drawable.tab_middle_selected);
+            tabMiddle.setTextColor(Color.WHITE);
+            tabRight.setBackgroundResource(R.drawable.tab_right_unselected);
+            tabRight.setTextColor(Color.parseColor("#c8a167"));
+            tabLeft.setBackgroundResource(R.drawable.tab_left_unselected);
+            tabLeft.setTextColor(Color.parseColor("#c8a167"));
+        }
+        else
+        {
+            tabLeft.setBackgroundResource(R.drawable.tab_left_unselected);
+            tabLeft.setTextColor(Color.parseColor("#c8a167"));
+            tabRight.setBackgroundResource(R.drawable.tab_right_selected);
+            tabRight.setTextColor(Color.WHITE);
+            tabMiddle.setBackgroundResource(R.drawable.tab_middle_unselected);
+            tabMiddle.setTextColor(Color.parseColor("#c8a167"));
+        }
+
+        tabLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                tabLeft.setBackgroundResource(R.drawable.tab_left_selected);
+                tabLeft.setTextColor(Color.WHITE);
+                tabRight.setBackgroundResource(R.drawable.tab_right_unselected);
+                tabRight.setTextColor(Color.parseColor("#c8a167"));
+                tabMiddle.setBackgroundResource(R.drawable.tab_middle_unselected);
+                tabMiddle.setTextColor(Color.parseColor("#c8a167"));
+
+                mViewPager.setCurrentItem(0);
+
+                selectedTab=0;
+
+            }
+        });
+
+
+        tabMiddle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                tabMiddle.setBackgroundResource(R.drawable.tab_middle_selected);
+                tabMiddle.setTextColor(Color.WHITE);
+                tabRight.setBackgroundResource(R.drawable.tab_right_unselected);
+                tabRight.setTextColor(Color.parseColor("#c8a167"));
+                tabLeft.setBackgroundResource(R.drawable.tab_left_unselected);
+                tabLeft.setTextColor(Color.parseColor("#c8a167"));
+
+                mViewPager.setCurrentItem(1);
+
+                selectedTab=1;
+
+            }
+        });
+
+
+        tabRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                tabLeft.setBackgroundResource(R.drawable.tab_left_unselected);
+                tabLeft.setTextColor(Color.parseColor("#c8a167"));
+                tabRight.setBackgroundResource(R.drawable.tab_right_selected);
+                tabRight.setTextColor(Color.WHITE);
+                tabMiddle.setBackgroundResource(R.drawable.tab_middle_unselected);
+                tabMiddle.setTextColor(Color.parseColor("#c8a167"));
+                mViewPager.setCurrentItem(2);
+                selectedTab=2;
+
+            }
+        });
+
+
 
 
     }
+
 
     @Override
     public void onAttach(Context context) {
