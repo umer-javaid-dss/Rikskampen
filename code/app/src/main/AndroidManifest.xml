@@ -58,12 +58,17 @@
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDpGipfKQXGO1JU9Z4A1dMD3BZxjh5dJDg" />
+            android:value="AIzaSyDZb6POB0XTX0m2eNMbgXruT56dyRsTDXQ" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".leader.activity.fragments.account.EditProfileActivity"
+        <activity
+            android:name=".leader.activity.fragments.account.EditProfileActivity"
+            android:theme="@style/AppThemeFullScreen"></activity>
+
+
+        <activity android:name=".leader.activity.fragments.chat.ChatActivity"
             android:theme="@style/AppThemeFullScreen">
 
         </activity>

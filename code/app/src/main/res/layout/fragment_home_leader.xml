@@ -65,8 +65,8 @@
                 android:layout_height="wrap_content">
                 <de.hdodenhof.circleimageview.CircleImageView
                     xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/steps_icon"
 
+                    android:id="@+id/profileImage"
                     android:layout_centerVertical="true"
 
                     android:layout_width="36dp"
@@ -101,20 +101,20 @@
             </LinearLayout>
 
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/profileImage"
+
                 android:layout_marginLeft="-15dp"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/leftContainer1"
                 android:layout_width="42dp"
                 android:layout_height="42dp"
-
+                android:id="@+id/steps_icon"
                 android:src="@drawable/profile_img"
                 app:civ_border_color="@color/colortabselected"
                 app:civ_border_width="2dp"
                 />
 
             <TextView
-                android:layout_toRightOf="@id/profileImage"
+                android:layout_toRightOf="@id/steps_icon"
                 android:id="@+id/position"
                 android:layout_marginLeft="10dp"
                 android:layout_centerVertical="true"

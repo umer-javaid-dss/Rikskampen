@@ -2,8 +2,8 @@ package com.kampen.riks.app.rikskampen.leader.activity.fragments.account;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Application;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,7 +12,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,15 +22,16 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.kampen.riks.app.rikskampen.MyApplication;
 import com.kampen.riks.app.rikskampen.R;
 
 import com.kampen.riks.app.rikskampen.user.model.DB_User;
+import com.kampen.riks.app.rikskampen.user.module.DB_User_Module;
 import com.kampen.riks.app.rikskampen.utils.Constants;
 
 
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -42,30 +42,28 @@ import biz.kasual.materialnumberpicker.MaterialNumberPicker;
 import in.mayanknagwanshi.imagepicker.imageCompression.ImageCompressionListener;
 import in.mayanknagwanshi.imagepicker.imagePicker.ImagePicker;
 import io.realm.Realm;
-
-import static android.support.v4.content.PermissionChecker.checkSelfPermission;
+import io.realm.RealmConfiguration;
 
 public class EditProfileActivity extends AppCompatActivity {
 
 
-    private EditText mUserFname;
-    private  EditText mUserLname;
-    private  EditText mUserEmail;
-    private  EditText mUserPass;
+
     private  TextView mUserDOB;
     private  TextView mUserHeight;
-    private  EditText mUserHeightInInches;
+
     private  TextView mUserWeight;
     private TextView mUserGender;
 
     private Realm mRealm;
 
-    private View mSaveData;
 
 
     private ImagePicker imagePicker;
 
     private ImageView  mProfileImage;
+
+
+    private  DB_User mUser;
 
 
     @Override
@@ -78,7 +76,175 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
         imagePicker = new ImagePicker();
+
+        setUpDB();
+
+
+        setUser();
     }
+
+
+    private void  setUpDB()
+    {
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                .name(getPackageName() + ".realm")
+                .schemaVersion(2)
+                .modules(new DB_User_Module())
+                .build();
+
+        mRealm = Realm.getInstance(config);
+
+
+
+
+
+
+    }
+
+
+
+    private  void setUser()
+    {
+        mUser=MyApplication.tempUser;
+
+        if(mUser!=null)
+        {
+            if(mUser!=null )
+            {
+
+                byte []  profileData=mUser.getProfilePicData();
+
+                if(profileData!=null)
+                {
+                    Bitmap bmp = BitmapFactory.decodeByteArray(profileData, 0, profileData.length);
+                    mProfileImage.setImageBitmap(bmp);
+                }
+
+                final String    dob  =mUser.getDob();
+                final int       height_ft= mUser.getHeight_in_feet();
+
+                final int    weight=mUser.getWeight();
+                final int    gender=mUser.getUser_gender();
+
+                mUserDOB.setText(dob);
+                mUserHeight.setText(height_ft+" cm");
+                mUserWeight.setText(weight+" kg");
+                mUserGender.setText(""+(gender==1?"Male":"Female"));
+
+
+            }
+
+        }
+    }
+
+
+
+
+    private  void updateProfilePic(final Bitmap profilePic)
+    {
+
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        profilePic.compress(Bitmap.CompressFormat.PNG, 70, stream);
+        final byte[] byteArray = stream.toByteArray();
+
+
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+
+                DB_User db_user = mUser;
+
+                db_user.setProfilePicData(byteArray);
+
+                realm.insertOrUpdate(db_user);
+
+                MyApplication.tempUser=db_user;
+
+            }
+        });
+    }
+
+
+
+
+    private  void updateGender(final int gender)
+    {
+
+
+
+
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+
+                DB_User db_user = mUser;
+
+                db_user.setUser_gender(gender);
+
+                realm.insertOrUpdate(db_user);
+
+                MyApplication.tempUser=db_user;
+
+            }
+        });
+    }
+
+
+    private  void updateDOB(final String DOB)
+    {
+
+
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+
+                DB_User db_user = mUser;
+
+                db_user.setDob(DOB);
+                realm.insertOrUpdate(db_user);
+                MyApplication.tempUser=db_user;
+            }
+        });
+    }
+
+
+    private  void updateHeight(final int heightInCM)
+    {
+
+
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+
+                DB_User db_user = mUser;
+
+                db_user.setHeight_in_cm(heightInCM);
+                realm.insertOrUpdate(db_user);
+                MyApplication.tempUser=db_user;
+            }
+        });
+    }
+
+
+    private  void updateWeight(final int weightInKg)
+    {
+
+
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+
+                DB_User db_user = mUser;
+
+                db_user.setWeight(weightInKg);
+                realm.insertOrUpdate(db_user);
+                MyApplication.tempUser=db_user;
+            }
+        });
+    }
+
+
 
 
     @Override
@@ -129,13 +295,13 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });*/
 
-        mUserHeightInInches.setOnClickListener(new View.OnClickListener() {
+       /* mUserHeightInInches.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 onHeightInIncheClick(v);
             }
-        });
+        });*/
 
         mUserWeight.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,7 +312,7 @@ public class EditProfileActivity extends AppCompatActivity {
         });
 
 
-        mSaveData.setOnClickListener(new View.OnClickListener() {
+       /* mSaveData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -160,7 +326,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 }
 
             }
-        });
+        });*/
 
     }
 
@@ -168,46 +334,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private  boolean  validateData( )
     {
 
-        if(mUserFname.getText().toString().trim().length()==0)
-        {
-            mUserFname.requestFocus();
-            mUserFname.setError("Enter first name");
-            return false;
 
-        }
-
-        if(mUserLname.getText().toString().trim().length()==0)
-        {
-            mUserLname.requestFocus();
-            mUserLname.setError("Enter last name");
-            return false;
-
-        }
-
-
-
-        if(mUserEmail.getText().toString().trim().length()==0)
-        {
-            mUserEmail.requestFocus();
-            mUserEmail.setError("Enter email");
-            return false;
-
-        }
-
-        if(!Constants.isValidEmailId(mUserEmail.getText().toString()))
-        {
-            mUserEmail.requestFocus();
-            mUserEmail.setError("Enter valid email");
-            return false;
-        }
-
-        if(mUserPass.getText().toString().trim().length()==0)
-        {
-            mUserPass.requestFocus();
-            mUserPass.setError("Enter password");
-            return false;
-
-        }
 
         if(mUserDOB.getText().toString().trim().length()==0)
         {
@@ -221,14 +348,6 @@ public class EditProfileActivity extends AppCompatActivity {
         {
             mUserHeight.requestFocus();
             mUserHeight.setError("Enter height in feet");
-            return false;
-
-        }
-
-        if(mUserHeightInInches.getText().toString().trim().length()==0)
-        {
-            mUserHeightInInches.requestFocus();
-            mUserHeightInInches.setError("Enter height in feet");
             return false;
 
         }
@@ -254,93 +373,9 @@ public class EditProfileActivity extends AppCompatActivity {
         return  true;
     }
 
-    private  boolean setProfileLocal()
-    {
-
-
-        DB_User user=MyApplication.tempUser;
-
-        if(user!=null )
-        {
-            final String fName=user.getF_name();
-            final String lName= user.getL_name();
-            final String email= user.getEmail();
-            final String pass =user.getPass();
-            final int    age  =user.getAge();
-            final int    height_ft= user.getHeight_in_feet();
-            final int    height_in= user.getHeight_in_inches();
-            final int    weight=user.getWeight();
-            final int    gender=user.getUser_gender();
-
-            mUserFname.setText(fName);
-            mUserLname.setText(lName);
-            mUserEmail.setText(email);
-            mUserPass.setText(pass);
-            mUserDOB.setText(age+"");
-            mUserHeight.setText(height_ft+"");
-            mUserHeightInInches.setText(height_in+"");
-            mUserWeight.setText(weight+"");
-            mUserGender.setText(""+(gender==1?"Male":"Female"));
-        }
-
-
-        return true;
-    }
-
-    private  boolean editProfileLocal()
-    {
 
 
 
-        final String fName= mUserFname.getText().toString();
-        final String lName= mUserLname.getText().toString();
-        final String email= mUserEmail.getText().toString();
-        final String pass =mUserPass.getText().toString();
-        final int    age  =Integer.parseInt(mUserDOB.getText().toString());
-        final int    height_ft= Integer.parseInt(mUserHeight.getText().toString());
-        final int    height_in= Integer.parseInt(mUserHeightInInches.getText().toString());
-        final int    weight=Integer.parseInt(mUserWeight.getText().toString());
-
-
-
-        int temGender=1;
-
-        if(mUserGender.getText().toString().toLowerCase().equals("male"))
-        {
-            temGender=1;
-        }
-        else
-        {
-            temGender=2;
-        }
-        final int    gender=temGender;
-
-        mRealm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-
-                DB_User db_user = realm.createObject(DB_User.class);
-                db_user.setId("12345");
-                db_user.setAge(age);
-                db_user.setEmail(email);
-                db_user.setPass(pass);
-                db_user.setF_name(fName);
-                db_user.setL_name(lName);
-                db_user.setProfile_image("");
-                db_user.setRole("c");
-                db_user.setUser_gender(gender);
-                db_user.setHeight_in_feet(height_ft);
-                db_user.setHeight_in_inches(height_in);
-                db_user.setHeight_unit("ft");
-                db_user.setWeight(weight);
-                db_user.setWeight_unit("kg");
-
-
-            }
-        });
-
-        return true;
-    }
 
 
     public void onAgeClick(View view) {
@@ -431,7 +466,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        mUserHeightInInches.setText(numberPicker.getValue()+"");
+                       // mUserHeightInInches.setText(numberPicker.getValue()+"");
                     }
                 })
                 .show();
@@ -461,6 +496,8 @@ public class EditProfileActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
 
                         mUserWeight.setText(numberPicker.getValue()+" kg");
+
+                        updateWeight(numberPicker.getValue());
                     }
                 })
                 .show();
@@ -597,6 +634,9 @@ public class EditProfileActivity extends AppCompatActivity {
                     mProfileImage.setImageBitmap(selectedImage);
 
 
+                    updateProfilePic(selectedImage);
+
+
 
                 }
             });
@@ -629,6 +669,19 @@ public class EditProfileActivity extends AppCompatActivity {
                 @Override
                 public void onSelectingGender(String value) {
                     mUserGender.setText(value);
+
+                    int genderInt=1;
+
+                    if(value.toLowerCase().equals("male"))
+                    {
+                        genderInt=1;
+                    }
+                    else
+                    {
+                        genderInt=2;
+                    }
+
+                    updateGender(genderInt);
                 }
             });
             dialog.show();
@@ -656,6 +709,9 @@ public class EditProfileActivity extends AppCompatActivity {
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
 
                 mUserDOB.setText(sdf.format(myCalendar.getTime()));
+
+
+                updateDOB(mUserDOB.getText().toString());
             }
 
         };
@@ -690,6 +746,15 @@ public class EditProfileActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog,int id) {
 
                                 mUserHeight.setText(userInput.getText()+" cm");
+
+
+                                try {
+                                    updateHeight(Integer.parseInt(userInput.getText().toString()));
+                                }catch (NumberFormatException ex)
+                                {
+
+                                }
+
                             }
                         })
                 .setNegativeButton("Cancel",

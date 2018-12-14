@@ -30,6 +30,8 @@ public class MainLeaderActivity extends AppCompatActivity {
 
 
 
+
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -130,10 +132,24 @@ public class MainLeaderActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if(mFragments[0]!=null)
+        Fragment f = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
+        if(f instanceof HomeFragment)
         {
-            mFragments[0].onRequestPermissionsResult(requestCode, permissions, grantResults);
+            if(mFragments[0]!=null)
+            {
+                mFragments[0].onRequestPermissionsResult(requestCode, permissions, grantResults);
+            }
         }
+        /*else if(f instanceof MapFragment)
+        {
+            if(mFragments[1]!=null)
+            {
+                mFragments[1].onRequestPermissionsResult(requestCode, permissions, grantResults);
+            }
+        }*/
+
+
+
 
     }
 

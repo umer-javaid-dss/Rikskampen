@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.kampen.riks.app.rikskampen.leader.activity.MainLeaderActivity;
-import com.kampen.riks.app.rikskampen.leader.activity.fragments.account.EditProfileActivity;
 import com.kampen.riks.app.rikskampen.user.model.DB_User;
 import com.kampen.riks.app.rikskampen.user.module.DB_User_Module;
 import com.kampen.riks.app.rikskampen.utils.Constants;
@@ -268,7 +267,7 @@ public class SignUpActivity extends AppCompatActivity {
                 db_user.setProfile_image("");
                 db_user.setRole("c");
                 db_user.setUser_gender(gender);
-                db_user.setHeight_in_feet(height_ft);
+                db_user.setHeight_in_cm(height_ft);
                 //db_user.setHeight_in_inches(height_in);
                 db_user.setHeight_unit("ft");
                 db_user.setWeight(weight);

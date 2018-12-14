@@ -1,6 +1,8 @@
 package com.kampen.riks.app.rikskampen.leader.activity.fragments.LeaderBordTab;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,7 +17,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.kampen.riks.app.rikskampen.MyApplication;
 import com.kampen.riks.app.rikskampen.R;
+import com.kampen.riks.app.rikskampen.user.model.DB_User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,6 +44,8 @@ public class LeaderBoardFragment extends Fragment {
     private TextView tabLeft,tabRight;
 
     private View     steps_icon_container;
+
+    private  ImageView profileImage;
 
     public  static int selectedTab=0;
 
@@ -122,6 +128,8 @@ public class LeaderBoardFragment extends Fragment {
         mCalStepTV   = rootView.findViewById(R.id.progress);
         mPositionTV   = rootView.findViewById(R.id.position);
 
+        profileImage=rootView.findViewById(R.id.profileImage);
+
         mCalStepImage.bringToFront();
 
         tabLeft=(TextView) rootView.findViewById(R.id.tabLeft);
@@ -153,8 +161,37 @@ public class LeaderBoardFragment extends Fragment {
 
         manageTab();
 
+
+        setUser();
+
     }
 
+
+
+    private  void setUser()
+    {
+        DB_User mUser=MyApplication.tempUser;
+
+        if(mUser!=null)
+        {
+            if(mUser!=null )
+            {
+
+                byte []  profileData=mUser.getProfilePicData();
+
+                if(profileData!=null)
+                {
+                    Bitmap bmp = BitmapFactory.decodeByteArray(profileData, 0, profileData.length);
+                    profileImage.setImageBitmap(bmp);
+                }
+
+
+
+
+            }
+
+        }
+    }
 
 
 
@@ -229,7 +266,7 @@ public class LeaderBoardFragment extends Fragment {
 
                 selectedTab=1;
 
-                mCalStepImage.setImageResource(R.drawable.calories_test);
+                mCalStepImage.setImageResource(R.drawable.calories_t);
                 mCalStepTV.setText("Sam - 3800,765");
 
                 mLeaderRecyclerView.setAdapter(mLeaderAdapterCal);

@@ -24,6 +24,8 @@ public class DB_User extends RealmObject {
     private  String  weight_unit;
     private   int    user_gender;
 
+    private   byte []  profilePicData;
+
 
     public String getId() {
         return id;
@@ -93,7 +95,7 @@ public class DB_User extends RealmObject {
         return height_in_feet;
     }
 
-    public void setHeight_in_feet(int height_in_feet) {
+    public void setHeight_in_cm(int height_in_feet) {
         this.height_in_feet = height_in_feet;
     }
 
@@ -143,5 +145,13 @@ public class DB_User extends RealmObject {
 
     public void setDob(String dob) {
         this.dob = dob;
+    }
+
+    public byte[] getProfilePicData() {
+        return profilePicData;
+    }
+
+    public void setProfilePicData(byte[] profilePicData) {
+        this.profilePicData = profilePicData;
     }
 }

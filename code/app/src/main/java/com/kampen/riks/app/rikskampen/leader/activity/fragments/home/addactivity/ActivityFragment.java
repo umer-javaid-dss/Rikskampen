@@ -253,7 +253,7 @@ public class ActivityFragment extends Fragment {
                 db_user.setProfile_image("");
                 db_user.setRole("c");
                 db_user.setUser_gender(gender);
-                db_user.setHeight_in_feet(height_ft);
+                db_user.setHeight_in_cm(height_ft);
                 db_user.setHeight_in_inches(height_in);
                 db_user.setHeight_unit("ft");
                 db_user.setWeight(weight);

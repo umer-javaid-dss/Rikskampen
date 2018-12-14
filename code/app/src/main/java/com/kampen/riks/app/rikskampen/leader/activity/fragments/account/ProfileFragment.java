@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 
 import com.kampen.riks.app.rikskampen.LoginSignupActivity;
@@ -25,9 +28,13 @@ import com.kampen.riks.app.rikskampen.MyApplication;
 import com.kampen.riks.app.rikskampen.R;
 
 
+import com.kampen.riks.app.rikskampen.leader.activity.fragments.chat.ChatActivity;
+import com.kampen.riks.app.rikskampen.user.model.DB_User;
 import com.kampen.riks.app.rikskampen.utils.SaveSharedPreference;
 
 
+import co.intentservice.chatui.ChatView;
+import co.intentservice.chatui.models.ChatMessage;
 import io.realm.Realm;
 
 public class ProfileFragment extends Fragment {
@@ -39,8 +46,12 @@ public class ProfileFragment extends Fragment {
 
     private Realm mRealm;
 
+    private ImageView profileImage;
 
-    private  View  mLogoutButton;
+
+    private  View  mLogoutButton,chatLayout;
+
+
 
 
     public ProfileFragment() {
@@ -67,10 +78,44 @@ public class ProfileFragment extends Fragment {
 
         mLogoutButton=view.findViewById(R.id.logoutButton);
         mProfileLayout=view.findViewById(R.id.profileLayout);
+        chatLayout=view.findViewById(R.id.chatLayout);
+
+        profileImage=view.findViewById(R.id.profileImage);
+
 
         manageClicks();
+
+
+        setUser();
     }
 
+
+
+
+    private  void setUser()
+    {
+       DB_User mUser=MyApplication.tempUser;
+
+        if(mUser!=null)
+        {
+            if(mUser!=null )
+            {
+
+                byte []  profileData=mUser.getProfilePicData();
+
+                if(profileData!=null)
+                {
+                    Bitmap bmp = BitmapFactory.decodeByteArray(profileData, 0, profileData.length);
+                    profileImage.setImageBitmap(bmp);
+                }
+
+
+
+
+            }
+
+        }
+    }
 
 
 
@@ -119,7 +164,25 @@ public class ProfileFragment extends Fragment {
 
             }
         });
+
+
+
+        chatLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getActivity(),ChatActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+
+
+
     }
+
+
 
 
 

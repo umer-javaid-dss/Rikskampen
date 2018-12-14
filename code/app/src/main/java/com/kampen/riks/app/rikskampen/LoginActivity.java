@@ -149,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
                 db_user.setProfile_image("");
                 db_user.setRole("c");
                 db_user.setUser_gender(1);
-                db_user.setHeight_in_feet(5);
+                db_user.setHeight_in_cm(5);
                 db_user.setHeight_in_inches(7);
                 db_user.setHeight_unit("ft");
                 db_user.setWeight(65);
