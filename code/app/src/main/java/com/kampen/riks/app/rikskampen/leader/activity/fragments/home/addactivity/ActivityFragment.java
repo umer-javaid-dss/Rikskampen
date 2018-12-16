@@ -26,6 +26,7 @@ import com.kampen.riks.app.rikskampen.MyApplication;
 import com.kampen.riks.app.rikskampen.R;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.addactivity.adapter.DailyPicAdapter;
 import com.kampen.riks.app.rikskampen.user.model.DB_User;
+import com.kampen.riks.app.rikskampen.user.module.DB_User_Module;
 import com.kampen.riks.app.rikskampen.utils.Constants;
 
 import adil.dev.lib.materialnumberpicker.dialog.GenderPickerDialog;
@@ -33,6 +34,7 @@ import biz.kasual.materialnumberpicker.MaterialNumberPicker;
 import in.mayanknagwanshi.imagepicker.imageCompression.ImageCompressionListener;
 import in.mayanknagwanshi.imagepicker.imagePicker.ImagePicker;
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 import static android.support.v4.content.PermissionChecker.checkSelfPermission;
 
@@ -91,7 +93,9 @@ public class ActivityFragment extends Fragment {
 
         dailyPickRecyclerView = (RecyclerView) view.findViewById(R.id.dailyPicRV);
 
-        dailyPicAdapter=new DailyPicAdapter(this);
+        setUpDB();
+
+        dailyPicAdapter=new DailyPicAdapter(this,mRealm);
 
         LinearLayoutManager mLayoutManager1 = new LinearLayoutManager(getActivity());
         mLayoutManager1.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -101,6 +105,26 @@ public class ActivityFragment extends Fragment {
         dailyPickRecyclerView.setAdapter(dailyPicAdapter);
 
         imagePicker = new ImagePicker();
+
+
+
+    }
+
+
+    private void  setUpDB()
+    {
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                .name(getActivity().getPackageName() + ".realm")
+                .schemaVersion(2)
+                .modules(new DB_User_Module())
+                .build();
+
+        mRealm = Realm.getInstance(config);
+
+
+
+
+        // mStorageRef = FirebaseStorage.getInstance().getReference();
 
 
 
@@ -537,8 +561,8 @@ public class ActivityFragment extends Fragment {
         try {
             imagePicker.withActivity(getActivity()) //calling from activity
                     //.withFragment(W) //calling from fragment
-                    .chooseFromGallery(false) //default is true
-                    //.chooseFromCamera(false) //default is true
+                    .chooseFromGallery(true) //default is true
+                    .chooseFromCamera(true) //default is true
                     .withCompression(true) //default is true
                     .start();
         }catch (Exception ex)
@@ -622,7 +646,7 @@ public class ActivityFragment extends Fragment {
                     try {
                         imagePicker.withActivity(getActivity()) //calling from activity
 
-                                .chooseFromGallery(false) //default is true
+                                .chooseFromGallery(true) //default is true
 
                                 .withCompression(true) //default is true
                                 .start();
@@ -654,7 +678,7 @@ public class ActivityFragment extends Fragment {
                 @Override
                 public void onCompressed(String filePath) {
 
-                    //Toast.makeText(getActivity(), "Image Captured", Toast.LENGTH_SHORT).show();
+
 
                     dailyPicAdapter.addYourDailyPick(filePath);
 

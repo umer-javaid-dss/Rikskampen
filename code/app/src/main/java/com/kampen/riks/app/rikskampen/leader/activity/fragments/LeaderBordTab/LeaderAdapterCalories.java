@@ -29,10 +29,24 @@ public class LeaderAdapterCalories extends RecyclerView.Adapter<LeaderAdapterCal
     Context  mContext;
 
 
+    private  int  mWidth=320;
+
+    private  int  mHeight=720;
+
+
+    private  int  mMaxSteps=120;
+
+
     public LeaderAdapterCalories(Context  context)
     {
         this.mContext=context;
         generateDummyData();
+
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        mHeight = (int) (displayMetrics.heightPixels / displayMetrics.density);
+        mWidth = (int) (displayMetrics.widthPixels / displayMetrics.density);
+
+        mMaxSteps=507324;
     }
 
     @NonNull
@@ -42,6 +56,29 @@ public class LeaderAdapterCalories extends RecyclerView.Adapter<LeaderAdapterCal
                 .inflate(R.layout.item_leader_board_cal, viewGroup, false);
 
         return new ViewHolder(v);
+    }
+
+
+    private int  calculateItemWidth(int totalSteps,int maxAvailableWidth,int maxSteps)
+    {
+
+        double temp1=totalSteps;
+        double temp2=maxSteps;
+
+        double percentile=(temp1/temp2);
+
+        int itemWidth= (int) (percentile*maxAvailableWidth);
+
+        return itemWidth;
+    }
+
+
+    private int  calculateItemMaxWidth(  )
+    {
+
+        int maxAvailableWidth= (int) (mWidth*.70);
+
+        return maxAvailableWidth;
     }
 
     @Override
@@ -54,7 +91,8 @@ public class LeaderAdapterCalories extends RecyclerView.Adapter<LeaderAdapterCal
 
         RelativeLayout.LayoutParams parems= (RelativeLayout.LayoutParams) viewHolder.leftContainer.getLayoutParams();
 
-        parems.width=(int)convertDpToPixel(list.get(i).getPosition(),mContext);
+        parems.width= (int) convertDpToPixel(calculateItemWidth(Integer.parseInt(list.get(i).getSteps().replace(",","")),calculateItemMaxWidth(),mMaxSteps),mContext);//(int)convertDpToPixel(list.get(i).getPosition(),mContext);
+
 
         viewHolder.leftContainer.setLayoutParams(parems);
 
@@ -139,56 +177,56 @@ public class LeaderAdapterCalories extends RecyclerView.Adapter<LeaderAdapterCal
 
         TopContestant topContestant2=new TopContestant();
         topContestant2.setName("Yum");
-        topContestant2.setSteps("507,124");
+        topContestant2.setSteps("500,124");
         topContestant2.setPosition(240);
         topContestant2.tempResId=R.drawable.profile2;
         list.add(topContestant2);
 
         TopContestant topContestant3=new TopContestant();
         topContestant3.setName("Loki");
-        topContestant3.setSteps("506,924");
+        topContestant3.setSteps("486,924");
         topContestant3.setPosition(230);
         topContestant3.tempResId=R.drawable.profile3;
         list.add(topContestant3);
 
         TopContestant topContestant4=new TopContestant();
         topContestant4.setName("Jamil");
-        topContestant4.setSteps("506,315");
+        topContestant4.setSteps("466,315");
         topContestant4.setPosition(210);
         topContestant4.tempResId=R.drawable.profile4;
         list.add(topContestant4);
 
         TopContestant topContestant5=new TopContestant();
         topContestant5.setName("Sara");
-        topContestant5.setSteps("506,222");
+        topContestant5.setSteps("436,222");
         topContestant5.setPosition(190);
         topContestant5.tempResId=R.drawable.profile5;
         list.add(topContestant5);
 
         TopContestant topContestant6=new TopContestant();
         topContestant6.setName("Sami");
-        topContestant6.setSteps("504,765");
+        topContestant6.setSteps("404,765");
         topContestant6.setPosition(180);
         topContestant6.tempResId=R.drawable.profile2;
         list.add(topContestant6);
 
         TopContestant topContestant7=new TopContestant();
         topContestant7.setName("Jones");
-        topContestant7.setSteps("504,760");
+        topContestant7.setSteps("384,760");
         topContestant7.setPosition(170);
         topContestant7.tempResId=R.drawable.profile3;
         list.add(topContestant7);
 
         TopContestant topContestant8=new TopContestant();
         topContestant8.setName("Smith");
-        topContestant8.setSteps("504,435");
+        topContestant8.setSteps("354,435");
         topContestant8.setPosition(170);
         topContestant8.tempResId=R.drawable.profile4;
         list.add(topContestant8);
 
         TopContestant topContestant9=new TopContestant();
         topContestant9.setName("Kool");
-        topContestant9.setSteps("504,234");
+        topContestant9.setSteps("324,234");
         topContestant9.setPosition(160);
         topContestant9.tempResId=R.drawable.profile5;
         list.add(topContestant9);

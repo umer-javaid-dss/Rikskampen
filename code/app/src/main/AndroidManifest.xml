@@ -58,17 +58,33 @@
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDZb6POB0XTX0m2eNMbgXruT56dyRsTDXQ" />
+            android:value="AIzaSyAy11QPMQf14buf7SlIvjRuWWMiRHQSVb0" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <activity
             android:name=".leader.activity.fragments.account.EditProfileActivity"
-            android:theme="@style/AppThemeFullScreen"></activity>
+            android:theme="@style/AppThemeFullScreen" />
+        <activity
+            android:name=".leader.activity.fragments.chat.ChatActivity"
+            android:theme="@style/AppThemeFullScreen" />
+        <activity
+            android:name=".leader.activity.fragments.plans.SelectPlansActivity"
+            android:theme="@style/AppThemeFullScreen" />
+        <activity
+            android:name=".leader.activity.fragments.plans.IntroActivity"
+            android:theme="@style/AppThemeFullScreen" />
+        <activity
+            android:name=".leader.activity.fragments.home.traings.workout.WeekWorkOutActivity"
+            android:theme="@style/AppThemeFullScreen" />
+
+        <activity
+            android:name=".leader.activity.fragments.home.traings.nutrition.WeekNutritionActivity"
+            android:theme="@style/AppThemeFullScreen" />
 
 
-        <activity android:name=".leader.activity.fragments.chat.ChatActivity"
+        <activity android:name=".leader.activity.fragments.plans.PlanDetailActivity"
             android:theme="@style/AppThemeFullScreen">
 
         </activity>

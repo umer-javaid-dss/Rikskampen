@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.kampen.riks.app.rikskampen.leader.activity.MainLeaderActivity;
+import com.kampen.riks.app.rikskampen.leader.activity.fragments.LeaderBordTab.LeaderAdapterStar;
+import com.kampen.riks.app.rikskampen.leader.activity.fragments.plans.SelectPlansActivity;
 import com.kampen.riks.app.rikskampen.user.model.DB_User;
 import com.kampen.riks.app.rikskampen.user.module.DB_User_Module;
 import com.kampen.riks.app.rikskampen.utils.SaveSharedPreference;
@@ -26,7 +28,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
 
-            if(SaveSharedPreference.getLoggedStatus(getApplicationContext()))
+           if(SaveSharedPreference.getLoggedStatus(getApplicationContext()))
             {
 
                 setUpDB();
@@ -34,20 +36,32 @@ public class SplashActivity extends AppCompatActivity {
                 String[] params=SaveSharedPreference.getLoggedParams(getApplicationContext());
 
                 final RealmResults<DB_User> user = mRealm.where(DB_User.class)
-                        .equalTo("email",params[0])
+                        .equalTo("email",params[0].trim())
                         .and()
-                        .equalTo("pass",params[1])
+                        .equalTo("pass",params[1].trim())
                         .findAll();
 
 
                 if(user.size()>0) {
 
                     MyApplication.tempUser = user.get(0);
+
+                    Intent intent = new Intent(getApplicationContext(),MainLeaderActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else
+                {
+                    Intent intent = new Intent(getApplicationContext(),LoginSignupActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
 
-                Intent intent = new Intent(getApplicationContext(),MainLeaderActivity.class);
+                /*Intent intent = new Intent(getApplicationContext(),SelectPlansActivity.class);
                 startActivity(intent);
-                finish();
+                finish();*/
+
+
             }
             else
             {

@@ -30,7 +30,7 @@ public class PendingOrderAdapter extends RecyclerView.Adapter<PendingOrderAdapte
 
     @Override
     public int getItemCount() {
-        return 3;
+        return 0;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

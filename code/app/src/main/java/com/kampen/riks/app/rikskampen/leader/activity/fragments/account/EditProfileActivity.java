@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import com.kampen.riks.app.rikskampen.MyApplication;
 import com.kampen.riks.app.rikskampen.R;
 
@@ -55,6 +56,8 @@ public class EditProfileActivity extends AppCompatActivity {
     private TextView mUserGender;
 
     private Realm mRealm;
+
+    //private StorageReference mStorageRef;
 
 
 
@@ -96,6 +99,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
 
+
+       // mStorageRef = FirebaseStorage.getInstance().getReference();
 
 
 
@@ -511,9 +516,10 @@ public class EditProfileActivity extends AppCompatActivity {
         try {
             imagePicker.withActivity(EditProfileActivity.this) //calling from activity
                     //.withFragment(W) //calling from fragment
-                    .chooseFromGallery(false) //default is true
+                    .chooseFromGallery(true) //default is true
                     //.chooseFromCamera(false) //default is true
                     .withCompression(true) //default is true
+
                     .start();
         }catch (Exception ex)
         {

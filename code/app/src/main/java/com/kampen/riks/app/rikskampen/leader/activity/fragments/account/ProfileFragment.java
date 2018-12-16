@@ -30,12 +30,14 @@ import com.kampen.riks.app.rikskampen.R;
 
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.chat.ChatActivity;
 import com.kampen.riks.app.rikskampen.user.model.DB_User;
+import com.kampen.riks.app.rikskampen.user.module.DB_User_Module;
 import com.kampen.riks.app.rikskampen.utils.SaveSharedPreference;
 
 
 import co.intentservice.chatui.ChatView;
 import co.intentservice.chatui.models.ChatMessage;
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class ProfileFragment extends Fragment {
 
@@ -85,12 +87,38 @@ public class ProfileFragment extends Fragment {
 
         manageClicks();
 
+        setUpDB();
 
-        setUser();
     }
 
 
+    private void  setUpDB()
+    {
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                .name(getActivity().getPackageName() + ".realm")
+                .schemaVersion(2)
+                .modules(new DB_User_Module())
+                .build();
 
+        mRealm = Realm.getInstance(config);
+
+
+
+
+        // mStorageRef = FirebaseStorage.getInstance().getReference();
+
+
+
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        setUser();
+
+    }
 
     private  void setUser()
     {
@@ -151,6 +179,22 @@ public class ProfileFragment extends Fragment {
                         {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+
+
+                               /* try {
+                                    RealmConfiguration config = new RealmConfiguration.Builder()
+                                            .name(getActivity().getPackageName() + ".realm")
+                                            .schemaVersion(2)
+                                            .modules(new DB_User_Module())
+                                            .build();
+
+                                    Realm.deleteRealm(config);
+                                    SaveSharedPreference.setLoggedIn(getContext(),false);
+                                } catch (Exception ex){
+                                    throw ex;
+                                }*/
+
+
                                 Intent intent = new Intent(getActivity(),LoginSignupActivity.class);
                                 startActivity(intent);
                                 MyApplication.tempUser=null;

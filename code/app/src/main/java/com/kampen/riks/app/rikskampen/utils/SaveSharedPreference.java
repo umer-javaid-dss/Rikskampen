@@ -7,6 +7,8 @@ import android.preference.PreferenceManager;
 import static com.kampen.riks.app.rikskampen.utils.PreferencesUtility.LOGGED_IN_PREF;
 import static com.kampen.riks.app.rikskampen.utils.PreferencesUtility.LOGGED_IN_PREF_Email;
 import static com.kampen.riks.app.rikskampen.utils.PreferencesUtility.LOGGED_IN_PREF_pass;
+import static com.kampen.riks.app.rikskampen.utils.PreferencesUtility.TOKEN_PREF;
+import static com.kampen.riks.app.rikskampen.utils.PreferencesUtility.USER_ID;
 
 public class SaveSharedPreference {
 
@@ -49,4 +51,31 @@ public class SaveSharedPreference {
 
         return  new String []{email,pass};
     }
+
+
+    public static void saveUserToken(Context context, String token) {
+        SharedPreferences.Editor editor = getPreferences(context).edit();
+        editor.putString(TOKEN_PREF, token);
+        editor.apply();
+    }
+
+
+    public static String getUserToken(Context context) {
+        return getPreferences(context).getString(TOKEN_PREF, "");
+    }
+
+
+    public static void saveUserID(Context context, String token) {
+        SharedPreferences.Editor editor = getPreferences(context).edit();
+        editor.putString(USER_ID, token);
+        editor.apply();
+    }
+
+
+    public static String getUserID(Context context) {
+        return getPreferences(context).getString(USER_ID, "");
+    }
+
+
+
 }

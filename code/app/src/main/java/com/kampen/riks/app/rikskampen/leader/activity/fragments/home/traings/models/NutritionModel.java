@@ -1,12 +1,13 @@
 package com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.models;
 
-public class HabitModel {
+public class NutritionModel {
 
     private String mHabitId;
     private String mHabitName;
     private String mHabitImgUrl;
     private String mJoinedPersons;
     private String mWorkingFrom;
+    private int    tempPicture;
 
     public String getHabitId() {
         return mHabitId;
@@ -46,5 +47,13 @@ public class HabitModel {
 
     public void setWorkingFrom(String mWorkingFrom) {
         this.mWorkingFrom = mWorkingFrom;
+    }
+
+    public int getTempPicture() {
+        return tempPicture;
+    }
+
+    public void setTempPicture(int tempPicture) {
+        this.tempPicture = tempPicture;
     }
 }

@@ -308,7 +308,7 @@ public class MapFragment extends Fragment implements PlacesListener, GoogleMap.O
 
         mMap = null;
         userMarker = null;
-        targetMarkerList = null;
+
     }
 
     @Override

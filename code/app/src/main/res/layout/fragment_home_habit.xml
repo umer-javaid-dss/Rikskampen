@@ -111,7 +111,7 @@
             android:textColor="@android:color/darker_gray"
             android:gravity="center"
             android:textStyle="bold"
-            android:text="HEALTH AND FITNESS"
+            android:text="TRAINING AND FITNESS"
             android:layout_height="25dp" />
 
         <android.support.v7.widget.RecyclerView
@@ -132,7 +132,7 @@
 
         <TextView
             android:layout_marginTop="10dp"
-
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:textSize="17dp"
             android:layout_gravity="center_horizontal"
@@ -143,6 +143,7 @@
             android:layout_height="25dp" />
 
         <android.support.v7.widget.RecyclerView
+            android:visibility="gone"
             android:id="@+id/stress_and_reliefRV"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"

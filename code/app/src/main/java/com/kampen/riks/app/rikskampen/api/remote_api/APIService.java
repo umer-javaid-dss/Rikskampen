@@ -1,10 +1,15 @@
 package com.kampen.riks.app.rikskampen.api.remote_api;
 
+import com.kampen.riks.app.rikskampen.api.remote_api.models.RemoteUser;
+import com.kampen.riks.app.rikskampen.api.remote_api.models.RemoteUserResult;
+
 import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface APIService {
@@ -86,11 +91,28 @@ public interface APIService {
 
 
     @FormUrlEncoded
-    @POST("/SlimApp/p_ublic/AddRiderSavedPlaces.php")
-    Call<Generic_Result> AddRiderSavedPlaces(
-            @FieldMap HashMap<String, String> rider
+    @POST("public/index.php/api/login")
+    Call<Generic_Result> userLogin(
+            @FieldMap HashMap<String, String> loginHM
 
     );
+
+
+
+    @FormUrlEncoded
+    @POST("public/index.php/api/login")
+    Call<Generic_Result<RemoteUserResult>> getUser( @FieldMap HashMap<String, String> loginHM);
+
+
+    @FormUrlEncoded
+    @POST("public/index.php/api/userSingUp")
+    Call<Generic_Result<RemoteUserResult>> userSignUp(
+
+            @FieldMap HashMap<String, String> signUpHM
+
+    );
+
+
 
 
 

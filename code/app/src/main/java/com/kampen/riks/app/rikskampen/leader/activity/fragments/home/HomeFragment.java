@@ -12,13 +12,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kampen.riks.app.rikskampen.R;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.addactivity.ActivityFragment;
-import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.HabitsFragment;
+import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.TrainingFragment;
 
 
 /**
@@ -62,7 +63,7 @@ public class HomeFragment extends Fragment {
      PAGES = new Fragment[]{
 
              ActivityFragment.newInstance(),
-            HabitsFragment.newInstance(),
+            TrainingFragment.newInstance(),
 
 
     };
@@ -119,6 +120,51 @@ public class HomeFragment extends Fragment {
     private  void manageTab()
     {
 
+
+       /* mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+
+                if(selectedTab==0)
+                {
+
+                    tabLeft.setBackgroundResource(R.drawable.tab_left_selected);
+                    tabLeft.setTextColor(Color.WHITE);
+                    tabRight.setBackgroundResource(R.drawable.tab_right_unselected);
+                    tabRight.setTextColor(Color.parseColor("#c8a167"));
+
+                }
+
+                else
+                {
+
+                    tabLeft.setBackgroundResource(R.drawable.tab_left_unselected);
+                    tabLeft.setTextColor(Color.parseColor("#c8a167"));
+                    tabRight.setBackgroundResource(R.drawable.tab_right_selected);
+                    tabRight.setTextColor(Color.WHITE);
+                }
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });*/
+
+        mViewPager.setOnTouchListener(new View.OnTouchListener()
+        {
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                return true;
+            }
+        });
 
         if(selectedTab==0)
         {
@@ -230,9 +276,9 @@ public class HomeFragment extends Fragment {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if(PAGES[2]!=null)
+        if(PAGES[0]!=null)
         {
-            PAGES[2].onRequestPermissionsResult(requestCode, permissions, grantResults);
+            PAGES[0].onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
     }
@@ -244,8 +290,8 @@ public class HomeFragment extends Fragment {
 
         try {
 
-            if (PAGES[2] != null) {
-                PAGES[2].onActivityResult(requestCode, resultCode, data);
+            if (PAGES[0] != null) {
+                PAGES[0].onActivityResult(requestCode, resultCode, data);
             }
         }catch (Exception ex)
         {

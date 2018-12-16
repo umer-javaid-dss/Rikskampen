@@ -1,0 +1,830 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@android:color/white"
+    tools:context="com.kampen.riks.app.rikskampen.leader.activity.fragments.plans.SelectPlansActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginEnd="8dp"
+
+
+        android:layout_marginRight="8dp"
+        android:src="@drawable/ic_splash"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+
+
+    <ScrollView
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        android:layout_marginBottom="20dp"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical"
+
+       >
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginLeft="10dp"
+            android:clickable="true"
+             android:layout_marginBottom="9dp"
+            android:onClick="onPlanOneClick"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/plan_item_1_bg"
+            android:elevation="5dp"
+            android:gravity="center"
+
+
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="1st prize 25000 kr."
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:layout_height="wrap_content" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Junior"
+                    fontPath="fonts/georgia_bold.ttf"
+                    android:textColor="@android:color/white"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="13-16 yrs"
+                    android:textColor="@android:color/white"
+                    android:textSize="15dp" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        fontPath="fonts/MontserratAlternates-Bold.ttf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="2495 kr"
+                        android:textColor="@android:color/white"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+
+                        android:text="110/month"
+                        android:textColor="@android:color/white"
+                        android:textSize="15dp" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+
+                        android:text="Single"
+                        android:textColor="@android:color/white"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        fontPath="fonts/MontserratAlternates-Bold.ttf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="3495 kr"
+                        android:textColor="@android:color/white"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+
+                        android:text="155/month"
+                        android:textColor="@android:color/white"
+                        android:textSize="15dp" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+
+                        android:text="Double"
+                        android:textColor="@android:color/white"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@android:color/darker_gray"
+            android:layout_height="1dp"></View>
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onPlanTwoClick"
+            android:layout_marginTop="9dp"
+            android:layout_marginBottom="9dp"
+            android:elevation="5dp"
+            android:background="@drawable/plan_item_2_bg"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="130dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="1st prize 50000 kr."
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:layout_height="wrap_content" />
+
+
+            <LinearLayout
+                android:layout_width="320dp"
+
+                android:gravity="center"
+
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Vuxen"
+                    android:textSize="20dp"
+                    android:textColor="@android:color/white"
+                    fontPath="fonts/MontserratAlternates-Bold.ttf"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:text="16-45 yrs"
+                    android:textSize="15dp"
+                    android:textColor="@android:color/white"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="6995 kr"
+
+                        android:textSize="15dp"
+                        android:textColor="@android:color/white"
+                        fontPath="fonts/MontserratAlternates-Bold.ttf"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:text="295/month"
+
+                        android:textSize="15dp"
+                        android:textColor="@android:color/white"
+                        android:layout_height="wrap_content" />
+
+
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:text="Single"
+
+                        android:textSize="15dp"
+                        android:textColor="@android:color/white"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="8995 kr"
+
+                        android:textSize="14dp"
+                        android:textColor="@android:color/white"
+                        fontPath="fonts/MontserratAlternates-Bold.ttf"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:text="195/month"
+
+                        android:textSize="15dp"
+                        android:textColor="@android:color/white"
+                        android:layout_height="wrap_content" />
+
+
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:text="Double"
+
+                        android:textSize="15dp"
+                        android:textColor="@android:color/white"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@android:color/darker_gray"
+            android:layout_height="1dp"></View>
+
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:elevation="5dp"
+            android:clickable="true"
+            android:onClick="onPlanThreeClick"
+            android:background="@drawable/plan_item_3_bg"
+            android:layout_marginTop="9dp"
+            android:layout_marginBottom="9dp"
+            android:paddingRight="10dp"
+
+            android:layout_height="130dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="1st prize 50000 kr."
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:layout_height="wrap_content" />
+
+
+            <LinearLayout
+                android:layout_width="320dp"
+
+                android:gravity="center"
+
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Senior"
+                    android:textSize="20dp"
+                    android:textColor="@android:color/white"
+                    fontPath="fonts/MontserratAlternates-Bold.ttf"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:text="45-65 yrs"
+                    android:textSize="15dp"
+                    android:textColor="@android:color/white"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="6995 kr"
+
+                        android:textSize="15dp"
+                        android:textColor="@android:color/white"
+                        fontPath="fonts/MontserratAlternates-Bold.ttf"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:text="295/month"
+                         android:layout_marginLeft="10dp"
+                        android:textSize="15dp"
+                        android:textColor="@android:color/white"
+                        android:layout_height="wrap_content" />
+
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:text="Single"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="15dp"
+                        android:textColor="@android:color/white"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="8995 kr"
+
+                        android:textSize="15dp"
+                        android:textColor="@android:color/white"
+                        fontPath="fonts/MontserratAlternates-Bold.ttf"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:text="195/month"
+
+                        android:textSize="15dp"
+                        android:textColor="@android:color/white"
+                        android:layout_height="wrap_content" />
+
+
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:text="Double"
+
+                        android:textSize="15dp"
+                        android:textColor="@android:color/white"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@android:color/darker_gray"
+            android:layout_height="1dp"></View>
+
+
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:elevation="5dp"
+            android:clickable="true"
+            android:onClick="onPlanFourClick"
+            android:layout_marginTop="9dp"
+            android:layout_marginBottom="9dp"
+            android:background="@drawable/plan_item_4_bg"
+            android:paddingRight="10dp"
+            android:layout_height="130dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="1st prize 50000 kr."
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:layout_height="wrap_content" />
+
+
+            <LinearLayout
+                android:layout_width="320dp"
+
+                android:gravity="center"
+
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Veteran"
+                    android:textSize="20dp"
+                    android:textColor="@android:color/white"
+                    fontPath="fonts/MontserratAlternates-Bold.ttf"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:text="65-100 yrs"
+                    android:textSize="15dp"
+                    android:textColor="@android:color/white"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="4995 kr"
+
+                        android:textSize="15dp"
+                        android:textColor="@android:color/white"
+                        fontPath="fonts/MontserratAlternates-Bold.ttf"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:text="215/month"
+
+                        android:textSize="15dp"
+                        android:textColor="@android:color/white"
+                        android:layout_height="wrap_content" />
+
+
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:text="Single"
+
+                        android:textSize="15dp"
+                        android:textColor="@android:color/white"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="6995 kr"
+
+                        android:textSize="15dp"
+                        android:textColor="@android:color/white"
+                        fontPath="fonts/MontserratAlternates-Bold.ttf"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:text="145/month"
+
+                        android:textSize="15dp"
+                        android:textColor="@android:color/white"
+                        android:layout_height="wrap_content" />
+
+
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:text="Double"
+
+                        android:textSize="15dp"
+                        android:textColor="@android:color/white"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@android:color/darker_gray"
+            android:layout_height="1dp"></View>
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:elevation="5dp"
+            android:background="@drawable/plan_item_5_bg"
+            android:paddingRight="10dp"
+            android:clickable="true"
+            android:onClick="onPlanFiveClick"
+            android:layout_marginTop="9dp"
+            android:layout_marginBottom="15dp"
+            android:layout_height="130dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="1st prize 100000 kr."
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:layout_height="wrap_content" />
+
+
+            <LinearLayout
+                android:layout_width="320dp"
+
+                android:gravity="center"
+
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="ELIT"
+                    android:textSize="20dp"
+                    android:textColor="@android:color/white"
+                    fontPath="fonts/MontserratAlternates-Bold.ttf"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:text="13-100 yrs"
+                    android:textSize="15dp"
+                    android:textColor="@android:color/white"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="7995 kr"
+
+                        android:textSize="15dp"
+                        android:textColor="@android:color/white"
+                        fontPath="fonts/MontserratAlternates-Bold.ttf"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:text="336/month"
+
+                        android:textSize="15dp"
+                        android:textColor="@android:color/white"
+                        android:layout_height="wrap_content" />
+
+
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:text="Single"
+
+                        android:textSize="15dp"
+                        android:textColor="@android:color/white"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="9995 kr"
+
+                        android:textSize="15dp"
+                        android:textColor="@android:color/white"
+                        fontPath="fonts/MontserratAlternates-Bold.ttf"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:text="215/month"
+
+                        android:textSize="15dp"
+                        android:textColor="@android:color/white"
+                        android:layout_height="wrap_content" />
+
+
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:text="Double"
+
+                        android:textSize="15dp"
+                        android:textColor="@android:color/white"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>

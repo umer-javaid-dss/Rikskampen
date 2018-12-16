@@ -24,7 +24,7 @@
 
 
     <EditText
-        android:id="@+id/editText_fullName"
+        android:id="@+id/editText_fName"
         fontPath="fonts/MontserratAlternates-Regular.ttf"
         android:layout_width="0dp"
         android:layout_height="38dp"
@@ -34,7 +34,7 @@
         android:backgroundTint="@color/colorPrimaryDark"
         android:ems="10"
         android:gravity="center_vertical"
-        android:hint="Name"
+        android:hint="Fisrt name"
         android:inputType="textEmailAddress"
         android:maxLength="30"
         android:text=""
@@ -45,6 +45,28 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.0" />
 
+
+    <EditText
+        android:id="@+id/editText_lName"
+        fontPath="fonts/MontserratAlternates-Regular.ttf"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:ems="10"
+        android:gravity="center_vertical"
+        android:hint="Last name"
+        android:inputType="textEmailAddress"
+        android:maxLength="30"
+        android:text=""
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_fName"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 
@@ -68,7 +90,7 @@
         android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_fullName" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_lName" />
 
 
     <EditText
@@ -84,7 +106,7 @@
         android:ems="10"
         android:gravity="center_vertical"
         android:hint="@string/user_pass_hint"
-        android:inputType="numberPassword"
+        android:inputType="textPassword"
         android:maxLength="30"
         android:text=""
         android:textColor="@android:color/black"
@@ -105,7 +127,7 @@
         android:ems="10"
         android:gravity="center_vertical"
         android:hint="@string/user_pass_hint_c"
-        android:inputType="numberPassword"
+        android:inputType="textPassword"
         android:maxLength="30"
         android:text=""
         android:textColor="@android:color/black"
@@ -116,6 +138,7 @@
 
     <EditText
         android:id="@+id/editText_Age"
+        android:visibility="gone"
         fontPath="fonts/MontserratAlternates-Regular.ttf"
         android:layout_width="0dp"
         android:layout_height="38dp"
@@ -144,7 +167,7 @@
 
     <EditText
         android:id="@+id/editTextHeight"
-
+        android:visibility="gone"
         fontPath="fonts/MontserratAlternates-Regular.ttf"
         android:layout_width="match_parent"
         android:layout_height="38dp"
@@ -208,6 +231,7 @@
 
     <EditText
         android:id="@+id/editText_Weight"
+        android:visibility="gone"
         fontPath="fonts/MontserratAlternates-Regular.ttf"
         android:layout_width="0dp"
         android:layout_height="38dp"
@@ -234,6 +258,7 @@
     <EditText
 
         android:id="@+id/editText_Sex"
+        android:visibility="gone"
         fontPath="fonts/MontserratAlternates-Regular.ttf"
         android:layout_width="0dp"
         android:layout_height="38dp"

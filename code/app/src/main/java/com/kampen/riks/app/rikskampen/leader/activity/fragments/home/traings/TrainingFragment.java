@@ -14,30 +14,32 @@ import android.view.ViewGroup;
 import com.kampen.riks.app.rikskampen.R;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.adapters.NutritionAdapter;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.adapters.HealthFitnessAdapter;
-import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.adapters.TrainingAdapter;
+import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.adapters.TrainingAndFitnessAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link HabitsFragment
+ * {@link TrainingFragment
  * to handle interaction events.
  */
-public class HabitsFragment extends Fragment {
+public class TrainingFragment extends Fragment {
 
 
     private  RecyclerView mHabitsRecyclerView;
     private NutritionAdapter mHabitsAdapter;
     private  RecyclerView mHealthRecyclerView;
-    private HealthFitnessAdapter  mHealthAdapter;
-    private  RecyclerView mStressRecyclerView;
-    private TrainingAdapter mStressAdapter;
+    private TrainingAndFitnessAdapter  mHealthAdapter;
 
-    public HabitsFragment() {
+
+  /*  private  RecyclerView mStressRecyclerView;
+    private TrainingAndFitnessAdapter mStressAdapter;*/
+
+    public TrainingFragment() {
 
     }
 
-    public static HabitsFragment newInstance() {
-        HabitsFragment fragment = new HabitsFragment();
+    public static TrainingFragment newInstance() {
+        TrainingFragment fragment = new TrainingFragment();
         return fragment;
     }
 
@@ -54,7 +56,7 @@ public class HabitsFragment extends Fragment {
 
         mHabitsRecyclerView = (RecyclerView) rootView.findViewById(R.id.habitsRV);
         mHealthRecyclerView = (RecyclerView) rootView.findViewById(R.id.health_and_fitnessRV);
-        mStressRecyclerView = (RecyclerView) rootView.findViewById(R.id.stress_and_reliefRV);
+        //mStressRecyclerView = (RecyclerView) rootView.findViewById(R.id.stress_and_reliefRV);
 
         LinearLayoutManager mLayoutManager1 = new LinearLayoutManager(getActivity());
         mLayoutManager1.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -65,17 +67,17 @@ public class HabitsFragment extends Fragment {
         LinearLayoutManager mLayoutManager3 = new LinearLayoutManager(getActivity());
         mLayoutManager3.setOrientation(LinearLayoutManager.HORIZONTAL);
 
-        mHabitsAdapter=new NutritionAdapter();
-        mHealthAdapter=new HealthFitnessAdapter();
-        mStressAdapter=new TrainingAdapter();
+        mHabitsAdapter=new NutritionAdapter(getContext());
+        mHealthAdapter=new TrainingAndFitnessAdapter(getContext());
+        //mStressAdapter=new TrainingAndFitnessAdapter();
 
         mHabitsRecyclerView.setLayoutManager(mLayoutManager1);
         mHealthRecyclerView.setLayoutManager(mLayoutManager2);
-        mStressRecyclerView.setLayoutManager(mLayoutManager3);
+        //mStressRecyclerView.setLayoutManager(mLayoutManager3);
 
         mHabitsRecyclerView.setAdapter(mHabitsAdapter);
         mHealthRecyclerView.setAdapter(mHealthAdapter);
-        mStressRecyclerView.setAdapter(mStressAdapter);
+        //mStressRecyclerView.setAdapter(mStressAdapter);
 
     }
 
@@ -93,7 +95,7 @@ public class HabitsFragment extends Fragment {
         mHabitsAdapter=null;
         mHealthRecyclerView=null;
         mHabitsAdapter=null;
-        mStressRecyclerView=null;
+        //mStressRecyclerView=null;
         mHabitsAdapter=null;
 
     }

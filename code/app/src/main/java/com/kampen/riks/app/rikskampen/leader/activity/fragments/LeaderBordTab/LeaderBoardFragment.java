@@ -34,6 +34,9 @@ public class LeaderBoardFragment extends Fragment {
     private RecyclerView mLeaderRecyclerView;
     private LeaderAdapterSteps mLeaderAdapter;
     private LeaderAdapterCalories mLeaderAdapterCal;
+    private LeaderAdapterStar mLeaderAdapterStar;
+
+
     private TabLayout         mTablayout;
 
 
@@ -41,9 +44,11 @@ public class LeaderBoardFragment extends Fragment {
 
     private TextView   mCalStepTV,mPositionTV;
 
-    private TextView tabLeft,tabRight;
+    private TextView tabLeft,tabRight,tabMiddle;
 
     private View     steps_icon_container;
+
+    private View      leftContainer1;
 
     private  ImageView profileImage;
 
@@ -124,6 +129,7 @@ public class LeaderBoardFragment extends Fragment {
 
         mProfileImage = rootView.findViewById(R.id.profileImage);
         steps_icon_container=rootView.findViewById(R.id.steps_icon_container);
+        leftContainer1=rootView.findViewById(R.id.leftContainer1);
         mCalStepImage= rootView.findViewById(R.id.steps_icon);
         mCalStepTV   = rootView.findViewById(R.id.progress);
         mPositionTV   = rootView.findViewById(R.id.position);
@@ -132,7 +138,10 @@ public class LeaderBoardFragment extends Fragment {
 
         mCalStepImage.bringToFront();
 
+        //leftContainer1.bringToFront();
+
         tabLeft=(TextView) rootView.findViewById(R.id.tabLeft);
+        tabMiddle=rootView.findViewById(R.id.tabMiddle);
         tabRight=(TextView) rootView.findViewById(R.id.tabRight);
 
         mLeaderRecyclerView = (RecyclerView) rootView.findViewById(R.id.leaderRV);
@@ -145,7 +154,7 @@ public class LeaderBoardFragment extends Fragment {
         mLayoutManager1.setOrientation(LinearLayoutManager.VERTICAL);
 
 
-        manageTabLayout();
+        //manageTabLayout();
 
 
         mLeaderAdapter=new LeaderAdapterSteps(getActivity());
@@ -159,14 +168,23 @@ public class LeaderBoardFragment extends Fragment {
         mLeaderRecyclerView.setAdapter(mLeaderAdapter);
 
 
+
+
+
         manageTab();
 
 
-        setUser();
+
 
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        setUser();
+    }
 
     private  void setUser()
     {
@@ -200,21 +218,30 @@ public class LeaderBoardFragment extends Fragment {
 
         if(selectedTab==0)
         {
-
             tabLeft.setBackgroundResource(R.drawable.tab_left_selected);
             tabLeft.setTextColor(Color.WHITE);
             tabRight.setBackgroundResource(R.drawable.tab_right_unselected);
             tabRight.setTextColor(Color.parseColor("#c8a167"));
-
+            tabMiddle.setBackgroundResource(R.drawable.tab_middle_unselected);
+            tabMiddle.setTextColor(Color.parseColor("#c8a167"));
         }
-
+        else if(selectedTab==1)
+        {
+            tabMiddle.setBackgroundResource(R.drawable.tab_middle_selected);
+            tabMiddle.setTextColor(Color.WHITE);
+            tabRight.setBackgroundResource(R.drawable.tab_right_unselected);
+            tabRight.setTextColor(Color.parseColor("#c8a167"));
+            tabLeft.setBackgroundResource(R.drawable.tab_left_unselected);
+            tabLeft.setTextColor(Color.parseColor("#c8a167"));
+        }
         else
         {
-
             tabLeft.setBackgroundResource(R.drawable.tab_left_unselected);
             tabLeft.setTextColor(Color.parseColor("#c8a167"));
             tabRight.setBackgroundResource(R.drawable.tab_right_selected);
             tabRight.setTextColor(Color.WHITE);
+            tabMiddle.setBackgroundResource(R.drawable.tab_middle_unselected);
+            tabMiddle.setTextColor(Color.parseColor("#c8a167"));
         }
 
 
@@ -227,6 +254,8 @@ public class LeaderBoardFragment extends Fragment {
                 tabLeft.setTextColor(Color.WHITE);
                 tabRight.setBackgroundResource(R.drawable.tab_right_unselected);
                 tabRight.setTextColor(Color.parseColor("#c8a167"));
+                tabMiddle.setBackgroundResource(R.drawable.tab_middle_unselected);
+                tabMiddle.setTextColor(Color.parseColor("#c8a167"));
 
 
                 if(mLeaderAdapter==null)
@@ -248,6 +277,34 @@ public class LeaderBoardFragment extends Fragment {
         });
 
 
+        tabMiddle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                tabMiddle.setBackgroundResource(R.drawable.tab_middle_selected);
+                tabMiddle.setTextColor(Color.WHITE);
+                tabRight.setBackgroundResource(R.drawable.tab_right_unselected);
+                tabRight.setTextColor(Color.parseColor("#c8a167"));
+                tabLeft.setBackgroundResource(R.drawable.tab_left_unselected);
+                tabLeft.setTextColor(Color.parseColor("#c8a167"));
+
+                if(mLeaderAdapterStar==null)
+                {
+
+                    mLeaderAdapterStar=new LeaderAdapterStar(getActivity());
+
+                }
+
+                selectedTab=1;
+
+                mCalStepImage.setImageResource(R.drawable.ic_star_new);
+                mCalStepTV.setText("Sam - 345");
+
+                mLeaderRecyclerView.setAdapter(mLeaderAdapterStar);
+
+            }
+        });
+
         tabRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -256,6 +313,8 @@ public class LeaderBoardFragment extends Fragment {
                 tabLeft.setTextColor(Color.parseColor("#c8a167"));
                 tabRight.setBackgroundResource(R.drawable.tab_right_selected);
                 tabRight.setTextColor(Color.WHITE);
+                tabMiddle.setBackgroundResource(R.drawable.tab_middle_unselected);
+                tabMiddle.setTextColor(Color.parseColor("#c8a167"));
 
                 if(mLeaderAdapterCal==null)
                 {
@@ -270,6 +329,8 @@ public class LeaderBoardFragment extends Fragment {
                 mCalStepTV.setText("Sam - 3800,765");
 
                 mLeaderRecyclerView.setAdapter(mLeaderAdapterCal);
+
+
 
             }
         });

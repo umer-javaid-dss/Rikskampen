@@ -7,23 +7,33 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.facebook.stetho.server.http.HttpStatus;
+import com.kampen.riks.app.rikskampen.api.remote_api.Generic_Result;
+import com.kampen.riks.app.rikskampen.api.remote_api.models.RemoteUser;
+import com.kampen.riks.app.rikskampen.api.remote_api.models.RemoteUserResult;
+import com.kampen.riks.app.rikskampen.data_manager.Data_manager;
 import com.kampen.riks.app.rikskampen.leader.activity.MainLeaderActivity;
 import com.kampen.riks.app.rikskampen.user.model.DB_User;
 import com.kampen.riks.app.rikskampen.user.module.DB_User_Module;
 import com.kampen.riks.app.rikskampen.utils.Constants;
+import com.kampen.riks.app.rikskampen.utils.Custom_Progress_Module.ProgressManager;
 import com.kampen.riks.app.rikskampen.utils.SaveSharedPreference;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements Data_manager.Manage_Login {
 
 
     private EditText mUserEmail;
     private EditText mUserPass;
 
     private Realm mRealm;
+
+    private   Data_manager data_manager;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +44,9 @@ public class LoginActivity extends AppCompatActivity {
         mUserPass=findViewById(R.id.editText_pass);
 
         setUpDB();
-        //addTestUser();
+
+
+
     }
 
 
@@ -57,22 +69,33 @@ public class LoginActivity extends AppCompatActivity {
 
         if(validateData( )) {
 
-            String tempUserEmail=mUserEmail.getText().toString();
-            String tempUserPass =mUserPass.getText().toString();
+
+           ProgressManager.showProgress(LoginActivity.this,"Please wait...");
+
+            String tempUserEmail=mUserEmail.getText().toString().trim();/*"ayazmuhammad220@gmail.com";*/
+            String tempUserPass =mUserPass.getText().toString().trim();/*"ayaz.khan";*/
 
 
-            final RealmResults<DB_User> user = mRealm.where(DB_User.class)
-                    .equalTo("email",tempUserEmail.trim())
+            data_manager=new Data_manager();
+            data_manager.setLoginListener(LoginActivity.this);
+            data_manager.getUserAPI(tempUserEmail,tempUserPass);
+
+
+
+
+       /* final RealmResults<DB_User> user = mRealm.where(DB_User.class)
+                    .equalTo("email","")
                     .and()
-                    .equalTo("pass",tempUserPass.trim())
+                    .equalTo("pass","")
                     .findAll();
 
 
-            if(user.size()>0) {
+           if(user.size()>0)
+            {
 
-                MyApplication.tempUser=user.get(0);
+                //MyApplication.tempUser=user.get(0);
 
-                SaveSharedPreference.setLoggedIn(getApplicationContext(), true,MyApplication.tempUser.getEmail(),MyApplication.tempUser.getPass());
+                //SaveSharedPreference.setLoggedIn(getApplicationContext(), true,MyApplication.tempUser.getEmail(),MyApplication.tempUser.getPass());
 
                 Intent intent = new Intent(getApplicationContext(), MainLeaderActivity.class);
                 startActivity(intent);
@@ -81,7 +104,13 @@ public class LoginActivity extends AppCompatActivity {
             else
             {
                 Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show();
-            }
+            }*/
+
+           /* Intent intent = new Intent(getApplicationContext(), MainLeaderActivity.class);
+            startActivity(intent);
+            finish();*/
+
+
         }
 
     }
@@ -175,6 +204,125 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
         startActivity(intent);
         finish();
+
+    }
+
+
+
+    @Override
+    public void onLoginSuccess(Generic_Result<RemoteUserResult> user) {
+
+
+
+        ProgressManager.hideProgress();
+
+
+        if(user.getCode().equals(HttpStatus.HTTP_OK+"")) {
+
+
+            final RealmResults<DB_User> local_user = mRealm.where(DB_User.class)
+                    .equalTo("email",mUserEmail.getText().toString().trim())
+                    .and()
+                    .equalTo("pass",mUserPass.getText().toString().trim())
+                    .findAll();
+
+
+            if (local_user.size() == 0)
+            {
+
+                mRealm.executeTransaction(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+
+
+                        DB_User db_user = realm.createObject(DB_User.class);
+                        //db_user.setId(user.getResult().getUser().getId());
+
+                        db_user.setEmail(user.getResult().getUser().getEmail());
+                        db_user.setPass(mUserPass.getText().toString().trim());
+                        db_user.setF_name(user.getResult().getUser().getFirstname());
+                        db_user.setL_name(user.getResult().getUser().getLastname());
+                        db_user.setProfile_image("");
+                        //db_user.setRole(user.getResult().getUser().getRole());
+
+
+                        MyApplication.tempUser = db_user;
+
+                        SaveSharedPreference.setLoggedIn(getApplicationContext(), true, MyApplication.tempUser.getEmail(), mUserPass.getText().toString());
+                        SaveSharedPreference.saveUserID(LoginActivity.this, MyApplication.tempUser.getEmail());
+
+                    }
+                });
+
+               }
+
+
+            Intent intent = new Intent(getApplicationContext(), MainLeaderActivity.class);
+            startActivity(intent);
+            finish();
+
+        }
+        else
+        {
+
+
+             final RealmResults<DB_User> local_user = mRealm.where(DB_User.class)
+                    .equalTo("email",mUserEmail.getText().toString())
+                    .and()
+                    .equalTo("pass",mUserPass.getText().toString())
+                    .findAll();
+
+
+           if(local_user.size()>0)
+            {
+
+                MyApplication.tempUser=local_user.get(0);
+
+                SaveSharedPreference.setLoggedIn(getApplicationContext(), true,MyApplication.tempUser.getEmail(),MyApplication.tempUser.getPass());
+
+                Intent intent = new Intent(getApplicationContext(), MainLeaderActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            else
+            {
+                MyApplication.showSimpleSnackBar(LoginActivity.this,user.getCode());
+            }
+
+
+        }
+
+
+
+    }
+
+    @Override
+    public void onLoginFailed(String message) {
+
+        ProgressManager.hideProgress();
+
+        final RealmResults<DB_User> local_user = mRealm.where(DB_User.class)
+                .equalTo("email",mUserEmail.getText().toString())
+                .and()
+                .equalTo("pass",mUserPass.getText().toString())
+                .findAll();
+
+
+        if(local_user.size()>0)
+        {
+
+            MyApplication.tempUser=local_user.get(0);
+
+            SaveSharedPreference.setLoggedIn(getApplicationContext(), true,MyApplication.tempUser.getEmail(),MyApplication.tempUser.getPass());
+
+            Intent intent = new Intent(getApplicationContext(), MainLeaderActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else
+        {
+            MyApplication.showSimpleSnackBar(LoginActivity.this,"User not found");
+        }
 
     }
 }

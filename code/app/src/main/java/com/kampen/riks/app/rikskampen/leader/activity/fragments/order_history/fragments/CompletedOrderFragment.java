@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 import com.kampen.riks.app.rikskampen.R;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.order_history.fragments.adapters.CompletedOrderAdapter;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.order_history.fragments.adapters.PendingOrderAdapter;
+import com.kampen.riks.app.rikskampen.leader.activity.fragments.order_history.fragments.model.Order;
+
+import java.util.List;
 
 
 /**
@@ -24,6 +27,9 @@ public class CompletedOrderFragment extends Fragment {
 
     private RecyclerView mCompletedOrderRecyclerView;
     private CompletedOrderAdapter mCompletedOrderAdapter;
+
+
+
 
 
     public static CompletedOrderFragment newInstance() {

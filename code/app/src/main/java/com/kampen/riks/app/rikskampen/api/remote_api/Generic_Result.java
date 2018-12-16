@@ -5,42 +5,61 @@ import com.google.gson.annotations.SerializedName;
 
 public class Generic_Result<T> {
 
+
+
     @SerializedName("status")
     @Expose
     private
-    int  status=0;
-    @SerializedName("msg")
+    String  status;
+
+
+    @SerializedName("message")
     @Expose
     private
-    String msg="";
+    Object msg="";
 
-    @SerializedName("data")
+
+
+    @SerializedName("result")
     @Expose
-    private T  dataObject;
+    private T  result;
 
 
-    public int getStatus() {
+    @SerializedName("code")
+    @Expose
+    private
+    String code="";
+
+
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public String getMsg() {
+    public Object getMsg() {
         return msg;
     }
 
-    public void setMsg(String msg) {
+    public void setMsg(Object msg) {
         this.msg = msg;
     }
 
-
-    public T getDataObject() {
-        return dataObject;
+    public T getResult() {
+        return result;
     }
 
-    public void setDataObject(T dataObject) {
-        this.dataObject = dataObject;
+    public void setResult(T result) {
+        this.result = result;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

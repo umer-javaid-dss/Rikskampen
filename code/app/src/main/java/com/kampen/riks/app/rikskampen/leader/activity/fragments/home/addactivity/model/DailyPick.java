@@ -3,9 +3,18 @@ package com.kampen.riks.app.rikskampen.leader.activity.fragments.home.addactivit
 public class DailyPick {
 
     private  String  id;
-    private  String  path;
-    private  int     tempRecourse;
-    private  String  time;
+
+    private   String  user_id;
+
+    private   String  picPath;
+
+    private   byte    []  picData;
+
+    private    String  takenTimeDate;
+
+    private    String   lat;
+
+    private    String  lan;
 
 
     public String getId() {
@@ -16,27 +25,51 @@ public class DailyPick {
         this.id = id;
     }
 
-    public String getPath() {
-        return path;
+    public String getPicPath() {
+        return picPath;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setPicPath(String picPath) {
+        this.picPath = picPath;
     }
 
-    public int getTempRecourse() {
-        return tempRecourse;
+    public byte[] getPicData() {
+        return picData;
     }
 
-    public void setTempRecourse(int tempRecourse) {
-        this.tempRecourse = tempRecourse;
+    public void setPicData(byte[] picData) {
+        this.picData = picData;
     }
 
-    public String getTime() {
-        return time;
+    public String getTakenTimeDate() {
+        return takenTimeDate;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setTakenTimeDate(String takenTimeDate) {
+        this.takenTimeDate = takenTimeDate;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLan() {
+        return lan;
+    }
+
+    public void setLan(String lan) {
+        this.lan = lan;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 }

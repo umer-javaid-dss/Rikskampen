@@ -13,8 +13,14 @@ import android.widget.TextView;
 import com.kampen.riks.app.rikskampen.R;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.addactivity.ActivityFragment;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.addactivity.model.DailyPick;
+import com.kampen.riks.app.rikskampen.user.model.DB_DailyFitnessPic;
+import com.kampen.riks.app.rikskampen.utils.SaveSharedPreference;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 
 public class DailyPicAdapter extends RecyclerView.Adapter<DailyPicAdapter.ViewHolder> {
@@ -23,11 +29,17 @@ public class DailyPicAdapter extends RecyclerView.Adapter<DailyPicAdapter.ViewHo
 
     private ActivityFragment tempFragment;
 
-    public  DailyPicAdapter(ActivityFragment fragment)
+    private   Realm  mDataBase;
+
+    public  DailyPicAdapter(ActivityFragment fragment, Realm dataBase)
     {
         tempFragment=fragment;
 
-        getDummyData();
+        mDataBase=dataBase;
+
+
+
+        list=getDummyData();
     }
 
 
@@ -47,13 +59,14 @@ public class DailyPicAdapter extends RecyclerView.Adapter<DailyPicAdapter.ViewHo
 
         if(i==0)
         {
-            if(list.get(i).getPath()==null) {
+            if(list.get(i).getPicData()==null) {
                 viewHolder.dailyPick.setImageResource(R.drawable.ic_camera);
             }
             else
             {
-                Bitmap selectedImage = BitmapFactory.decodeFile(list.get(i).getPath());
-                viewHolder.dailyPick.setImageBitmap(selectedImage);
+                byte []  picData=list.get(i).getPicData();
+                Bitmap bmp = BitmapFactory.decodeByteArray(picData, 0, picData.length);
+                viewHolder.dailyPick.setImageBitmap(bmp);
             }
 
             viewHolder.timeTV.setText("Today");
@@ -64,9 +77,20 @@ public class DailyPicAdapter extends RecyclerView.Adapter<DailyPicAdapter.ViewHo
         }
         else {
 
-            viewHolder.dailyPick.setImageResource(list.get(i).getTempRecourse());
+            byte []  picData=list.get(i).getPicData();
 
-            viewHolder.timeTV.setText(list.get(i).getTime());
+            if(picData!=null)
+            {
+                Bitmap bmp = BitmapFactory.decodeByteArray(picData, 0, picData.length);
+                viewHolder.dailyPick.setImageBitmap(bmp);
+            }
+            else
+            {
+                viewHolder.dailyPick.setImageResource(R.drawable.ic_holder);
+            }
+
+
+            viewHolder.timeTV.setText((i+1)+" week");
         }
 
     }
@@ -82,9 +106,20 @@ public class DailyPicAdapter extends RecyclerView.Adapter<DailyPicAdapter.ViewHo
     {
         if(list!=null)
         {
+            Bitmap  bitmap=BitmapFactory.decodeFile(imagePath);
           DailyPick dailyPick= list.get(0);
-          dailyPick.setPath(imagePath);
-          notifyDataSetChanged();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 70, stream);
+            final byte[] byteArray = stream.toByteArray();
+
+            dailyPick.setPicData(byteArray);
+
+
+           /* DB_DailyFitnessPic db_dailyFitnessPic=
+
+
+
+          notifyDataSetChanged();*/
         }
 
     }
@@ -123,30 +158,52 @@ public class DailyPicAdapter extends RecyclerView.Adapter<DailyPicAdapter.ViewHo
     private  ArrayList<DailyPick>  getDummyData()
     {
 
-        DailyPick dailyPick1=new DailyPick();
-        dailyPick1.setTempRecourse(R.drawable.profile2);
-        dailyPick1.setTime("1 week");
+        ArrayList<DailyPick>  dailyPicks=new ArrayList<>();
 
-        DailyPick dailyPick2=new DailyPick();
-        dailyPick2.setTempRecourse(R.drawable.profile2);
-        dailyPick2.setTime("2 week");
+        try {
 
-        DailyPick dailyPick3=new DailyPick();
-        dailyPick3.setTempRecourse(R.drawable.profile2);
-        dailyPick3.setTime("3 week");
+            final RealmResults<DB_DailyFitnessPic> user = mDataBase.where(DB_DailyFitnessPic.class)
+                    .equalTo("user_email", SaveSharedPreference.getUserID(tempFragment.getContext()))
 
-        DailyPick dailyPick4=new DailyPick();
-        dailyPick4.setTempRecourse(R.drawable.profile2);
-        dailyPick4.setTime("4 week");
+                    .findAll();
 
-        list=new ArrayList<>();
 
-        list.add(dailyPick1);
-        list.add(dailyPick2);
-        list.add(dailyPick3);
-        list.add(dailyPick4);
+            if (user.size() > 0) {
 
-        return list;
+                for (int i = 0; i < user.size(); i++) {
+                    DailyPick dailyPick = new DailyPick();
+
+                    dailyPicks.add(dailyPick);
+
+                }
+
+            }
+
+            if (dailyPicks.size() == 0)
+            {
+                dailyPicks.add(new DailyPick());
+                dailyPicks.add(new DailyPick());
+                dailyPicks.add(new DailyPick());
+                dailyPicks.add(new DailyPick());
+                dailyPicks.add(new DailyPick());
+                dailyPicks.add(new DailyPick());
+                dailyPicks.add(new DailyPick());
+                dailyPicks.add(new DailyPick());
+                dailyPicks.add(new DailyPick());
+                dailyPicks.add(new DailyPick());
+            }
+
+
+
+        }catch (Exception ex)
+        {
+            ex.toString();
+        }
+
+
+
+              return  dailyPicks;
+
 
     }
 

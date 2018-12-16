@@ -1,8 +1,13 @@
 package com.kampen.riks.app.rikskampen;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.design.widget.Snackbar;
 import android.support.multidex.MultiDexApplication;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.facebook.stetho.Stetho;
 import com.kampen.riks.app.rikskampen.user.model.DB_User;
@@ -64,4 +69,17 @@ public class MyApplication  extends MultiDexApplication {
 
         System.exit(1); // kill off the crashed app
     }
+
+    public static  void showSimpleSnackBar(Context mContext, String message)
+    {
+
+        View rootView=((AppCompatActivity)mContext).findViewById(android.R.id.content);
+
+        Snackbar snackbar = Snackbar.make(rootView, message, Snackbar.LENGTH_LONG);
+        View snackBarView = snackbar.getView();
+        snackBarView.setBackgroundColor(Color.parseColor("#cc0000"));
+        snackbar.show();
+    }
+
+
 }

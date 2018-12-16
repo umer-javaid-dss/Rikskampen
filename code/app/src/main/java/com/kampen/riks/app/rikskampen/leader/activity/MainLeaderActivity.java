@@ -160,8 +160,15 @@ public class MainLeaderActivity extends AppCompatActivity {
 
         try {
 
-            if (mFragments[0] != null) {
+            Fragment f = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
+
+            if(f instanceof HomeFragment){
                 mFragments[0].onActivityResult(requestCode, resultCode, data);
+            }
+            else if(f instanceof MapFragment)
+            {
+             mFragments[1].onActivityResult(requestCode, resultCode, data);
+
             }
         }catch (Exception ex)
         {

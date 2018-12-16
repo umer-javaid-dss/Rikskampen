@@ -12,10 +12,17 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.facebook.stetho.server.http.HttpStatus;
+import com.kampen.riks.app.rikskampen.api.remote_api.Generic_Result;
+import com.kampen.riks.app.rikskampen.api.remote_api.models.RemoteUser;
+import com.kampen.riks.app.rikskampen.api.remote_api.models.RemoteUserResult;
+import com.kampen.riks.app.rikskampen.data_manager.Data_manager;
 import com.kampen.riks.app.rikskampen.leader.activity.MainLeaderActivity;
+import com.kampen.riks.app.rikskampen.leader.activity.fragments.plans.SelectPlansActivity;
 import com.kampen.riks.app.rikskampen.user.model.DB_User;
 import com.kampen.riks.app.rikskampen.user.module.DB_User_Module;
 import com.kampen.riks.app.rikskampen.utils.Constants;
+import com.kampen.riks.app.rikskampen.utils.Custom_Progress_Module.ProgressManager;
 import com.kampen.riks.app.rikskampen.utils.SaveSharedPreference;
 
 import java.text.SimpleDateFormat;
@@ -28,12 +35,13 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
-public class SignUpActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity implements Data_manager.Manage_SignUp {
 
 
 
 
     private  EditText mUserFname;
+    private  EditText mUserLname;
 
     private  EditText mUserEmail;
     private  EditText mUserPass;
@@ -41,12 +49,14 @@ public class SignUpActivity extends AppCompatActivity {
     private  EditText mUserDOB;
     private  EditText mUserHeight;
 
-    /*private  EditText mUserHeightInFeet;
-    private  EditText mUserHeightInInches;*/
+
     private  EditText mUserWeight;
     private  EditText mUserGender;
 
     private Realm mRealm;
+
+
+    private   Data_manager data_manager;
 
 
     @Override
@@ -54,8 +64,9 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        mUserFname=findViewById(R.id.editText_fullName);
-        //mUserLname=findViewById(R.id.editText_lName);
+        mUserFname=findViewById(R.id.editText_fName);
+        mUserLname=findViewById(R.id.editText_lName);
+
         mUserEmail=findViewById(R.id.editText_email);
         mUserPass=findViewById(R.id.editText_pass);
         mUserPassC=findViewById(R.id.editText_pass_c);
@@ -68,7 +79,13 @@ public class SignUpActivity extends AppCompatActivity {
 
 
         setUpDB();
+
+        data_manager=new Data_manager();
     }
+
+
+
+
 
 
     private void  setUpDB()
@@ -139,13 +156,13 @@ public class SignUpActivity extends AppCompatActivity {
             return false;
         }
 
-        if(mUserDOB.getText().toString().trim().length()==0)
+        /*if(mUserDOB.getText().toString().trim().length()==0)
         {
             mUserDOB.requestFocus();
             mUserDOB.setError("Select date of birth");
             return false;
 
-        }
+        }*/
 
        /* if(mUserHeightInFeet.getText().toString().trim().length()==0)
         {
@@ -163,7 +180,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         }*/
 
-        if(mUserWeight.getText().toString().trim().length()==0)
+       /* if(mUserWeight.getText().toString().trim().length()==0)
         {
             mUserWeight.requestFocus();
             mUserWeight.setError("Enter weight in lbs");
@@ -177,7 +194,7 @@ public class SignUpActivity extends AppCompatActivity {
             mUserGender.setError("Select gender");
             return false;
 
-        }
+        }*/
 
 
 
@@ -192,14 +209,38 @@ public class SignUpActivity extends AppCompatActivity {
         if(validateData( )) {
 
 
-            if(createProfileLocal()) {
+            /*if(createProfileLocal()) {
 
                 SaveSharedPreference.setLoggedIn(getApplicationContext(), true,MyApplication.tempUser.getEmail(),MyApplication.tempUser.getPass());
 
                 Intent intent = new Intent(getApplicationContext(), MainLeaderActivity.class);
                 startActivity(intent);
                 finish();
-            }
+            }*/
+
+
+            ProgressManager.showProgress(SignUpActivity.this,"Please Wait...");
+
+            final String fName= mUserFname.getText().toString();
+
+            final String lName= mUserLname.getText().toString();
+
+            final String email= mUserEmail.getText().toString();
+            final String pass =mUserPass.getText().toString();
+
+            RemoteUser remoteUser=new RemoteUser();
+            remoteUser.setEmail(email);
+            remoteUser.setPassword(pass);
+            remoteUser.setFirstname(fName);
+            remoteUser.setLastname(lName);
+
+            data_manager.setSignUpListener(SignUpActivity.this);
+
+            data_manager.signUpUserAPI(remoteUser);
+
+
+
+
         }
     }
 
@@ -219,14 +260,14 @@ public class SignUpActivity extends AppCompatActivity {
        //final String lName= mUserLname.getText().toString();
        final String email= mUserEmail.getText().toString();
        final String pass =mUserPass.getText().toString();
-       final int    age  =0;
+       /*final int    age  =0;
 
         final String dob=mUserDOB.getText().toString();
 
        final int    height_ft= Integer.parseInt(mUserHeight.getText().toString());
       // final int    height_in= Integer.parseInt(mUserHeightInInches.getText().toString());
        final int    weight=Integer.parseInt(mUserWeight.getText().toString());
-
+        */
         final RealmResults<DB_User> user = mRealm.where(DB_User.class)
                 .equalTo("email",email.trim())
                 .and()
@@ -258,20 +299,20 @@ public class SignUpActivity extends AppCompatActivity {
 
                 DB_User db_user = realm.createObject(DB_User.class);
                 db_user.setId("12345");
-                db_user.setAge(age);
-                db_user.setDob(dob);
+                //db_user.setAge(age);
+                //db_user.setDob(dob);
                 db_user.setEmail(email);
                 db_user.setPass(pass);
                 db_user.setF_name(fName);
                 db_user.setL_name("");
                 db_user.setProfile_image("");
                 db_user.setRole("c");
-                db_user.setUser_gender(gender);
-                db_user.setHeight_in_cm(height_ft);
+                //db_user.setUser_gender(gender);
+                //db_user.setHeight_in_cm(height_ft);
                 //db_user.setHeight_in_inches(height_in);
-                db_user.setHeight_unit("ft");
-                db_user.setWeight(weight);
-                db_user.setWeight_unit("kg");
+                //db_user.setHeight_unit("ft");
+                //db_user.setWeight(weight);
+                //db_user.setWeight_unit("kg");
 
 
                 MyApplication.tempUser=db_user;
@@ -430,4 +471,80 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onSignUpSuccess(Generic_Result<RemoteUserResult> obj) {
+
+
+
+        if(obj.getCode().equals(HttpStatus.HTTP_OK+"")) {
+
+
+            try {
+                mRealm.executeTransaction(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+
+                        DB_User db_user = realm.createObject(DB_User.class);
+                        //db_user.setId("12345");
+
+                        db_user.setEmail(obj.getResult().getUser().getEmail().toString());
+
+                        db_user.setF_name(obj.getResult().getUser().getFirstname());
+
+                        db_user.setPass(mUserPass.getText().toString().trim());
+
+                        db_user.setL_name(obj.getResult().getUser().getLastname());
+                        db_user.setProfile_image("");
+                        //db_user.setRole("1");
+
+
+                        SaveSharedPreference.saveUserID(SignUpActivity.this, db_user.getEmail());
+
+
+                        MyApplication.tempUser = db_user;
+
+                        Intent intent = new Intent(getApplicationContext(), SelectPlansActivity.class);
+                        startActivity(intent);
+                        finish();
+
+
+                    }
+                });
+
+            } catch (Exception ex) {
+
+
+                MyApplication.showSimpleSnackBar(SignUpActivity.this,obj.getMsg().toString());
+
+            }
+
+
+        }
+        else
+        {
+            MyApplication.showSimpleSnackBar(SignUpActivity.this,obj.getMsg().toString());
+        }
+
+
+        ProgressManager.hideProgress();
+
+
+
+
+
+
+
+
+    }
+
+    @Override
+    public void onSignUpFailed(String message) {
+
+        ProgressManager.hideProgress();
+
+
+        MyApplication.showSimpleSnackBar(SignUpActivity.this,message);
+
+
+    }
 }
