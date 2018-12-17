@@ -50,6 +50,14 @@
     <string name="location_permission_denied">Location permission denied</string>
 
 
+    <string name="intro_txt">The National Championship is an online-based PT-led contest where the participants shall compete in making the biggest change over 10 weeks. The competition aims at better health and is a fight against osunda
+habits, as sedentary, unhealthy diet and dependency. To assist, the participant will be able to take part training videos and dietary tips from personal coaches.
+The participants compete for $ 100,000 in prize money.</string>
+
+
+    <string name="text_des">Primarily the shoulder muscles and the deltoids are worked in this exercise, but other muscles such as the trapezius at the back of the neck and back, the triceps at the back of the upper arm, and the upper chest are also recruited.</string>
+
+
     <string-array name="Spinner_Content">
         <item>One</item>
         <item>Two</item>

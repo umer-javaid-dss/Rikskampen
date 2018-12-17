@@ -217,7 +217,7 @@ public class LoginActivity extends AppCompatActivity implements Data_manager.Man
         ProgressManager.hideProgress();
 
 
-        if(user.getCode().equals(HttpStatus.HTTP_OK+"")) {
+        if(user!=null && user.getCode().equals(HttpStatus.HTTP_OK+"")) {
 
 
             final RealmResults<DB_User> local_user = mRealm.where(DB_User.class)
@@ -286,7 +286,7 @@ public class LoginActivity extends AppCompatActivity implements Data_manager.Man
             }
             else
             {
-                MyApplication.showSimpleSnackBar(LoginActivity.this,user.getCode());
+                MyApplication.showSimpleSnackBar(LoginActivity.this,"Some error occur");
             }
 
 

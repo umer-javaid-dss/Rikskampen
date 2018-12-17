@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="200dp"
     android:gravity="center"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
     android:orientation="vertical"
-    android:background="@android:color/white"
-    android:layout_marginBottom="2dp"
-
+    android:background="@drawable/item_background_white"
+    android:layout_marginBottom="5dp"
 
     android:elevation="5dp">
 
@@ -15,21 +16,36 @@
 
     <ImageView
         android:id="@+id/weekImage"
+
+        android:background="@color/dark_gray"
         android:layout_width="match_parent"
+        android:scaleType="fitXY"
         android:src="@drawable/ic_declinebench"
         android:layout_height="150dp" />
 
 
     <TextView
+        android:layout_below="@id/weekImage"
         android:id="@+id/videoItemId"
         android:layout_width="wrap_content"
         android:layout_marginTop="5dp"
         android:text="test123"
         android:textSize="20dp"
-        android:layout_marginBottom="3dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
         android:textColor="@android:color/darker_gray"
         android:layout_height="wrap_content" />
 
 
 
-</LinearLayout>
+    <ImageView
+        android:layout_width="50dp"
+
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:src="@android:drawable/ic_media_play"
+        android:layout_height="50dp" />
+
+
+
+</RelativeLayout>

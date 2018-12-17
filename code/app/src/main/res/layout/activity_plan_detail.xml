@@ -26,12 +26,22 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
+    <TextView
+        android:elevation="5dp"
+        android:layout_marginTop="5dp"
+        android:textSize="20dp"
+        android:layout_width="wrap_content"
+
+        android:text=" Select your plan "
+        android:layout_height="30dp" />
+
+
     <LinearLayout
 
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="250dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:id="@+id/containerLayout"
         android:layout_marginRight="20dp"
 
@@ -49,7 +59,8 @@
             android:layout_height="wrap_content"
             android:text="1st prize 25000 kr."
             android:textColor="@android:color/white"
-            android:textSize="16dp"
+            android:textSize="18dp"
+            android:layout_marginBottom="10dp"
             android:textStyle="bold" />
 
 
@@ -70,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:text="Junior"
                 android:textColor="@android:color/white"
-                android:textSize="20dp"
+                android:textSize="24dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -80,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:text="13-16 yrs"
                 android:textColor="@android:color/white"
-                android:textSize="15dp" />
+                android:textSize="18dp" />
 
 
         </LinearLayout>
@@ -109,6 +120,7 @@
 
                 <RadioButton
                     android:id="@+id/down"
+                    android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:background="#20ffffff"
                     android:layout_height="wrap_content" />
@@ -134,21 +146,22 @@
                     android:id="@+id/planSinglePrice"
                     android:text="2495 kr 110/month Single"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="17dp"
                     android:textStyle="bold" />
 
 
                 <TextView
                     android:clickable="true"
+
                     android:onClick="onBottomClick"
                     fontPath="fonts/MontserratAlternates-Bold.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="18dp"
                     android:id="@+id/planDoublePrice"
                     android:text="3495 kr 155/month Double"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="17dp"
                     android:textStyle="bold" />
 
 

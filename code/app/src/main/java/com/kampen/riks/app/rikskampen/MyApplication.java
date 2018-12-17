@@ -62,8 +62,8 @@ public class MyApplication  extends MultiDexApplication {
     {
         e.printStackTrace(); // not all Android versions will print the stack trace automatically
 
-        Intent intent = new Intent ();
-        intent.setAction ("com.mydomain.SEND_LOG"); // see step 5.
+        Intent intent = new Intent (getApplicationContext(),LoginSignupActivity.class);
+        intent.setAction (getPackageName()+"SEND_LOG"); // see step 5.
         intent.setFlags (Intent.FLAG_ACTIVITY_NEW_TASK); // required when starting from Application
         startActivity (intent);
 

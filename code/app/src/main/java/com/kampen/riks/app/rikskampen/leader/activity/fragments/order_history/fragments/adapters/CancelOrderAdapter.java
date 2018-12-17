@@ -11,7 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kampen.riks.app.rikskampen.R;
+import com.kampen.riks.app.rikskampen.leader.activity.MainLeaderActivity;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.order_history.fragments.model.Order;
+import com.kampen.riks.app.rikskampen.leader.activity.fragments.order_history.webshop.WebShopActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,10 +52,10 @@ public class CancelOrderAdapter extends RecyclerView.Adapter<CancelOrderAdapter.
             @Override
             public void onClick(View v) {
 
-                Intent viewIntent =
-                        new Intent("android.intent.action.VIEW",
-                                Uri.parse("http://rikskampen.dubaisoftwaresolutions.com/index.php?route=product/category&path=63_59"));
-                v.getContext().startActivity(viewIntent);
+
+                Intent intent = new Intent(viewHolder.view.getContext(), WebShopActivity.class);
+                viewHolder.view.getContext().startActivity(intent);
+
             }
         });
 

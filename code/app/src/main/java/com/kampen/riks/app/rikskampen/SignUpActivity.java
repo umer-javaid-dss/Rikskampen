@@ -18,6 +18,7 @@ import com.kampen.riks.app.rikskampen.api.remote_api.models.RemoteUser;
 import com.kampen.riks.app.rikskampen.api.remote_api.models.RemoteUserResult;
 import com.kampen.riks.app.rikskampen.data_manager.Data_manager;
 import com.kampen.riks.app.rikskampen.leader.activity.MainLeaderActivity;
+import com.kampen.riks.app.rikskampen.leader.activity.fragments.plans.IntroActivity;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.plans.SelectPlansActivity;
 import com.kampen.riks.app.rikskampen.user.model.DB_User;
 import com.kampen.riks.app.rikskampen.user.module.DB_User_Module;
@@ -73,7 +74,7 @@ public class SignUpActivity extends AppCompatActivity implements Data_manager.Ma
         mUserDOB=findViewById(R.id.editText_Age);
         mUserHeight=findViewById(R.id.editTextHeight);
 
-        //mUserHeightInInches=findViewById(R.id.editText_Height_I);
+
         mUserWeight=findViewById(R.id.editText_Weight);
         mUserGender=findViewById(R.id.editText_Sex);
 
@@ -156,45 +157,7 @@ public class SignUpActivity extends AppCompatActivity implements Data_manager.Ma
             return false;
         }
 
-        /*if(mUserDOB.getText().toString().trim().length()==0)
-        {
-            mUserDOB.requestFocus();
-            mUserDOB.setError("Select date of birth");
-            return false;
 
-        }*/
-
-       /* if(mUserHeightInFeet.getText().toString().trim().length()==0)
-        {
-            mUserHeightInFeet.requestFocus();
-            mUserHeightInFeet.setError("Enter height in feet");
-            return false;
-
-        }
-
-        if(mUserHeightInInches.getText().toString().trim().length()==0)
-        {
-            mUserHeightInInches.requestFocus();
-            mUserHeightInInches.setError("Enter height in feet");
-            return false;
-
-        }*/
-
-       /* if(mUserWeight.getText().toString().trim().length()==0)
-        {
-            mUserWeight.requestFocus();
-            mUserWeight.setError("Enter weight in lbs");
-            return false;
-
-        }
-
-        if(mUserGender.getText().toString().trim().length()==0)
-        {
-            mUserGender.requestFocus();
-            mUserGender.setError("Select gender");
-            return false;
-
-        }*/
 
 
 
@@ -209,15 +172,7 @@ public class SignUpActivity extends AppCompatActivity implements Data_manager.Ma
         if(validateData( )) {
 
 
-            /*if(createProfileLocal()) {
-
-                SaveSharedPreference.setLoggedIn(getApplicationContext(), true,MyApplication.tempUser.getEmail(),MyApplication.tempUser.getPass());
-
-                Intent intent = new Intent(getApplicationContext(), MainLeaderActivity.class);
-                startActivity(intent);
-                finish();
-            }*/
-
+            Constants.hideSoftKeyboard(view,SignUpActivity.this);
 
             ProgressManager.showProgress(SignUpActivity.this,"Please Wait...");
 
@@ -251,78 +206,7 @@ public class SignUpActivity extends AppCompatActivity implements Data_manager.Ma
     }
 
 
-    private  boolean createProfileLocal()
-    {
 
-
-
-       final String fName= mUserFname.getText().toString();
-       //final String lName= mUserLname.getText().toString();
-       final String email= mUserEmail.getText().toString();
-       final String pass =mUserPass.getText().toString();
-       /*final int    age  =0;
-
-        final String dob=mUserDOB.getText().toString();
-
-       final int    height_ft= Integer.parseInt(mUserHeight.getText().toString());
-      // final int    height_in= Integer.parseInt(mUserHeightInInches.getText().toString());
-       final int    weight=Integer.parseInt(mUserWeight.getText().toString());
-        */
-        final RealmResults<DB_User> user = mRealm.where(DB_User.class)
-                .equalTo("email",email.trim())
-                .and()
-                .equalTo("pass",pass.trim())
-                .findAll();
-
-        if(user!=null && user.size()>0) {
-
-            Toast.makeText(this, "user already exits!", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-
-       int temGender=1;
-
-       if(mUserGender.getText().toString().toLowerCase().equals("male"))
-       {
-           temGender=1;
-       }
-       else
-       {
-           temGender=2;
-       }
-       final int    gender=temGender;
-
-        mRealm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-
-                DB_User db_user = realm.createObject(DB_User.class);
-                db_user.setId("12345");
-                //db_user.setAge(age);
-                //db_user.setDob(dob);
-                db_user.setEmail(email);
-                db_user.setPass(pass);
-                db_user.setF_name(fName);
-                db_user.setL_name("");
-                db_user.setProfile_image("");
-                db_user.setRole("c");
-                //db_user.setUser_gender(gender);
-                //db_user.setHeight_in_cm(height_ft);
-                //db_user.setHeight_in_inches(height_in);
-                //db_user.setHeight_unit("ft");
-                //db_user.setWeight(weight);
-                //db_user.setWeight_unit("kg");
-
-
-                MyApplication.tempUser=db_user;
-
-
-            }
-        });
-
-        return true;
-    }
 
     @Override
     public void onBackPressed() {
@@ -476,7 +360,7 @@ public class SignUpActivity extends AppCompatActivity implements Data_manager.Ma
 
 
 
-        if(obj.getCode().equals(HttpStatus.HTTP_OK+"")) {
+        if(obj!=null && obj.getCode().equals(HttpStatus.HTTP_OK+"")) {
 
 
             try {
@@ -498,12 +382,13 @@ public class SignUpActivity extends AppCompatActivity implements Data_manager.Ma
                         //db_user.setRole("1");
 
 
-                        SaveSharedPreference.saveUserID(SignUpActivity.this, db_user.getEmail());
+                        SaveSharedPreference.setLoggedIn(getApplicationContext(), true, MyApplication.tempUser.getEmail(), mUserPass.getText().toString());
+                        SaveSharedPreference.saveUserID(SignUpActivity.this, MyApplication.tempUser.getEmail());
 
 
                         MyApplication.tempUser = db_user;
 
-                        Intent intent = new Intent(getApplicationContext(), SelectPlansActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), IntroActivity.class);
                         startActivity(intent);
                         finish();
 
@@ -522,7 +407,7 @@ public class SignUpActivity extends AppCompatActivity implements Data_manager.Ma
         }
         else
         {
-            MyApplication.showSimpleSnackBar(SignUpActivity.this,obj.getMsg().toString());
+            MyApplication.showSimpleSnackBar(SignUpActivity.this,"Some error occur");
         }
 
 

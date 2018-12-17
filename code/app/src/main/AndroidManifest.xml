@@ -78,13 +78,16 @@
         <activity
             android:name=".leader.activity.fragments.home.traings.workout.WeekWorkOutActivity"
             android:theme="@style/AppThemeFullScreen" />
-
         <activity
             android:name=".leader.activity.fragments.home.traings.nutrition.WeekNutritionActivity"
             android:theme="@style/AppThemeFullScreen" />
-
-
-        <activity android:name=".leader.activity.fragments.plans.PlanDetailActivity"
+        <activity
+            android:name=".leader.activity.fragments.plans.PlanDetailActivity"
+            android:theme="@style/AppThemeFullScreen" />
+        <activity
+            android:name=".leader.activity.fragments.order_history.webshop.WebShopActivity"
+            android:theme="@style/AppThemeFullScreen" />
+        <activity android:name=".leader.activity.fragments.home.traings.workout.workout_video.VideoPlayActivity"
             android:theme="@style/AppThemeFullScreen">
 
         </activity>
