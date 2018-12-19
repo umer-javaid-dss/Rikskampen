@@ -4,8 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.kampen.riks.app.rikskampen.R;
+import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.workout.adapter.DayOneWorkoutAdapter;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.workout.adapter.WeekWorkOutAdapter;
 
 public class WeekWorkOutActivity extends AppCompatActivity {
@@ -14,7 +16,9 @@ public class WeekWorkOutActivity extends AppCompatActivity {
 
     RecyclerView workoutWeekRV;
 
-    WeekWorkOutAdapter weekWorkOutAdapter;
+    DayOneWorkoutAdapter mDayOneWorkoutAdapter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,19 +28,25 @@ public class WeekWorkOutActivity extends AppCompatActivity {
 
 
 
-        workoutWeekRV=findViewById(R.id.workoutWeekRV);
+        workoutWeekRV=findViewById(R.id.workoutWeekRVDayOne);
 
 
-        weekWorkOutAdapter=new WeekWorkOutAdapter();
+        mDayOneWorkoutAdapter=new DayOneWorkoutAdapter(WeekWorkOutActivity.this);
 
 
         LinearLayoutManager mLayoutManager1 = new LinearLayoutManager(this);
-        mLayoutManager1.setOrientation(LinearLayoutManager.VERTICAL);
+        mLayoutManager1.setOrientation(LinearLayoutManager.HORIZONTAL);
+
 
         workoutWeekRV.setLayoutManager(mLayoutManager1);
 
-        workoutWeekRV.setAdapter(weekWorkOutAdapter);
+        workoutWeekRV.setAdapter(mDayOneWorkoutAdapter);
 
+    }
+
+    public void onBackClick(View view) {
+
+        finish();
 
     }
 }

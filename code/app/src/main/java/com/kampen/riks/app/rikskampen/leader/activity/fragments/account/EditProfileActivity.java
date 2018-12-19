@@ -24,12 +24,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.facebook.stetho.server.http.HttpStatus;
 import com.kampen.riks.app.rikskampen.MyApplication;
 import com.kampen.riks.app.rikskampen.R;
 
+import com.kampen.riks.app.rikskampen.SignUpActivity;
+import com.kampen.riks.app.rikskampen.api.remote_api.Generic_Result;
+import com.kampen.riks.app.rikskampen.api.remote_api.models.RemoteUser;
+import com.kampen.riks.app.rikskampen.api.remote_api.models.RemoteUserResult;
+import com.kampen.riks.app.rikskampen.data_manager.Data_manager;
 import com.kampen.riks.app.rikskampen.user.model.DB_User;
 import com.kampen.riks.app.rikskampen.user.module.DB_User_Module;
 import com.kampen.riks.app.rikskampen.utils.Constants;
+import com.kampen.riks.app.rikskampen.utils.Custom_Progress_Module.ProgressManager;
 
 
 import java.io.ByteArrayOutputStream;
@@ -45,7 +52,7 @@ import in.mayanknagwanshi.imagepicker.imagePicker.ImagePicker;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
-public class EditProfileActivity extends AppCompatActivity {
+public class EditProfileActivity extends AppCompatActivity implements Data_manager.Manage_UpdateUser {
 
 
 
@@ -55,10 +62,13 @@ public class EditProfileActivity extends AppCompatActivity {
     private  TextView mUserWeight;
     private TextView mUserGender;
 
+    private  TextView mfNameValue;
+
+    private  TextView mlNameValue;
+
+    private  TextView mPassValue;
+
     private Realm mRealm;
-
-    //private StorageReference mStorageRef;
-
 
 
     private ImagePicker imagePicker;
@@ -99,11 +109,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
 
-
-       // mStorageRef = FirebaseStorage.getInstance().getReference();
-
-
-
     }
 
 
@@ -131,10 +136,15 @@ public class EditProfileActivity extends AppCompatActivity {
                 final int    weight=mUser.getWeight();
                 final int    gender=mUser.getUser_gender();
 
+
+                mfNameValue.setText(mUser.getF_name());
+                mlNameValue.setText(mUser.getL_name());
+
                 mUserDOB.setText(dob);
                 mUserHeight.setText(height_ft+" cm");
                 mUserWeight.setText(weight+" kg");
                 mUserGender.setText(""+(gender==1?"Male":"Female"));
+                mPassValue.setText(mUser.getPass());
 
 
             }
@@ -142,6 +152,65 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
+
+
+    private  void updateFirstName(final String fname)
+    {
+
+
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+
+                DB_User db_user = mUser;
+
+                db_user.setF_name(fname);
+                realm.insertOrUpdate(db_user);
+                MyApplication.tempUser=db_user;
+
+                upDateUserOnServer(db_user);
+            }
+        });
+    }
+
+
+    private  void updateLastName(final String lname)
+    {
+
+
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+
+                DB_User db_user = mUser;
+
+                db_user.setL_name(lname);
+                realm.insertOrUpdate(db_user);
+                MyApplication.tempUser=db_user;
+
+                upDateUserOnServer(db_user);
+            }
+        });
+    }
+
+    private  void updatePassword(final String pass)
+    {
+
+
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+
+                DB_User db_user = mUser;
+
+                db_user.setPass(pass);
+                realm.insertOrUpdate(db_user);
+                MyApplication.tempUser=db_user;
+
+                upDateUserOnServer(db_user);
+            }
+        });
+    }
 
 
 
@@ -279,6 +348,13 @@ public class EditProfileActivity extends AppCompatActivity {
         mUserHeight=findViewById(R.id.heightValue);
 
         mUserWeight=findViewById(R.id.weightValue);
+
+        mfNameValue=findViewById(R.id.fNameValue);
+
+        mlNameValue=findViewById(R.id.lNameValue);
+
+        mPassValue=findViewById(R.id.passValue);
+
 
     }
 
@@ -602,7 +678,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     try {
                         imagePicker.withActivity(EditProfileActivity.this) //calling from activity
 
-                                .chooseFromGallery(false) //default is true
+                                .chooseFromGallery(true) //default is true
 
                                 .withCompression(true) //default is true
                                 .start();
@@ -781,6 +857,228 @@ public class EditProfileActivity extends AppCompatActivity {
     public void onBackClick(View view) {
 
         finish();
+
+    }
+
+    public void onFNameClick(View view) {
+
+
+
+        LayoutInflater li = LayoutInflater.from(this);
+        View promptsView = li.inflate(R.layout.prompts_height, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        // set prompts.xml to alertdialog builder
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInput = (EditText) promptsView
+                .findViewById(R.id.editTextDialogUserInput);
+
+        final TextView titleInput = (TextView) promptsView.findViewById(R.id.textView1);
+
+
+
+        userInput.setInputType(InputType.TYPE_CLASS_TEXT);
+
+
+        titleInput.setText("Enter your first name");
+
+
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+
+                                mfNameValue.setText(userInput.getText());
+
+                                updateFirstName(userInput.getText().toString());
+
+
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+
+        alertDialog.show();
+
+
+    }
+
+    public void onLNameClick(View view) {
+
+        LayoutInflater li = LayoutInflater.from(this);
+        View promptsView = li.inflate(R.layout.prompts_height, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        // set prompts.xml to alertdialog builder
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInput = (EditText) promptsView
+                .findViewById(R.id.editTextDialogUserInput);
+
+        final TextView titleInput = (TextView) promptsView.findViewById(R.id.textView1);
+
+
+
+        userInput.setInputType(InputType.TYPE_CLASS_TEXT);
+
+
+        titleInput.setText("Enter your last name");
+
+
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+
+                                mlNameValue.setText(userInput.getText());
+
+                                updateLastName(userInput.getText().toString());
+
+
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+
+        alertDialog.show();
+
+
+    }
+
+
+
+
+    private    void upDateUserOnServer(DB_User user)
+    {
+
+           ProgressManager.showProgress(EditProfileActivity.this,"Updating user");
+
+           RemoteUser  remoteUser=new RemoteUser();
+
+            remoteUser.setId(user.getId());
+
+            remoteUser.setFirstname(user.getF_name());
+
+            remoteUser.setLastname(user.getL_name());
+
+            remoteUser.setPassword(user.getPass());
+
+           Data_manager data_manager=new Data_manager();
+
+           data_manager.setUpDateUserListener(EditProfileActivity.this);
+
+           data_manager.upDateUserAPI(remoteUser);
+
+    }
+
+
+
+
+    @Override
+    public void onUserUpdateSuccess(Generic_Result<RemoteUserResult> res) {
+
+
+
+        if(res!=null && res.getCode().equals(HttpStatus.HTTP_OK+"")) {
+
+            MyApplication.showSimpleSnackBar(EditProfileActivity.this,res.getMsg().toString());
+
+        }
+        else if(res!=null )
+        {
+            MyApplication.showSimpleSnackBar(EditProfileActivity.this,res.getCode());
+        }
+        else
+        {
+            MyApplication.showSimpleSnackBar(EditProfileActivity.this,"Some error occur");
+        }
+
+
+
+        ProgressManager.hideProgress();
+
+    }
+
+    @Override
+    public void onUserUpdateUpFailed(String message) {
+
+        MyApplication.showSimpleSnackBar(EditProfileActivity.this,"Some error occur");
+
+
+        ProgressManager.hideProgress();
+
+    }
+
+    public void onPassClick(View view) {
+
+        LayoutInflater li = LayoutInflater.from(this);
+        View promptsView = li.inflate(R.layout.prompts_height, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        // set prompts.xml to alertdialog builder
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInput = (EditText) promptsView
+                .findViewById(R.id.editTextDialogUserInput);
+
+        final TextView titleInput = (TextView) promptsView.findViewById(R.id.textView1);
+
+
+
+        userInput.setInputType(InputType.TYPE_CLASS_TEXT);
+
+
+        titleInput.setText("Change your password");
+
+
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+
+                                mPassValue.setText(userInput.getText());
+
+                                updatePassword(userInput.getText().toString());
+
+
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+
+        alertDialog.show();
+
 
     }
 }

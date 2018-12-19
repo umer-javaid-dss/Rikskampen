@@ -255,6 +255,12 @@ public class LoginActivity extends AppCompatActivity implements Data_manager.Man
                 });
 
                }
+               else
+            {
+                MyApplication.tempUser=local_user.get(0);
+                SaveSharedPreference.setLoggedIn(getApplicationContext(), true, MyApplication.tempUser.getEmail(), mUserPass.getText().toString());
+                SaveSharedPreference.saveUserID(LoginActivity.this, MyApplication.tempUser.getEmail());
+            }
 
 
             Intent intent = new Intent(getApplicationContext(), MainLeaderActivity.class);

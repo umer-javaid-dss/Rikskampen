@@ -2,13 +2,11 @@ package com.kampen.riks.app.rikskampen.data_manager;
 
 import android.content.Context;
 
-import com.kampen.riks.app.rikskampen.MyApplication;
 import com.kampen.riks.app.rikskampen.api.remote_api.APIService;
 import com.kampen.riks.app.rikskampen.api.remote_api.API_Provider;
 import com.kampen.riks.app.rikskampen.api.remote_api.Generic_Result;
 import com.kampen.riks.app.rikskampen.api.remote_api.models.RemoteUser;
 import com.kampen.riks.app.rikskampen.api.remote_api.models.RemoteUserResult;
-import com.kampen.riks.app.rikskampen.utils.SaveSharedPreference;
 
 import java.util.HashMap;
 
@@ -20,9 +18,11 @@ public class Data_manager {
 
 
 
-    Manage_Login    mManage_Login;
-    Manage_Token    mManage_Token;
+    Manage_Login     mManage_Login;
+    Manage_Token     mManage_Token;
     Manage_SignUp    mManage_SignUp;
+
+    Manage_UpdateUser mManage_UpdateUser;
 
 
 
@@ -196,6 +196,68 @@ public class Data_manager {
     }
 
 
+    public    void  upDateUserAPI(RemoteUser obj)
+    {
+
+
+        try {
+
+            APIService service = API_Provider.provideApi();
+
+
+            HashMap<String,String> hm=new HashMap();
+
+
+
+
+            //hm.put("email",obj.getEmail());
+            //hm.put("password",obj.getPassword());
+            hm.put("firstname",obj.getFirstname());
+            hm.put("lastname", obj.getLastname());
+
+
+            Call<Generic_Result<RemoteUserResult>> call = service.userUpdate(hm);
+
+
+            call.enqueue(new Callback<Generic_Result<RemoteUserResult>>() {
+                @Override
+                public void onResponse(Call<Generic_Result<RemoteUserResult>> call, Response<Generic_Result<RemoteUserResult>> response) {
+
+                    Generic_Result<RemoteUserResult> obj = null;
+
+                    obj = response.body();
+
+
+                    if(mManage_UpdateUser!=null) {
+                        mManage_UpdateUser.onUserUpdateSuccess( obj);
+                    }
+
+
+
+                }
+
+                @Override
+                public void onFailure(Call<Generic_Result<RemoteUserResult>> call, Throwable t) {
+                    //java.lang.IllegalStateException: Expected BEGIN_OBJECT but was STRING at line 1 column 1 path $
+                    t.toString();
+
+                    if (mManage_UpdateUser != null) {
+                        try {
+                            mManage_UpdateUser.onUserUpdateUpFailed(t.getMessage());
+                        }catch (Exception ex){}
+                    }
+
+                }
+            });
+
+        }catch (Exception ex)
+        {
+            ex.toString();
+        }
+
+    }
+
+
     public  void  setTokenListener(Manage_Token listener)
     {
         this.mManage_Token=listener;
@@ -204,6 +266,15 @@ public class Data_manager {
     {
         this.mManage_SignUp=listener;
     }
+
+
+    public  void  setUpDateUserListener(Manage_UpdateUser listener)
+    {
+        this.mManage_UpdateUser =listener;
+    }
+
+
+
     public  void  setLoginListener(Manage_Login listener)
     {
         this.mManage_Login=listener;
@@ -238,6 +309,15 @@ public class Data_manager {
         public void onSignUpFailed(String message);
     }
 
+
+
+    public  interface  Manage_UpdateUser
+    {
+
+
+        public void  onUserUpdateSuccess(Generic_Result<RemoteUserResult> res);
+        public void onUserUpdateUpFailed(String message);
+    }
 
 
 

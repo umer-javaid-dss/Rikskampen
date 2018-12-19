@@ -1,6 +1,10 @@
 package com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.models;
 
-public class NutritionModel {
+import io.realm.Realm;
+import io.realm.RealmObject;
+
+
+public class NutritionModel extends RealmObject {
 
     private String mHabitId;
     private String mHabitName;
@@ -8,6 +12,8 @@ public class NutritionModel {
     private String mJoinedPersons;
     private String mWorkingFrom;
     private int    tempPicture;
+
+
 
     public String getHabitId() {
         return mHabitId;

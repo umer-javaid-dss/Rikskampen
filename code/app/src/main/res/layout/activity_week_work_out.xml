@@ -1,404 +1,296 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+      android:background="#f2f2f2"
     tools:context="com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.workout.WeekWorkOutActivity">
 
 
-    <android.support.v7.widget.RecyclerView
 
-
-        android:id="@+id/workoutWeekRV"
+    <LinearLayout
+        android:id="@+id/headerLyout"
         android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_marginTop="2dp"
+        android:background="@color/colortabselected"
+        android:layout_height="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="Weekly Schedule"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+
+    <ScrollView
+        android:layout_marginBottom="60dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/headerLyout"
+        android:layout_width="match_parent"
+        android:scrollbars="none"
         android:layout_height="match_parent">
+
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+
+    <TextView
+        android:layout_marginTop="10dp"
+
+        android:layout_width="wrap_content"
+        android:textSize="17dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@android:color/darker_gray"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="Today"
+        android:layout_height="25dp" />
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/workoutWeekRVDayOne"
+
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="110dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="2dp"
+        android:background="@color/colorPrimary"
+        android:layout_height="1dp">
+
+    </View>
+
+    <TextView
+        android:layout_marginTop="10dp"
+
+        android:layout_width="wrap_content"
+        android:textSize="17dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@android:color/darker_gray"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="Tuesday"
+        android:layout_height="25dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/workoutWeekRVDayTwo"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="110dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="2dp"
+        android:background="@color/colorPrimary"
+        android:layout_height="1dp">
+
+    </View>
+
+
+
+
+
+    <TextView
+        android:layout_marginTop="10dp"
+
+        android:layout_width="wrap_content"
+        android:textSize="17dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@android:color/darker_gray"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="Wednesday"
+        android:layout_height="25dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/workoutWeekRVDayThre"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="110dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="2dp"
+        android:background="@color/colorPrimary"
+        android:layout_height="1dp">
+
+    </View>
+
+
+
+    <TextView
+        android:layout_marginTop="10dp"
+
+        android:layout_width="wrap_content"
+        android:textSize="17dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@android:color/darker_gray"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="Thursday"
+        android:layout_height="25dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/workoutWeekRVDayFour"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="110dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="2dp"
+        android:background="@color/colorPrimary"
+        android:layout_height="1dp">
+
+    </View>
+
+
+
+    <TextView
+        android:layout_marginTop="10dp"
+
+        android:layout_width="wrap_content"
+        android:textSize="17dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@android:color/darker_gray"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="Friday"
+        android:layout_height="25dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/workoutWeekRVDayFive"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="110dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="2dp"
+        android:background="@color/colorPrimary"
+        android:layout_height="1dp">
+
+    </View>
+
+
+    <TextView
+        android:layout_marginTop="10dp"
+
+        android:layout_width="wrap_content"
+        android:textSize="17dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@android:color/darker_gray"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="Saturday"
+        android:layout_height="25dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/workoutWeekRVDaySix"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="110dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="2dp"
+        android:background="@color/colorPrimary"
+        android:layout_height="1dp">
+
+    </View>
+
+
+
+
+    <TextView
+        android:layout_marginTop="10dp"
+
+        android:layout_width="wrap_content"
+        android:textSize="17dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@android:color/darker_gray"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="Sunday"
+        android:layout_height="25dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/workoutWeekRVDaySeven"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="110dp">
 
     </android.support.v7.widget.RecyclerView>
 
 
 
 
-    <!--<ScrollView
-        android:scrollbars="none"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
+    </LinearLayout>
 
 
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:orientation="vertical"
-                android:background="@drawable/item_background_white"
-                android:layout_marginBottom="5dp"
-
-                android:elevation="5dp">
-
-
-
-                <ImageView
-                    android:id="@+id/weekImage1"
-
-                    android:background="@color/dark_gray"
-                    android:layout_width="match_parent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_declinebench"
-                    android:layout_height="150dp" />
-
-
-                <TextView
-                    android:layout_below="@id/weekImage1"
-                    android:id="@+id/videoItemId1"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="test123"
-                    android:textSize="20dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="5dp"
-                    android:textColor="@android:color/darker_gray"
-                    android:layout_height="wrap_content" />
-
-
-
-                <ImageView
-                    android:layout_width="50dp"
-
-                    android:layout_marginTop="50dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@android:drawable/ic_media_play"
-                    android:layout_height="50dp" />
-
-
-
-            </RelativeLayout>
-
-
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:orientation="vertical"
-                android:background="@drawable/item_background_white"
-                android:layout_marginBottom="5dp"
-
-                android:elevation="5dp">
-
-
-
-                <ImageView
-                    android:id="@+id/weekImage2"
-
-                    android:background="@color/dark_gray"
-                    android:layout_width="match_parent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_declinebench"
-                    android:layout_height="150dp" />
-
-
-                <TextView
-                    android:layout_below="@id/weekImage2"
-                    android:id="@+id/videoItemId2"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="test123"
-                    android:textSize="20dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="5dp"
-                    android:textColor="@android:color/darker_gray"
-                    android:layout_height="wrap_content" />
-
-
-
-                <ImageView
-                    android:layout_width="50dp"
-
-                    android:layout_marginTop="50dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@android:drawable/ic_media_play"
-                    android:layout_height="50dp" />
-
-
-
-            </RelativeLayout>
-
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:orientation="vertical"
-                android:background="@drawable/item_background_white"
-                android:layout_marginBottom="5dp"
-
-                android:elevation="5dp">
-
-
-
-                <ImageView
-                    android:id="@+id/weekImage3"
-
-                    android:background="@color/dark_gray"
-                    android:layout_width="match_parent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_declinebench"
-                    android:layout_height="150dp" />
-
-
-                <TextView
-                    android:layout_below="@id/weekImage3"
-                    android:id="@+id/videoItemId3"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="test123"
-                    android:textSize="20dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="5dp"
-                    android:textColor="@android:color/darker_gray"
-                    android:layout_height="wrap_content" />
-
-
-
-                <ImageView
-                    android:layout_width="50dp"
-
-                    android:layout_marginTop="50dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@android:drawable/ic_media_play"
-                    android:layout_height="50dp" />
-
-
-
-            </RelativeLayout>
-
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:orientation="vertical"
-                android:background="@drawable/item_background_white"
-                android:layout_marginBottom="5dp"
-
-                android:elevation="5dp">
-
-
-
-                <ImageView
-                    android:id="@+id/weekImage4"
-
-                    android:background="@color/dark_gray"
-                    android:layout_width="match_parent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_declinebench"
-                    android:layout_height="150dp" />
-
-
-                <TextView
-                    android:layout_below="@id/weekImage4"
-                    android:id="@+id/videoItemId4"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="test123"
-                    android:textSize="20dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="5dp"
-                    android:textColor="@android:color/darker_gray"
-                    android:layout_height="wrap_content" />
-
-
-
-                <ImageView
-                    android:layout_width="50dp"
-
-                    android:layout_marginTop="50dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@android:drawable/ic_media_play"
-                    android:layout_height="50dp" />
-
-
-
-            </RelativeLayout>
-
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:orientation="vertical"
-                android:background="@drawable/item_background_white"
-                android:layout_marginBottom="5dp"
-
-                android:elevation="5dp">
-
-
-
-                <ImageView
-                    android:id="@+id/weekImage5"
-
-                    android:background="@color/dark_gray"
-                    android:layout_width="match_parent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_declinebench"
-                    android:layout_height="150dp" />
-
-
-                <TextView
-                    android:layout_below="@id/weekImage5"
-                    android:id="@+id/videoItemId5"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="test123"
-                    android:textSize="20dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="5dp"
-                    android:textColor="@android:color/darker_gray"
-                    android:layout_height="wrap_content" />
-
-
-
-                <ImageView
-                    android:layout_width="50dp"
-
-                    android:layout_marginTop="50dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@android:drawable/ic_media_play"
-                    android:layout_height="50dp" />
-
-
-
-            </RelativeLayout>
-
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:orientation="vertical"
-                android:background="@drawable/item_background_white"
-                android:layout_marginBottom="5dp"
-
-                android:elevation="5dp">
-
-
-
-                <ImageView
-                    android:id="@+id/weekImage6"
-
-                    android:background="@color/dark_gray"
-                    android:layout_width="match_parent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_declinebench"
-                    android:layout_height="150dp" />
-
-
-                <TextView
-                    android:layout_below="@id/weekImage6"
-                    android:id="@+id/videoItemId6"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="test123"
-                    android:textSize="20dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="5dp"
-                    android:textColor="@android:color/darker_gray"
-                    android:layout_height="wrap_content" />
-
-
-
-                <ImageView
-                    android:layout_width="50dp"
-
-                    android:layout_marginTop="50dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@android:drawable/ic_media_play"
-                    android:layout_height="50dp" />
-
-
-
-            </RelativeLayout>
-
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:orientation="vertical"
-                android:background="@drawable/item_background_white"
-                android:layout_marginBottom="5dp"
-
-                android:elevation="5dp">
-
-
-
-                <ImageView
-                    android:id="@+id/weekImage7"
-
-                    android:background="@color/dark_gray"
-                    android:layout_width="match_parent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_declinebench"
-                    android:layout_height="150dp" />
-
-
-                <TextView
-                    android:layout_below="@id/weekImage7"
-                    android:id="@+id/videoItemId7"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="test123"
-                    android:textSize="20dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="5dp"
-                    android:textColor="@android:color/darker_gray"
-                    android:layout_height="wrap_content" />
-
-
-
-                <ImageView
-                    android:layout_width="50dp"
-
-                    android:layout_marginTop="50dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@android:drawable/ic_media_play"
-                    android:layout_height="50dp" />
-
-
-
-            </RelativeLayout>
-
-
-        </LinearLayout>
     </ScrollView>
--->
 
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+       android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
 
-</android.support.constraint.ConstraintLayout>
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+
+        >
+
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="20dp"
+            android:rotation="180"
+            android:src="@drawable/ic_next" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:onClick="onBackClick"
+            android:text="Back"
+            android:textSize="18dp" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

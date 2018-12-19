@@ -1,6 +1,8 @@
 package com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.models;
 
-public class TrainingModel {
+import io.realm.RealmObject;
+
+public class TrainingModel extends RealmObject {
 
     private String id;
 

@@ -12,14 +12,15 @@
         android:id="@+id/profileLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/item_background_white"
         android:elevation="3dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="20dp">
+        >
 
         <LinearLayout
 
@@ -60,24 +61,226 @@
 
     </LinearLayout>
 
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@drawable/item_background_white"
+        android:id="@+id/fName_lName"
+        android:elevation="3dp"
+
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+
+        app:layout_constraintTop_toBottomOf="@+id/profileLayout"
+        android:layout_width="match_parent"
+        android:layout_height="140dp">
+
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:clickable="true"
+            android:onClick="onFNameClick"
+            android:layout_marginTop="5dp">
+
+
+            <TextView
+                android:layout_marginStart="18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+
+
+                android:text="Fname"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14dp" />
+
+
+
+            <TextView
+                android:id="@+id/fNameValue"
+                android:layout_marginStart="18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+
+                android:layout_toLeftOf="@id/arrowFName"
+                android:text="umer"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14dp" />
+
+
+
+            <ImageView
+                android:id="@+id/arrowFName"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_next" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="35dp"
+                android:background="@android:color/darker_gray"></View>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:clickable="true"
+            android:onClick="onLNameClick"
+            android:layout_marginTop="5dp">
+
+
+            <TextView
+                android:layout_marginStart="18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+
+
+                android:text="Lname"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14dp" />
+
+
+
+            <TextView
+                android:id="@+id/lNameValue"
+                android:layout_marginStart="18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+
+                android:layout_toLeftOf="@id/arrowLName"
+                android:text="umer"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14dp" />
+
+
+
+            <ImageView
+                android:id="@+id/arrowLName"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_next" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="35dp"
+                android:background="@android:color/darker_gray"></View>
+
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:clickable="true"
+            android:onClick="onPassClick"
+            android:layout_marginTop="5dp">
+
+
+            <TextView
+                android:layout_marginStart="18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+
+
+                android:text="Password"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14dp" />
+
+
+
+            <TextView
+                android:id="@+id/passValue"
+                android:layout_marginStart="18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+
+                android:layout_toLeftOf="@id/arrowPName"
+                android:text="12345"
+                android:inputType="textPassword"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14dp" />
+
+
+
+            <ImageView
+                android:id="@+id/arrowPName"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_next" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="35dp"
+                android:background="@android:color/darker_gray"></View>
+
+        </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+
+
+
+
     <LinearLayout
 
         android:layout_width="match_parent"
         android:elevation="3dp"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
 
         android:background="@drawable/item_background_white"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/profileLayout">
+        app:layout_constraintTop_toBottomOf="@+id/fName_lName">
 
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
             android:clickable="true"
             android:onClick="onGenderClick"
             android:layout_marginTop="10dp">
@@ -135,10 +338,10 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
             android:clickable="true"
             android:onClick="onDOBClick"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="5dp">
 
 
             <TextView
@@ -194,10 +397,10 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
             android:clickable="true"
             android:onClick="onHeightClick"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="5dp">
 
 
             <TextView
@@ -254,10 +457,10 @@
         <RelativeLayout
 
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
             android:clickable="true"
             android:onClick="onWeightClick"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="5dp">
 
 
             <TextView

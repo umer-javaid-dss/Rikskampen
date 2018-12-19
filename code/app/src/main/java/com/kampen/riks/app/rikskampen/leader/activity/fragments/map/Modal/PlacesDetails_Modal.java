@@ -1,10 +1,17 @@
 package com.kampen.riks.app.rikskampen.leader.activity.fragments.map.Modal;
 
+import io.realm.RealmObject;
+
 /**
  * Created by samarthkejriwal on 10/08/17.
  */
 
-public class PlacesDetails_Modal {
+public class PlacesDetails_Modal extends RealmObject {
+
+  public   PlacesDetails_Modal()
+    {
+
+    }
 
     public String address,phone_no,distance,name,photourl;
     public float rating;

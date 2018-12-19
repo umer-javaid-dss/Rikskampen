@@ -1,6 +1,8 @@
 package com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.model;
 
-public class WeekWorkOutModel {
+import io.realm.RealmObject;
+
+public class WeekWorkOutModel extends RealmObject {
 
 
     private  String  imagePath;

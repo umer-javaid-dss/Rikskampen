@@ -1,6 +1,8 @@
 package com.kampen.riks.app.rikskampen.leader.activity.fragments.LeaderBordTab.models;
 
-public class TopContestant {
+import io.realm.RealmObject;
+
+public class TopContestant extends RealmObject {
 
 
     private  String  id;

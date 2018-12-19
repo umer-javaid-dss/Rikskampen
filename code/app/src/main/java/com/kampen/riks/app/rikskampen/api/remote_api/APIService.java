@@ -114,6 +114,16 @@ public interface APIService {
 
 
 
+    @FormUrlEncoded
+    @POST("public/index.php/api/auth/userUpdate")
+    Call<Generic_Result<RemoteUserResult>> userUpdate(
+
+            @FieldMap HashMap<String, String> signUpHM
+
+    );
+
+
+
 
 
 
