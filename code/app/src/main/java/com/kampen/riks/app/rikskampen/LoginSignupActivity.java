@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
+
+import com.kampen.riks.app.rikskampen.login.LoginActivity;
+import com.kampen.riks.app.rikskampen.signup.SignUpActivity;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 

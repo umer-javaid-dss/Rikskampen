@@ -42,13 +42,13 @@
             android:name=".LoginSignupActivity"
             android:theme="@style/AppThemeFullScreen" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".login.LoginActivity"
             android:theme="@style/AppThemeFullScreen" />
         <activity
             android:name=".ForgotPasswordActivity"
             android:theme="@style/AppThemeFullScreen" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".signup.SignUpActivity"
             android:theme="@style/AppThemeFullScreen" />
         <activity
             android:name=".leader.activity.MainLeaderActivity"

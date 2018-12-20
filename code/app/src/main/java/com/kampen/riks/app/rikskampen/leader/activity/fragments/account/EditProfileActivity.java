@@ -2,7 +2,6 @@ package com.kampen.riks.app.rikskampen.leader.activity.fragments.account;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.Application;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,7 +27,6 @@ import com.facebook.stetho.server.http.HttpStatus;
 import com.kampen.riks.app.rikskampen.MyApplication;
 import com.kampen.riks.app.rikskampen.R;
 
-import com.kampen.riks.app.rikskampen.SignUpActivity;
 import com.kampen.riks.app.rikskampen.api.remote_api.Generic_Result;
 import com.kampen.riks.app.rikskampen.api.remote_api.models.RemoteUser;
 import com.kampen.riks.app.rikskampen.api.remote_api.models.RemoteUserResult;
@@ -37,6 +35,7 @@ import com.kampen.riks.app.rikskampen.user.model.DB_User;
 import com.kampen.riks.app.rikskampen.user.module.DB_User_Module;
 import com.kampen.riks.app.rikskampen.utils.Constants;
 import com.kampen.riks.app.rikskampen.utils.Custom_Progress_Module.ProgressManager;
+import com.kampen.riks.app.rikskampen.utils.SaveSharedPreference;
 
 
 import java.io.ByteArrayOutputStream;
@@ -51,6 +50,7 @@ import in.mayanknagwanshi.imagepicker.imageCompression.ImageCompressionListener;
 import in.mayanknagwanshi.imagepicker.imagePicker.ImagePicker;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 
 public class EditProfileActivity extends AppCompatActivity implements Data_manager.Manage_UpdateUser {
 
@@ -115,7 +115,18 @@ public class EditProfileActivity extends AppCompatActivity implements Data_manag
 
     private  void setUser()
     {
-        mUser=MyApplication.tempUser;
+        String [] params=SaveSharedPreference.getLoggedParams(EditProfileActivity.this);
+
+        RealmResults<DB_User> userList=mRealm.where(DB_User.class)
+            .equalTo("email",params[0])
+            .equalTo("pass",params[1])
+            .findAll();
+
+
+        if(userList!=null && userList.size()>0) {
+
+            mUser = userList.get(0);
+        }
 
         if(mUser!=null)
         {
@@ -1000,14 +1011,14 @@ public class EditProfileActivity extends AppCompatActivity implements Data_manag
 
 
 
-        if(res!=null && res.getCode().equals(HttpStatus.HTTP_OK+"")) {
+        if(res!=null && res.getCode()==HttpStatus.HTTP_OK) {
 
             MyApplication.showSimpleSnackBar(EditProfileActivity.this,res.getMsg().toString());
 
         }
         else if(res!=null )
         {
-            MyApplication.showSimpleSnackBar(EditProfileActivity.this,res.getCode());
+            MyApplication.showSimpleSnackBar(EditProfileActivity.this,res.getCode()+"");
         }
         else
         {

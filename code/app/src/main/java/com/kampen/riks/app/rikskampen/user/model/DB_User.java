@@ -1,19 +1,43 @@
 package com.kampen.riks.app.rikskampen.user.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import io.realm.Realm;
 import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 
 public class DB_User extends RealmObject {
 
 
-    //@PrimaryKey
+
+    @SerializedName("id")
+    @Expose
     private  String  id;
+
+    @SerializedName("firstname")
+    @Expose
     private  String  f_name;
+
+    @SerializedName("lastname")
+    @Expose
     private  String  l_name;
+
+    @SerializedName("email")
+    @Expose
     private  String  email;
+
+    @SerializedName("password")
+    @Expose
     private  String  pass;
+
+
     private  String  profile_image;
+
+    @SerializedName("role_id")
+    @Expose
     private  String role;
+
+
     private  int  age;
     private  String  dob;
     private  int  height_in_feet;
@@ -154,4 +178,26 @@ public class DB_User extends RealmObject {
     public void setProfilePicData(byte[] profilePicData) {
         this.profilePicData = profilePicData;
     }
+
+
+    public static   boolean addUserToDb(Realm realm,DB_User userJson)
+    {
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+
+                DB_User db_user = realm.createObject(DB_User.class);
+
+                db_user.setF_name(userJson.getF_name());
+                db_user.setL_name(userJson.getL_name());
+                db_user.setEmail(userJson.getEmail());
+
+
+            }
+        });
+
+        return  false;
+    }
+
+
 }

@@ -163,7 +163,7 @@ public class MainLeaderActivity extends AppCompatActivity {
 
 
 
-        exportDatabase();
+       // exportDatabase();
 
 
     }

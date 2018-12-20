@@ -7,15 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.kampen.riks.app.rikskampen.leader.activity.MainLeaderActivity;
-import com.kampen.riks.app.rikskampen.user.model.DB_User;
-import com.kampen.riks.app.rikskampen.user.module.DB_User_Module;
-import com.kampen.riks.app.rikskampen.utils.Constants;
-import com.kampen.riks.app.rikskampen.utils.SaveSharedPreference;
-
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
-import io.realm.RealmResults;
+import com.kampen.riks.app.rikskampen.login.LoginActivity;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
