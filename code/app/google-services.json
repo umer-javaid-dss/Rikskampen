@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "238465732659",
+    "firebase_url": "https://rikskampen-9d347.firebaseio.com",
+    "project_id": "rikskampen-9d347",
+    "storage_bucket": "rikskampen-9d347.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:238465732659:android:661ef79f2fe7a000",
+        "android_client_info": {
+          "package_name": "khojaa.android.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "238465732659-5fut6693l2jd9a61i6ct7sgn4ccgmtp4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "khojaa.android.com",
+            "certificate_hash": "43c7788f5876b091851db391fd63be6e291a7bfe"
+          }
+        },
+        {
+          "client_id": "238465732659-et94c67vkl1i4qrjpuuesl6qa6f46u27.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzzc4Rnh0h3BpaNEb2Tvq71cmBc6d35Zg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "238465732659-et94c67vkl1i4qrjpuuesl6qa6f46u27.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
