@@ -10,31 +10,24 @@ public class DB_User extends RealmObject {
 
 
 
-    @SerializedName("id")
-    @Expose
     private  String  id;
 
-    @SerializedName("firstname")
-    @Expose
+
     private  String  f_name;
 
-    @SerializedName("lastname")
-    @Expose
+
     private  String  l_name;
 
-    @SerializedName("email")
-    @Expose
-    private  String  email;
 
-    @SerializedName("password")
-    @Expose
-    private  String  pass;
+    private  String  _email;
+
+
+    private  String  _pass;
 
 
     private  String  profile_image;
 
-    @SerializedName("role_id")
-    @Expose
+
     private  String role;
 
 
@@ -75,21 +68,7 @@ public class DB_User extends RealmObject {
         this.l_name = l_name;
     }
 
-    public String getEmail() {
-        return email;
-    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
 
     public String getProfile_image() {
         return profile_image;
@@ -180,24 +159,19 @@ public class DB_User extends RealmObject {
     }
 
 
-    public static   boolean addUserToDb(Realm realm,DB_User userJson)
-    {
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-
-                DB_User db_user = realm.createObject(DB_User.class);
-
-                db_user.setF_name(userJson.getF_name());
-                db_user.setL_name(userJson.getL_name());
-                db_user.setEmail(userJson.getEmail());
-
-
-            }
-        });
-
-        return  false;
+    public String getEmail() {
+        return _email;
     }
 
+    public void setEmail(String _email) {
+        this._email = _email;
+    }
 
+    public String getPass() {
+        return _pass;
+    }
+
+    public void setPass(String _pass) {
+        this._pass = _pass;
+    }
 }

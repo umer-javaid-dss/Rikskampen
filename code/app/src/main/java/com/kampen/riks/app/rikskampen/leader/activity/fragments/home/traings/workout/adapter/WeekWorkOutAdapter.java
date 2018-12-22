@@ -10,10 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kampen.riks.app.rikskampen.R;
-import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.adapters.HealthFitnessAdapter;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.model.WeekWorkOutModel;
-import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.workout.workout_video.VideoPlayActivity;
-import com.kampen.riks.app.rikskampen.leader.activity.fragments.order_history.webshop.WebShopActivity;
+import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.workout.detail.VideoPlayActivity;
 
 import java.util.ArrayList;
 import java.util.List;

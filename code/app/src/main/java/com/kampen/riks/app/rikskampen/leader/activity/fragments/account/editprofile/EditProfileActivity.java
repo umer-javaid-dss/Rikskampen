@@ -1,8 +1,9 @@
-package com.kampen.riks.app.rikskampen.leader.activity.fragments.account;
+package com.kampen.riks.app.rikskampen.leader.activity.fragments.account.editprofile;
 
 import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -23,22 +24,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-import com.facebook.stetho.server.http.HttpStatus;
 import com.kampen.riks.app.rikskampen.MyApplication;
 import com.kampen.riks.app.rikskampen.R;
 
-import com.kampen.riks.app.rikskampen.api.remote_api.Generic_Result;
 import com.kampen.riks.app.rikskampen.api.remote_api.models.RemoteUser;
-import com.kampen.riks.app.rikskampen.api.remote_api.models.RemoteUserResult;
-import com.kampen.riks.app.rikskampen.data_manager.Data_manager;
 import com.kampen.riks.app.rikskampen.user.model.DB_User;
-import com.kampen.riks.app.rikskampen.user.module.DB_User_Module;
 import com.kampen.riks.app.rikskampen.utils.Constants;
 import com.kampen.riks.app.rikskampen.utils.Custom_Progress_Module.ProgressManager;
-import com.kampen.riks.app.rikskampen.utils.SaveSharedPreference;
 
 
-import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -48,11 +42,8 @@ import adil.dev.lib.materialnumberpicker.dialog.GenderPickerDialog;
 import biz.kasual.materialnumberpicker.MaterialNumberPicker;
 import in.mayanknagwanshi.imagepicker.imageCompression.ImageCompressionListener;
 import in.mayanknagwanshi.imagepicker.imagePicker.ImagePicker;
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
-import io.realm.RealmResults;
 
-public class EditProfileActivity extends AppCompatActivity implements Data_manager.Manage_UpdateUser {
+public class EditProfileActivity extends AppCompatActivity implements   EditProfileContract.View {
 
 
 
@@ -68,8 +59,6 @@ public class EditProfileActivity extends AppCompatActivity implements Data_manag
 
     private  TextView mPassValue;
 
-    private Realm mRealm;
-
 
     private ImagePicker imagePicker;
 
@@ -77,6 +66,16 @@ public class EditProfileActivity extends AppCompatActivity implements Data_manag
 
 
     private  DB_User mUser;
+
+    private  RemoteUser mRUser;
+
+
+    private   EditProfilePresenter  mEditProfilePresenter;
+
+
+    private Context   mContext;
+
+
 
 
     @Override
@@ -90,43 +89,55 @@ public class EditProfileActivity extends AppCompatActivity implements Data_manag
 
         imagePicker = new ImagePicker();
 
-        setUpDB();
 
+
+        mEditProfilePresenter=new EditProfilePresenter(EditProfileActivity.this);
 
         setUser();
     }
 
 
-    private void  setUpDB()
-    {
-        RealmConfiguration config = new RealmConfiguration.Builder()
-                .name(getPackageName() + ".realm")
-                .schemaVersion(2)
-                .modules(new DB_User_Module())
-                .build();
-
-        mRealm = Realm.getInstance(config);
-
-
-
-    }
 
 
 
     private  void setUser()
     {
-        String [] params=SaveSharedPreference.getLoggedParams(EditProfileActivity.this);
-
-        RealmResults<DB_User> userList=mRealm.where(DB_User.class)
-            .equalTo("email",params[0])
-            .equalTo("pass",params[1])
-            .findAll();
 
 
-        if(userList!=null && userList.size()>0) {
+        mRUser=new RemoteUser();
 
-            mUser = userList.get(0);
-        }
+       mUser=mEditProfilePresenter.provideUserLocal(mContext);
+
+
+
+       /* if(mUser==null) {
+
+            RealmConfiguration config = new RealmConfiguration.Builder()
+                    .name(getPackageName() + ".realm")
+                    .schemaVersion(2)
+                    .modules(new DB_User_Module())
+                    .build();
+
+            Realm mRealm = Realm.getInstance(config);
+
+
+            String[] params = SaveSharedPreference.getLoggedParams(mContext);
+            RealmResults<DB_User> userList = mRealm.where(DB_User.class)
+                    .equalTo("_email", params[0])
+                    .equalTo("_pass", params[1])
+                    .findAll();
+
+
+            DB_User user = null;
+
+            if (userList != null && userList.size() > 0) {
+
+                mUser = userList.get(0);
+            }
+
+
+        }*/
+
 
         if(mUser!=null)
         {
@@ -165,171 +176,6 @@ public class EditProfileActivity extends AppCompatActivity implements Data_manag
 
 
 
-    private  void updateFirstName(final String fname)
-    {
-
-
-        mRealm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-
-                DB_User db_user = mUser;
-
-                db_user.setF_name(fname);
-                realm.insertOrUpdate(db_user);
-                MyApplication.tempUser=db_user;
-
-                upDateUserOnServer(db_user);
-            }
-        });
-    }
-
-
-    private  void updateLastName(final String lname)
-    {
-
-
-        mRealm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-
-                DB_User db_user = mUser;
-
-                db_user.setL_name(lname);
-                realm.insertOrUpdate(db_user);
-                MyApplication.tempUser=db_user;
-
-                upDateUserOnServer(db_user);
-            }
-        });
-    }
-
-    private  void updatePassword(final String pass)
-    {
-
-
-        mRealm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-
-                DB_User db_user = mUser;
-
-                db_user.setPass(pass);
-                realm.insertOrUpdate(db_user);
-                MyApplication.tempUser=db_user;
-
-                upDateUserOnServer(db_user);
-            }
-        });
-    }
-
-
-
-    private  void updateProfilePic(final Bitmap profilePic)
-    {
-
-
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        profilePic.compress(Bitmap.CompressFormat.PNG, 70, stream);
-        final byte[] byteArray = stream.toByteArray();
-
-
-        mRealm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-
-                DB_User db_user = mUser;
-
-                db_user.setProfilePicData(byteArray);
-
-                realm.insertOrUpdate(db_user);
-
-                MyApplication.tempUser=db_user;
-
-            }
-        });
-    }
-
-
-
-
-    private  void updateGender(final int gender)
-    {
-
-
-
-
-        mRealm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-
-                DB_User db_user = mUser;
-
-                db_user.setUser_gender(gender);
-
-                realm.insertOrUpdate(db_user);
-
-                MyApplication.tempUser=db_user;
-
-            }
-        });
-    }
-
-
-    private  void updateDOB(final String DOB)
-    {
-
-
-        mRealm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-
-                DB_User db_user = mUser;
-
-                db_user.setDob(DOB);
-                realm.insertOrUpdate(db_user);
-                MyApplication.tempUser=db_user;
-            }
-        });
-    }
-
-
-    private  void updateHeight(final int heightInCM)
-    {
-
-
-        mRealm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-
-                DB_User db_user = mUser;
-
-                db_user.setHeight_in_cm(heightInCM);
-                realm.insertOrUpdate(db_user);
-                MyApplication.tempUser=db_user;
-            }
-        });
-    }
-
-
-    private  void updateWeight(final int weightInKg)
-    {
-
-
-        mRealm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-
-                DB_User db_user = mUser;
-
-                db_user.setWeight(weightInKg);
-                realm.insertOrUpdate(db_user);
-                MyApplication.tempUser=db_user;
-            }
-        });
-    }
-
-
 
 
     @Override
@@ -350,6 +196,8 @@ public class EditProfileActivity extends AppCompatActivity implements Data_manag
     private  void init()
     {
 
+        mContext=EditProfileActivity.this;
+
         mProfileImage=findViewById(R.id.profileImage);
 
 
@@ -369,201 +217,8 @@ public class EditProfileActivity extends AppCompatActivity implements Data_manag
 
     }
 
-    private void manageClicks()
-    {
-        mUserDOB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                onAgeClick(v);
-            }
-        });
-
-       /* mUserHeightInFeet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                onHeightInFeetClick(v);
-            }
-        });*/
-
-       /* mUserHeightInInches.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                onHeightInIncheClick(v);
-            }
-        });*/
-
-        mUserWeight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                onWeightClick(v);
-            }
-        });
 
 
-       /* mSaveData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(validateData( ))
-                {
-
-                    if(editProfileLocal())
-                    {
-                        Toast.makeText(EditProfileActivity.this, "Data saved", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-            }
-        });*/
-
-    }
-
-
-    private  boolean  validateData( )
-    {
-
-
-
-        if(mUserDOB.getText().toString().trim().length()==0)
-        {
-            mUserDOB.requestFocus();
-            mUserDOB.setError("Select date of birth");
-            return false;
-
-        }
-
-        if(mUserHeight.getText().toString().trim().length()==0)
-        {
-            mUserHeight.requestFocus();
-            mUserHeight.setError("Enter height in feet");
-            return false;
-
-        }
-
-        if(mUserWeight.getText().toString().trim().length()==0)
-        {
-            mUserWeight.requestFocus();
-            mUserWeight.setError("Enter weight in lbs");
-            return false;
-
-        }
-
-        if(mUserGender.getText().toString().trim().length()==0)
-        {
-            mUserGender.requestFocus();
-            mUserGender.setError("Select gender");
-            return false;
-
-        }
-
-
-
-        return  true;
-    }
-
-
-
-
-
-
-    public void onAgeClick(View view) {
-
-
-        Constants.hideSoftKeyboard(view,this);
-
-        final EditText DOB= (EditText) view;
-
-
-        final MaterialNumberPicker numberPicker = new MaterialNumberPicker.Builder(this)
-                .minValue(1)
-                .maxValue(120)
-                .defaultValue(30)
-                .backgroundColor(Color.WHITE)
-                .separatorColor(Color.TRANSPARENT)
-                .textColor(Color.BLACK)
-                .textSize(20)
-                .enableFocusability(false)
-                .wrapSelectorWheel(true)
-                .build();
-
-
-        new AlertDialog.Builder(this)
-                .setTitle("Your Age")
-                .setView(numberPicker)
-                .setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        DOB.setText(numberPicker.getValue()+"");
-                    }
-                })
-                .show();
-
-
-    }
-
-    public void onHeightInFeetClick(View view) {
-
-        final MaterialNumberPicker numberPicker = new MaterialNumberPicker.Builder(this)
-                .minValue(1)
-                .maxValue(10)
-                .defaultValue(5)
-                .backgroundColor(Color.WHITE)
-                .separatorColor(Color.TRANSPARENT)
-                .textColor(Color.BLACK)
-                .textSize(20)
-                .enableFocusability(false)
-                .wrapSelectorWheel(true)
-                .build();
-
-
-        new AlertDialog.Builder(this)
-                .setTitle("Height in Feet")
-                .setView(numberPicker)
-                .setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        mUserHeight.setText(numberPicker.getValue()+"");
-                    }
-                })
-                .show();
-
-    }
-
-    public void onHeightInIncheClick(View view) {
-
-
-        final MaterialNumberPicker numberPicker = new MaterialNumberPicker.Builder(this)
-                .minValue(1)
-                .maxValue(12)
-                .defaultValue(1)
-                .backgroundColor(Color.WHITE)
-                .separatorColor(Color.TRANSPARENT)
-                .textColor(Color.BLACK)
-                .textSize(20)
-                .enableFocusability(false)
-                .wrapSelectorWheel(true)
-                .build();
-
-
-        new AlertDialog.Builder(this)
-                .setTitle("Height in Inches")
-                .setView(numberPicker)
-                .setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                       // mUserHeightInInches.setText(numberPicker.getValue()+"");
-                    }
-                })
-                .show();
-
-    }
 
     public void onWeightClick(View view) {
 
@@ -588,8 +243,11 @@ public class EditProfileActivity extends AppCompatActivity implements Data_manag
                     public void onClick(DialogInterface dialog, int which) {
 
                         mUserWeight.setText(numberPicker.getValue()+" kg");
+                        mUser.setWeight(numberPicker.getValue());
+                        //upDateUserOnServer(mUser);
+                        //ProgressManager.showProgress(EditProfileActivity.this,"Updating user");
 
-                        updateWeight(numberPicker.getValue());
+                        //mEditProfilePresenter.performEditProfile(mUser.getF_name(),mUser.getL_name(),mUser.getPass(),mUser.getEmail());
                     }
                 })
                 .show();
@@ -727,10 +385,6 @@ public class EditProfileActivity extends AppCompatActivity implements Data_manag
                     mProfileImage.setImageBitmap(selectedImage);
 
 
-                    updateProfilePic(selectedImage);
-
-
-
                 }
             });
         }
@@ -774,7 +428,8 @@ public class EditProfileActivity extends AppCompatActivity implements Data_manag
                         genderInt=2;
                     }
 
-                    updateGender(genderInt);
+                    mUser.setUser_gender(genderInt);
+                    //upDateUserOnServer(mUser);
                 }
             });
             dialog.show();
@@ -803,8 +458,9 @@ public class EditProfileActivity extends AppCompatActivity implements Data_manag
 
                 mUserDOB.setText(sdf.format(myCalendar.getTime()));
 
+                mUser.setDob(sdf.format(myCalendar.getTime()));
 
-                updateDOB(mUserDOB.getText().toString());
+                //upDateUserOnServer(mUser);
             }
 
         };
@@ -822,7 +478,7 @@ public class EditProfileActivity extends AppCompatActivity implements Data_manag
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
-        // set prompts.xml to alertdialog builder
+
         alertDialogBuilder.setView(promptsView);
 
         final EditText userInput = (EditText) promptsView
@@ -831,26 +487,21 @@ public class EditProfileActivity extends AppCompatActivity implements Data_manag
 
         userInput.setInputType(InputType.TYPE_CLASS_NUMBER);
 
-        // set dialog message
         alertDialogBuilder
                 .setCancelable(false)
-                .setPositiveButton("OK",
+                .setPositiveButton(R.string.edit_profile_dialog_pos_button,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
 
+
                                 mUserHeight.setText(userInput.getText()+" cm");
+                                mUser.setHeight_in_cm(Integer.parseInt(userInput.getText().toString()));
+                                //upDateUserOnServer(mUser);
 
-
-                                try {
-                                    updateHeight(Integer.parseInt(userInput.getText().toString()));
-                                }catch (NumberFormatException ex)
-                                {
-
-                                }
 
                             }
                         })
-                .setNegativeButton("Cancel",
+                .setNegativeButton(R.string.edit_profile_dialog_nag_button,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
                                 dialog.cancel();
@@ -898,18 +549,23 @@ public class EditProfileActivity extends AppCompatActivity implements Data_manag
 
         alertDialogBuilder
                 .setCancelable(false)
-                .setPositiveButton("OK",
+                .setPositiveButton(R.string.edit_profile_dialog_pos_button,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
 
                                 mfNameValue.setText(userInput.getText());
+                                mUser.setF_name(userInput.getText().toString());
 
-                                updateFirstName(userInput.getText().toString());
+
+                                  mRUser=Constants.DB_To_R_USER(mUser);
+                                  mRUser.setFirstname(userInput.getText().toString());
+                                  updateUserToServer(mRUser);
+
 
 
                             }
                         })
-                .setNegativeButton("Cancel",
+                .setNegativeButton(R.string.edit_profile_dialog_nag_button,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
                                 dialog.cancel();
@@ -925,6 +581,20 @@ public class EditProfileActivity extends AppCompatActivity implements Data_manag
 
     }
 
+
+
+
+
+
+
+    public   void updateUserToServer(RemoteUser user)
+    {
+        ProgressManager.showProgress(EditProfileActivity.this,"Updating user");
+
+        mEditProfilePresenter.performEditProfile(user.getFirstname(),user.getLastname(),user.getPassword(),user.getEmail());
+    }
+
+
     public void onLNameClick(View view) {
 
         LayoutInflater li = LayoutInflater.from(this);
@@ -932,7 +602,7 @@ public class EditProfileActivity extends AppCompatActivity implements Data_manag
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
-        // set prompts.xml to alertdialog builder
+
         alertDialogBuilder.setView(promptsView);
 
         final EditText userInput = (EditText) promptsView
@@ -950,18 +620,23 @@ public class EditProfileActivity extends AppCompatActivity implements Data_manag
 
         alertDialogBuilder
                 .setCancelable(false)
-                .setPositiveButton("OK",
+                .setPositiveButton(R.string.edit_profile_dialog_pos_button,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
 
                                 mlNameValue.setText(userInput.getText());
 
-                                updateLastName(userInput.getText().toString());
+
+                                 //mUser.setL_name(userInput.getText().toString());
+
+                                mRUser=Constants.DB_To_R_USER(mUser);
+                                mRUser.setLastname(userInput.getText().toString());
+                                updateUserToServer(mRUser);
 
 
                             }
                         })
-                .setNegativeButton("Cancel",
+                .setNegativeButton(R.string.edit_profile_dialog_nag_button,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
                                 dialog.cancel();
@@ -980,66 +655,7 @@ public class EditProfileActivity extends AppCompatActivity implements Data_manag
 
 
 
-    private    void upDateUserOnServer(DB_User user)
-    {
 
-           ProgressManager.showProgress(EditProfileActivity.this,"Updating user");
-
-           RemoteUser  remoteUser=new RemoteUser();
-
-            remoteUser.setId(user.getId());
-
-            remoteUser.setFirstname(user.getF_name());
-
-            remoteUser.setLastname(user.getL_name());
-
-            remoteUser.setPassword(user.getPass());
-
-           Data_manager data_manager=new Data_manager();
-
-           data_manager.setUpDateUserListener(EditProfileActivity.this);
-
-           data_manager.upDateUserAPI(remoteUser);
-
-    }
-
-
-
-
-    @Override
-    public void onUserUpdateSuccess(Generic_Result<RemoteUserResult> res) {
-
-
-
-        if(res!=null && res.getCode()==HttpStatus.HTTP_OK) {
-
-            MyApplication.showSimpleSnackBar(EditProfileActivity.this,res.getMsg().toString());
-
-        }
-        else if(res!=null )
-        {
-            MyApplication.showSimpleSnackBar(EditProfileActivity.this,res.getCode()+"");
-        }
-        else
-        {
-            MyApplication.showSimpleSnackBar(EditProfileActivity.this,"Some error occur");
-        }
-
-
-
-        ProgressManager.hideProgress();
-
-    }
-
-    @Override
-    public void onUserUpdateUpFailed(String message) {
-
-        MyApplication.showSimpleSnackBar(EditProfileActivity.this,"Some error occur");
-
-
-        ProgressManager.hideProgress();
-
-    }
 
     public void onPassClick(View view) {
 
@@ -1066,18 +682,19 @@ public class EditProfileActivity extends AppCompatActivity implements Data_manag
 
         alertDialogBuilder
                 .setCancelable(false)
-                .setPositiveButton("OK",
+                .setPositiveButton(R.string.edit_profile_dialog_pos_button,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
 
                                 mPassValue.setText(userInput.getText());
 
-                                updatePassword(userInput.getText().toString());
 
+                                mUser.setPass(userInput.getText().toString());
+                                //upDateUserOnServer(mUser);
 
                             }
                         })
-                .setNegativeButton("Cancel",
+                .setNegativeButton(R.string.edit_profile_dialog_nag_button,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
                                 dialog.cancel();
@@ -1089,6 +706,31 @@ public class EditProfileActivity extends AppCompatActivity implements Data_manag
 
 
         alertDialog.show();
+
+
+    }
+
+    @Override
+    public void setEditProfile(String message) {
+
+        mEditProfilePresenter.updateUserLocalWithRemoteUser(mRUser,mUser);
+
+        ProgressManager.hideProgress();
+        MyApplication.showSimpleSnackBar(mContext, message);
+
+    }
+
+    @Override
+    public void setEditProfileFailed(String message) {
+
+        ProgressManager.hideProgress();
+        MyApplication.showSimpleSnackBar(mContext, message);
+
+    }
+
+    @Override
+    public void setPresenter(EditProfileContract.Presenter mPresenter) {
+
 
 
     }

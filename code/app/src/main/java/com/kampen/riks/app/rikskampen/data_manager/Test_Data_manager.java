@@ -14,7 +14,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Data_manager {
+public class Test_Data_manager {
 
 
 
@@ -200,60 +200,7 @@ public class Data_manager {
     {
 
 
-        try {
 
-            APIService service = API_Provider.provideApi();
-
-
-            HashMap<String,String> hm=new HashMap();
-
-
-
-
-            //hm.put("email",obj.getEmail());
-            //hm.put("password",obj.getPassword());
-            hm.put("firstname",obj.getFirstname());
-            hm.put("lastname", obj.getLastname());
-
-
-            Call<Generic_Result<RemoteUserResult>> call = service.userUpdate(hm);
-
-
-            call.enqueue(new Callback<Generic_Result<RemoteUserResult>>() {
-                @Override
-                public void onResponse(Call<Generic_Result<RemoteUserResult>> call, Response<Generic_Result<RemoteUserResult>> response) {
-
-                    Generic_Result<RemoteUserResult> obj = null;
-
-                    obj = response.body();
-
-
-                    if(mManage_UpdateUser!=null) {
-                        mManage_UpdateUser.onUserUpdateSuccess( obj);
-                    }
-
-
-
-                }
-
-                @Override
-                public void onFailure(Call<Generic_Result<RemoteUserResult>> call, Throwable t) {
-                    //java.lang.IllegalStateException: Expected BEGIN_OBJECT but was STRING at line 1 column 1 path $
-                    t.toString();
-
-                    if (mManage_UpdateUser != null) {
-                        try {
-                            mManage_UpdateUser.onUserUpdateUpFailed(t.getMessage());
-                        }catch (Exception ex){}
-                    }
-
-                }
-            });
-
-        }catch (Exception ex)
-        {
-            ex.toString();
-        }
 
     }
 

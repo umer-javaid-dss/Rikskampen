@@ -268,7 +268,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
-
+        android:clickable="true"
+        android:onClick="onBackClick"
         android:gravity="center_vertical"
         android:orientation="horizontal"
 
@@ -285,8 +286,7 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:onClick="onBackClick"
+
             android:text="Back"
             android:textSize="18dp" />
 

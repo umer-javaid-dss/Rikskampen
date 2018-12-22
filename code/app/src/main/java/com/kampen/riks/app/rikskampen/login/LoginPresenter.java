@@ -1,10 +1,13 @@
 package com.kampen.riks.app.rikskampen.login;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.facebook.stetho.server.http.HttpStatus;
 import com.kampen.riks.app.rikskampen.api.remote_api.ResponseStatus;
 import com.kampen.riks.app.rikskampen.data_manager.Repository;
+import com.kampen.riks.app.rikskampen.user.model.DB_User;
+import com.kampen.riks.app.rikskampen.utils.SaveSharedPreference;
 
 import static com.google.gson.internal.$Gson$Preconditions.checkNotNull;
 
@@ -46,6 +49,24 @@ public class LoginPresenter implements LoginContract.Presenter{
                    }
                });
 
+    }
+
+
+    public void  updateUserLocal(DB_User user)
+    {
+
+        Repository.updateUserLocal(user);
+
+    }
+
+    public DB_User provideUserLocal(Context context)
+    {
+
+        String [] params=SaveSharedPreference.getLoggedParams(context);
+
+        DB_User user=Repository.provideUserLocal(params[0],params[1]);
+
+        return  user;
     }
 
 

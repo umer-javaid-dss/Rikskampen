@@ -9,7 +9,7 @@ public class LocalApiService implements Service{
 
 
     public  static final   String  NAME="Realm_db";
-    public  static final   String  PACKAGE_NAME="com.kampen.riks.app.rikskampen";
+    public  static final   String  PACKAGE_NAME="khojaa.android.com";
 
 
 

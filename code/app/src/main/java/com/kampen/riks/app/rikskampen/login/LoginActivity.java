@@ -11,10 +11,16 @@ import com.kampen.riks.app.rikskampen.LoginSignupActivity;
 import com.kampen.riks.app.rikskampen.MyApplication;
 import com.kampen.riks.app.rikskampen.R;
 import com.kampen.riks.app.rikskampen.leader.activity.MainLeaderActivity;
+import com.kampen.riks.app.rikskampen.leader.activity.fragments.LeaderBordTab.LeaderBoardFragment;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.plans.SelectPlansActivity;
+import com.kampen.riks.app.rikskampen.user.model.DB_User;
+import com.kampen.riks.app.rikskampen.user.module.DB_User_Module;
 import com.kampen.riks.app.rikskampen.utils.Constants;
 import com.kampen.riks.app.rikskampen.utils.Custom_Progress_Module.ProgressManager;
 import com.kampen.riks.app.rikskampen.utils.SaveSharedPreference;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.View {
 
@@ -43,7 +49,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         if (validateData()) {
 
 
-            ProgressManager.showProgress(LoginActivity.this, "Please wait...");
+           ProgressManager.showProgress(LoginActivity.this, "Please wait...");
 
             String tempUserEmail = mUserEmail.getText().toString().trim();
             String tempUserPass = mUserPass.getText().toString().trim();
@@ -52,6 +58,36 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
             } catch (Exception ex) {
                 ex.toString();
             }
+
+
+            /*RealmConfiguration config = new RealmConfiguration.Builder()
+                    .name(getPackageName() + ".realm")
+                    .schemaVersion(2)
+                    .modules(new DB_User_Module())
+                    .build();
+
+            Realm mRealm = Realm.getInstance(config);
+
+
+            mRealm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+
+                    DB_User db_user = realm.createObject(DB_User.class);
+
+                    db_user.setF_name("Umer");
+                    db_user.setL_name("Javaid");
+                    db_user.setEmail("kh.m.umerjavaid@gmail.com");
+                    db_user.setPass(mUserPass.getText().toString());
+
+
+                }
+            });
+
+
+            SaveSharedPreference.setLoggedIn(LoginActivity.this,true,"kh.m.umerjavaid@gmail.com","12345");
+
+            moveNext(MainLeaderActivity.class);*/
 
         }
 
@@ -113,6 +149,12 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     public void setLogin(String message) {
 
 
+
+        //DB_User  user=mPresenter.provideUserLocal(LoginActivity.this);
+        //user.setPass(mUserPass.getText().toString());
+       // mPresenter.updateUserLocal(user);
+
+
         ProgressManager.hideProgress();
 
         SaveSharedPreference.setLoggedIn(LoginActivity.this,true,mUserEmail.getText().toString(),mUserPass.getText().toString());
@@ -140,7 +182,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     }
 
     @Override
-    public void setmPresenter(LoginContract.Presenter mPresenter) {
+    public void setPresenter(LoginContract.Presenter mPresenter) {
 
 
     }

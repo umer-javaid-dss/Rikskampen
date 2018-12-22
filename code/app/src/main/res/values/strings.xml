@@ -72,4 +72,12 @@ The participants compete for $ 100,000 in prize money.</string>
     <string name="font_family_black">sans-serif-black</string>
     <string name="font_family_thin">sans-serif-thin</string>
 
+
+    //edit profile
+
+    <string name="edit_profile_dialog_pos_button">Update</string>
+
+    <string name="edit_profile_dialog_nag_button">Cancel</string>
+
+
 </resources>

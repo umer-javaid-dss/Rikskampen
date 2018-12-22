@@ -12,9 +12,7 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <permission
         android:name="com.google.maps.android.utils.permission.MAPS_RECEIVE"
@@ -67,7 +65,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".leader.activity.fragments.account.EditProfileActivity"
+            android:name=".leader.activity.fragments.account.editprofile.EditProfileActivity"
             android:theme="@style/AppThemeFullScreen" />
         <activity
             android:name=".leader.activity.fragments.chat.ChatActivity"
@@ -90,7 +88,12 @@
         <activity
             android:name=".leader.activity.fragments.order_history.webshop.WebShopActivity"
             android:theme="@style/AppThemeFullScreen" />
-        <activity android:name=".leader.activity.fragments.home.traings.workout.workout_video.VideoPlayActivity"
+        <activity
+            android:name=".leader.activity.fragments.home.traings.workout.detail.VideoPlayActivity"
+            android:theme="@style/AppThemeFullScreen"></activity>
+
+
+        <activity android:name=".leader.activity.fragments.home.traings.nutrition.detail.NutritionActivity"
             android:theme="@style/AppThemeFullScreen">
 
         </activity>

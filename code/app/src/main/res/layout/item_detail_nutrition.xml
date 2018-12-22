@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:elevation="2dp"
+    android:layout_marginTop="2dp"
+    android:background="@drawable/item_background_white"
+    android:layout_height="60dp">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/itemThumbNail"
+        android:layout_centerVertical="true"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="2dp"
+        android:src="@drawable/profile5"
+        app:civ_border_color="#00000000"
+        app:civ_border_width="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+      <TextView
+          android:id="@+id/title"
+          android:layout_marginLeft="10dp"
+          android:layout_marginTop="10dp"
+          android:layout_toRightOf="@id/itemThumbNail"
+          android:layout_width="wrap_content"
+          android:text="The simple spanish scramble"
+          android:textSize="13dp"
+          android:textColor="@color/dark_gray"
+          android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/calories"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="1dp"
+        android:layout_below="@id/title"
+        android:layout_toRightOf="@id/itemThumbNail"
+        android:layout_width="wrap_content"
+        android:text="7899 calories"
+        android:textSize="13dp"
+        android:textColor="@color/blue"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/takeTime"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="1dp"
+        android:layout_below="@id/title"
+        android:layout_toRightOf="@id/calories"
+        android:layout_width="wrap_content"
+        android:text="Take at 9:00 am"
+        android:textSize="13dp"
+        android:textColor="@color/blue"
+        android:layout_height="wrap_content" />
+
+
+
+    <TextView
+        android:id="@+id/qty"
+        android:layout_marginRight="20dp"
+
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:text="1 Serving"
+
+        android:textSize="14dp"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

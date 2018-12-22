@@ -9,6 +9,7 @@ import com.kampen.riks.app.rikskampen.leader.activity.fragments.LeaderBordTab.Le
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.plans.SelectPlansActivity;
 import com.kampen.riks.app.rikskampen.user.model.DB_User;
 import com.kampen.riks.app.rikskampen.user.module.DB_User_Module;
+import com.kampen.riks.app.rikskampen.utils.Constants;
 import com.kampen.riks.app.rikskampen.utils.SaveSharedPreference;
 
 import io.realm.Realm;
@@ -36,9 +37,9 @@ public class SplashActivity extends AppCompatActivity {
                 String[] params=SaveSharedPreference.getLoggedParams(getApplicationContext());
 
                 final RealmResults<DB_User> user = mRealm.where(DB_User.class)
-                        .equalTo("email",params[0].trim())
+                        .equalTo(Constants.USER_EMAIL_TAG,params[0].trim())
                         .and()
-                        .equalTo("pass",params[1].trim())
+                        .equalTo(Constants.USER_PASS_TAG,params[1].trim())
                         .findAll();
 
 

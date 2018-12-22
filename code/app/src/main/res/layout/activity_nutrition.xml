@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="#f2f2f2"
+    android:layout_height="match_parent"
+    >
+
+
+    <LinearLayout
+        android:id="@+id/headerLyout"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_marginTop="2dp"
+        android:background="@color/colortabselected"
+        android:layout_height="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="Breakfast"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="15dp"
+            android:layout_marginLeft="10dp"
+            android:text="18-12-2018"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:id="@+id/nutritionDetailRV"
+        android:layout_width="match_parent"
+
+        android:layout_height="200dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/chartNutritionDetail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/seekBar1" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="45dp"
+            android:clickable="true"
+            android:onClick="onBackClick"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+
+            >
+
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:rotation="180"
+                android:src="@drawable/ic_next" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Back"
+                android:textSize="18dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

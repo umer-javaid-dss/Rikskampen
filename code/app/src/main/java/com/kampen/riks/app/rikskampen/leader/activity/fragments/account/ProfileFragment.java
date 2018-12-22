@@ -1,19 +1,12 @@
 package com.kampen.riks.app.rikskampen.leader.activity.fragments.account;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 
@@ -28,14 +21,13 @@ import com.kampen.riks.app.rikskampen.MyApplication;
 import com.kampen.riks.app.rikskampen.R;
 
 
+import com.kampen.riks.app.rikskampen.leader.activity.fragments.account.editprofile.EditProfileActivity;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.chat.ChatActivity;
 import com.kampen.riks.app.rikskampen.user.model.DB_User;
 import com.kampen.riks.app.rikskampen.user.module.DB_User_Module;
 import com.kampen.riks.app.rikskampen.utils.SaveSharedPreference;
 
 
-import co.intentservice.chatui.ChatView;
-import co.intentservice.chatui.models.ChatMessage;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 

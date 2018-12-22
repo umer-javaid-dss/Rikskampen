@@ -284,7 +284,7 @@ public class SignUpActivity extends AppCompatActivity implements  SignupContract
     }
 
     @Override
-    public void setmPresenter(SignupContract.Presenter mPresenter) {
+    public void setPresenter(SignupContract.Presenter mPresenter) {
 
     }
 }

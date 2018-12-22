@@ -1,7 +1,6 @@
-package com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.workout.workout_video;
+package com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.workout.detail;
 
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
