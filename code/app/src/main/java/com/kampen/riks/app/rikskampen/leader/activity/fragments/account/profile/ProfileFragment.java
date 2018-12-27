@@ -1,4 +1,4 @@
-package com.kampen.riks.app.rikskampen.leader.activity.fragments.account;
+package com.kampen.riks.app.rikskampen.leader.activity.fragments.account.profile;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ShareActionProvider;
 
 
 import com.kampen.riks.app.rikskampen.LoginSignupActivity;
@@ -25,26 +26,30 @@ import com.kampen.riks.app.rikskampen.leader.activity.fragments.account.editprof
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.chat.ChatActivity;
 import com.kampen.riks.app.rikskampen.user.model.DB_User;
 import com.kampen.riks.app.rikskampen.user.module.DB_User_Module;
+import com.kampen.riks.app.rikskampen.utils.Custom_Progress_Module.ProgressManager;
 import com.kampen.riks.app.rikskampen.utils.SaveSharedPreference;
 
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements  ProfileContract.View{
 
 
 
 
     private  View  mProfileLayout;
 
-    private Realm mRealm;
+
 
     private ImageView profileImage;
 
 
     private  View  mLogoutButton,chatLayout;
 
+
+
+    private   ProfilePresenter  mProfilePresenter;
 
 
 
@@ -79,63 +84,24 @@ public class ProfileFragment extends Fragment {
 
         manageClicks();
 
-        setUpDB();
 
-    }
-
-
-    private void  setUpDB()
-    {
-        RealmConfiguration config = new RealmConfiguration.Builder()
-                .name(getActivity().getPackageName() + ".realm")
-                .schemaVersion(2)
-                .modules(new DB_User_Module())
-                .build();
-
-        mRealm = Realm.getInstance(config);
-
-
-
-
-        // mStorageRef = FirebaseStorage.getInstance().getReference();
+        mProfilePresenter=new ProfilePresenter(ProfileFragment.this);
 
 
 
     }
+
+
 
 
     @Override
     public void onResume() {
         super.onResume();
 
-        setUser();
+        mProfilePresenter.getUserProfilePhoto(getActivity());
 
     }
 
-    private  void setUser()
-    {
-       DB_User mUser=MyApplication.tempUser;
-
-        if(mUser!=null)
-        {
-            if(mUser!=null )
-            {
-
-                byte []  profileData=mUser.getProfilePicData();
-
-                if(profileData!=null)
-                {
-                    Bitmap bmp = BitmapFactory.decodeByteArray(profileData, 0, profileData.length);
-                    profileImage.setImageBitmap(bmp);
-                }
-
-
-
-
-            }
-
-        }
-    }
 
 
 
@@ -146,13 +112,8 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
 
 
-                //Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
-
-
                 Intent intent = new Intent(getActivity(), EditProfileActivity.class);
                 startActivity(intent);
-               // finish();
-
 
             }
         });
@@ -172,26 +133,9 @@ public class ProfileFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
+                                ProgressManager.showProgress(getContext(),"Please wait...");
+                               mProfilePresenter.performLogout(SaveSharedPreference.getUserToken(getContext()));
 
-                               /* try {
-                                    RealmConfiguration config = new RealmConfiguration.Builder()
-                                            .name(getActivity().getPackageName() + ".realm")
-                                            .schemaVersion(2)
-                                            .modules(new DB_User_Module())
-                                            .build();
-
-                                    Realm.deleteRealm(config);
-                                    SaveSharedPreference.setLoggedIn(getContext(),false);
-                                } catch (Exception ex){
-                                    throw ex;
-                                }*/
-
-
-                                Intent intent = new Intent(getActivity(),LoginSignupActivity.class);
-                                startActivity(intent);
-                                MyApplication.tempUser=null;
-                                SaveSharedPreference.setLoggedIn(getActivity(), false);
-                                getActivity().finish();
                             }
 
                         })
@@ -219,10 +163,47 @@ public class ProfileFragment extends Fragment {
     }
 
 
+    @Override
+    public void setProfile(DB_User user) {
 
 
 
+             String  profilePath=user.getProfile_image();
+
+             if(profilePath!=null && profilePath.length()>0) {
+                 Bitmap bmp = BitmapFactory.decodeFile(profilePath);
+                 profileImage.setImageBitmap(bmp);
+             }
 
 
 
+    }
+
+    @Override
+    public void setLogoutSuccess(String message) {
+
+
+        ProgressManager.hideProgress();
+
+        Intent intent = new Intent(getActivity(),LoginSignupActivity.class);
+        startActivity(intent);
+
+        SaveSharedPreference.setLoggedIn(getActivity(), false);
+        getActivity().finish();
+
+
+    }
+
+    @Override
+    public void setLogoutFailed(String message) {
+
+        ProgressManager.hideProgress();
+
+    }
+
+    @Override
+    public void setPresenter(ProfileContract.Presenter mPresenter) {
+
+
+    }
 }

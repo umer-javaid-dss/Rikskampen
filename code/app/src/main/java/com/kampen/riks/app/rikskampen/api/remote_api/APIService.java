@@ -69,6 +69,14 @@ public interface APIService  {
 
 
 
+    @FormUrlEncoded
+    @POST("public/index.php/api/auth/logout")
+    Call<Generic_Result<String>> logoutUser(
+
+            @FieldMap HashMap<String, String> logoutHM
+
+    );
+
 
 
 

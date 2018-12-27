@@ -1,5 +1,6 @@
 package com.kampen.riks.app.rikskampen.leader.activity.fragments.home.addactivity.adapter;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.kampen.riks.app.rikskampen.R;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.addactivity.ActivityFragment;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.addactivity.model.DailyPick;
+import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.addactivity.weekly.WeeklyActivity;
 import com.kampen.riks.app.rikskampen.user.model.DB_DailyFitnessPic;
 import com.kampen.riks.app.rikskampen.utils.SaveSharedPreference;
 
@@ -89,7 +91,7 @@ public class DailyPicAdapter extends RecyclerView.Adapter<DailyPicAdapter.ViewHo
                 viewHolder.dailyPick.setImageResource(R.drawable.ic_holder);
             }
 
-
+            manageImageClickWeekly(viewHolder.dailyPick,list.get(i));
             viewHolder.timeTV.setText((i+1)+" week");
         }
 
@@ -115,26 +117,37 @@ public class DailyPicAdapter extends RecyclerView.Adapter<DailyPicAdapter.ViewHo
             dailyPick.setPicData(byteArray);
 
 
-           /* DB_DailyFitnessPic db_dailyFitnessPic=
-
-
-
-          notifyDataSetChanged();*/
         }
 
     }
 
     private  void manageImageClick(final ImageView imageView,final DailyPick dailyPick)
     {
-        imageView.setOnLongClickListener(new View.OnLongClickListener() {
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
+            public void onClick(View v) {
 
 
                 tempFragment.onAddPicture();
 
 
-                return false;
+
+            }
+        });
+    }
+
+
+    private  void manageImageClickWeekly(final ImageView imageView,final DailyPick dailyPick)
+    {
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+                Intent intent = new Intent(imageView.getContext(), WeeklyActivity.class);
+                imageView.getContext().startActivity(intent);
+
             }
         });
     }

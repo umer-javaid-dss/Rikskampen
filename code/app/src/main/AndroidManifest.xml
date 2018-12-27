@@ -90,13 +90,24 @@
             android:theme="@style/AppThemeFullScreen" />
         <activity
             android:name=".leader.activity.fragments.home.traings.workout.detail.VideoPlayActivity"
+            android:theme="@style/AppThemeFullScreen" />
+        <activity
+            android:name=".leader.activity.fragments.home.traings.nutrition.detail.NutritionActivity"
+            android:theme="@style/AppThemeFullScreen" />
+        <activity
+            android:name=".leader.activity.fragments.home.addactivity.weekly.WeeklyActivity"
             android:theme="@style/AppThemeFullScreen"></activity>
-
-
-        <activity android:name=".leader.activity.fragments.home.traings.nutrition.detail.NutritionActivity"
+        <activity android:name=".leader.activity.fragments.home.addactivity.weekly.daily.DailyActivity"
             android:theme="@style/AppThemeFullScreen">
 
         </activity>
+
+        <!-- __________ Define Service. __________ -->
+        <service android:name="com.kampen.riks.app.rikskampen.leader.activity.fragments.home.addactivity.weekly.daily.StepCounter.StepCountingService" />
+        <!-- _________________________________________ -->
+
+
+
     </application>
 
 </manifest>

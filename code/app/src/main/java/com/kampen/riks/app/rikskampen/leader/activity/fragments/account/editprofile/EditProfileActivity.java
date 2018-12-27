@@ -243,11 +243,7 @@ public class EditProfileActivity extends AppCompatActivity implements   EditProf
                     public void onClick(DialogInterface dialog, int which) {
 
                         mUserWeight.setText(numberPicker.getValue()+" kg");
-                        mUser.setWeight(numberPicker.getValue());
-                        //upDateUserOnServer(mUser);
-                        //ProgressManager.showProgress(EditProfileActivity.this,"Updating user");
 
-                        //mEditProfilePresenter.performEditProfile(mUser.getF_name(),mUser.getL_name(),mUser.getPass(),mUser.getEmail());
                     }
                 })
                 .show();
@@ -428,8 +424,7 @@ public class EditProfileActivity extends AppCompatActivity implements   EditProf
                         genderInt=2;
                     }
 
-                    mUser.setUser_gender(genderInt);
-                    //upDateUserOnServer(mUser);
+
                 }
             });
             dialog.show();
@@ -458,9 +453,7 @@ public class EditProfileActivity extends AppCompatActivity implements   EditProf
 
                 mUserDOB.setText(sdf.format(myCalendar.getTime()));
 
-                mUser.setDob(sdf.format(myCalendar.getTime()));
 
-                //upDateUserOnServer(mUser);
             }
 
         };
@@ -554,7 +547,6 @@ public class EditProfileActivity extends AppCompatActivity implements   EditProf
                             public void onClick(DialogInterface dialog,int id) {
 
                                 mfNameValue.setText(userInput.getText());
-                                mUser.setF_name(userInput.getText().toString());
 
 
                                   mRUser=Constants.DB_To_R_USER(mUser);
@@ -580,10 +572,6 @@ public class EditProfileActivity extends AppCompatActivity implements   EditProf
 
 
     }
-
-
-
-
 
 
 
@@ -625,9 +613,6 @@ public class EditProfileActivity extends AppCompatActivity implements   EditProf
                             public void onClick(DialogInterface dialog,int id) {
 
                                 mlNameValue.setText(userInput.getText());
-
-
-                                 //mUser.setL_name(userInput.getText().toString());
 
                                 mRUser=Constants.DB_To_R_USER(mUser);
                                 mRUser.setLastname(userInput.getText().toString());
@@ -689,8 +674,6 @@ public class EditProfileActivity extends AppCompatActivity implements   EditProf
                                 mPassValue.setText(userInput.getText());
 
 
-                                mUser.setPass(userInput.getText().toString());
-                                //upDateUserOnServer(mUser);
 
                             }
                         })

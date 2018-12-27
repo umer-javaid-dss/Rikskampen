@@ -2,9 +2,11 @@ package com.kampen.riks.app.rikskampen.leader.activity.fragments.home.addactivit
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
+
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
@@ -13,64 +15,70 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
+
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import com.kampen.riks.app.rikskampen.MyApplication;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IFillFormatter;
+import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.kampen.riks.app.rikskampen.R;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.addactivity.adapter.DailyPicAdapter;
-import com.kampen.riks.app.rikskampen.user.model.DB_User;
+
+import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.addactivity.weekly.daily.StepCounter.StepCountingService;
 import com.kampen.riks.app.rikskampen.user.module.DB_User_Module;
 import com.kampen.riks.app.rikskampen.utils.Constants;
 
-import adil.dev.lib.materialnumberpicker.dialog.GenderPickerDialog;
-import biz.kasual.materialnumberpicker.MaterialNumberPicker;
+import java.util.ArrayList;
+
 import in.mayanknagwanshi.imagepicker.imageCompression.ImageCompressionListener;
 import in.mayanknagwanshi.imagepicker.imagePicker.ImagePicker;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
+
 import static android.support.v4.content.PermissionChecker.checkSelfPermission;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
-
- * to handle interaction events.
- */
 public class ActivityFragment extends Fragment {
 
-    private  EditText mUserFname;
-    private  EditText mUserLname;
-    private  EditText mUserEmail;
-    private  EditText mUserPass;
-    private  EditText mUserDOB;
-    private  EditText mUserHeightInFeet;
-    private  EditText mUserHeightInInches;
-    private  EditText mUserWeight;
-    private  EditText mUserGender;
 
     private Realm mRealm;
 
-    private  View     mSaveData;
-
     private ImagePicker imagePicker;
 
-
     private RecyclerView  dailyPickRecyclerView;
+
     private DailyPicAdapter dailyPicAdapter;
+
+
+    private LineChart chart;
+
+    public final static String    TAG_="Activity Fragment";
+
+
+
+
+
 
 
     public ActivityFragment() {
 
+
     }
+
+
 
     public static ActivityFragment newInstance() {
         ActivityFragment fragment = new ActivityFragment();
@@ -81,7 +89,7 @@ public class ActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_account, container, false);
+        return inflater.inflate(R.layout.fragment_activity, container, false);
     }
 
 
@@ -89,7 +97,7 @@ public class ActivityFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //init(view);
+
 
         dailyPickRecyclerView = (RecyclerView) view.findViewById(R.id.dailyPicRV);
 
@@ -106,9 +114,157 @@ public class ActivityFragment extends Fragment {
 
         imagePicker = new ImagePicker();
 
+        setChartData(view);
 
+
+        if(!Constants.isMyServiceRunning(StepCountingService.class,getContext()))
+        {
+            getActivity().startService(new Intent(getContext(), StepCountingService.class));
+            // register our BroadcastReceiver by passing in an IntentFilter. * identifying the message that is broadcasted by using static string "BROADCAST_ACTION".
+            getActivity().registerReceiver(broadcastReceiver, new IntentFilter(StepCountingService.BROADCAST_ACTION));
+
+        }
 
     }
+
+
+
+
+    private  void setChartData(View view)
+    {
+        chart = view.findViewById(R.id.chart1);
+
+        chart.setViewPortOffsets(0, 0, 0, 0);
+        //chart.setBackgroundColor(Color.rgb(20, 20, 20));
+
+        // no description text
+        chart.getDescription().setEnabled(false);
+
+        // enable touch gestures
+        chart.setTouchEnabled(true);
+
+        // enable scaling and dragging
+        chart.setDragEnabled(true);
+        chart.setScaleEnabled(true);
+
+        // if disabled, scaling can be done on x- and y-axis separately
+        chart.setPinchZoom(false);
+
+        chart.setDrawGridBackground(false);
+        chart.setMaxHighlightDistance(300);
+
+        XAxis x = chart.getXAxis();
+        x.setEnabled(false);
+
+        YAxis y = chart.getAxisLeft();
+        //y.setTypeface(tfLight);
+        y.setLabelCount(0, false);
+        y.setTextColor(Color.TRANSPARENT);
+        y.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+        y.setDrawGridLines(false);
+        y.setAxisLineColor(Color.GREEN);
+
+        chart.getAxisRight().setEnabled(false);
+
+
+
+        chart.getLegend().setEnabled(false);
+
+        chart.animateXY(2000, 2000);
+
+        // don't forget to refresh the drawing
+
+        setData(10,10);
+        chart.invalidate();
+
+    }
+
+
+
+    private void setData(int count, float range) {
+
+        ArrayList<Entry> values = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+            float val = (float) (Math.random() * (range + 1)) + 20;
+            values.add(new Entry(i, val));
+        }
+
+        for (int i = 5; i < 10; i++) {
+
+            values.add(new Entry(i,0));
+        }
+        LineDataSet set1;
+
+        if (chart.getData() != null &&
+                chart.getData().getDataSetCount() > 0) {
+            set1 = (LineDataSet) chart.getData().getDataSetByIndex(0);
+            set1.setValues(values);
+            chart.getData().notifyDataChanged();
+            chart.notifyDataSetChanged();
+        } else {
+            // create a dataset and give it a type
+            set1 = new LineDataSet(values, "");
+
+            set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+            set1.setCubicIntensity(0.2f);
+            set1.setDrawFilled(true);
+            set1.setDrawCircles(false);
+            set1.setLineWidth(1.8f);
+            set1.setCircleRadius(4f);
+            set1.setCircleColor(Color.GREEN);
+            set1.setHighLightColor(Color.rgb(244, 117, 117));
+            set1.setColor(Color.GREEN);
+            set1.setFillColor(Color.GREEN);
+            set1.setFillAlpha(100);
+            set1.setDrawHorizontalHighlightIndicator(false);
+            set1.setFillFormatter(new IFillFormatter() {
+                @Override
+                public float getFillLinePosition(ILineDataSet dataSet, LineDataProvider dataProvider) {
+                    return chart.getAxisLeft().getAxisMinimum();
+                }
+            });
+
+            // create a data object with the data sets
+            LineData data = new LineData(set1);
+            //data.setValueTypeface(tfLight);
+            data.setValueTextSize(9f);
+            data.setDrawValues(false);
+
+            // set data
+            chart.setData(data);
+        }
+    }
+
+
+
+    // --------------------------------------------------------------------------- \\
+    // ___ create Broadcast Receiver ___ \\
+    // create a BroadcastReceiver - to receive the message that is going to be broadcast from the Service
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // call updateUI passing in our intent which is holding the data to display.
+            updateViews(intent);
+        }
+    };
+    // ___________________________________________________________________________ \\
+
+
+
+    // --------------------------------------------------------------------------- \\
+    // ___ retrieve data from intent & set data to textviews __ \\
+    private void updateViews(Intent intent) {
+        // retrieve data out of the intent.
+        String countedStep = intent.getStringExtra("Counted_Step");
+        String DetectedStep = intent.getStringExtra("Detected_Step");
+        Log.d(TAG_, String.valueOf(countedStep));
+        Log.d(TAG_, String.valueOf(DetectedStep));
+
+        Toast.makeText(getActivity(), countedStep, Toast.LENGTH_SHORT).show();
+    }
+    // ___________________________________________________________________________ \\
+
 
 
     private void  setUpDB()
@@ -122,173 +278,10 @@ public class ActivityFragment extends Fragment {
         mRealm = Realm.getInstance(config);
 
 
-
-
-        // mStorageRef = FirebaseStorage.getInstance().getReference();
-
-
-
     }
 
 
-    private  void init(View view)
-    {
-       /* mUserFname=view.findViewById(R.id.editText_fName);
-        mUserLname=view.findViewById(R.id.editText_lName);
-        mUserEmail=view.findViewById(R.id.editText_email);
-        mUserPass=view.findViewById(R.id.editText_pass);
-        mUserDOB=view.findViewById(R.id.editText_Age);
-        mUserHeightInFeet=view.findViewById(R.id.editText_Height_F);
-        mUserHeightInInches=view.findViewById(R.id.editText_Height_I);
-        mUserWeight=view.findViewById(R.id.editText_Weight);
-        mUserGender=view.findViewById(R.id.editText_Sex);
-        mSaveData=view.findViewById(R.id.button_signup);
 
-        manageClicks();
-
-        setProfileLocal();*/
-    }
-
-    private void manageClicks()
-    {
-        mUserDOB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                onAgeClick(v);
-            }
-        });
-        mUserHeightInFeet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                onHeightInFeetClick(v);
-            }
-        });
-
-        mUserHeightInInches.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                onHeightInIncheClick(v);
-            }
-        });
-
-        mUserWeight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                onWeightClick(v);
-            }
-        });
-
-
-        mSaveData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(validateData( ))
-                {
-
-                    if(editProfileLocal())
-                    {
-                        Toast.makeText(getActivity(), "Data saved", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-            }
-        });
-
-    }
-
-
-    private  boolean setProfileLocal()
-    {
-
-
-        DB_User user=MyApplication.tempUser;
-
-       if(user!=null )
-       {
-           final String fName=user.getF_name();
-           final String lName= user.getL_name();
-           final String email= user.getEmail();
-           final String pass =user.getPass();
-           final int    age  =user.getAge();
-           final int    height_ft= user.getHeight_in_feet();
-           final int    height_in= user.getHeight_in_inches();
-           final int    weight=user.getWeight();
-           final int    gender=user.getUser_gender();
-
-           mUserFname.setText(fName);
-           mUserLname.setText(lName);
-           mUserEmail.setText(email);
-           mUserPass.setText(pass);
-           mUserDOB.setText(age+"");
-           mUserHeightInFeet.setText(height_ft+"");
-           mUserHeightInInches.setText(height_in+"");
-           mUserWeight.setText(weight+"");
-           mUserGender.setText(""+(gender==1?"Male":"Female"));
-       }
-
-
-        return true;
-    }
-
-    private  boolean editProfileLocal()
-    {
-
-
-
-        final String fName= mUserFname.getText().toString();
-        final String lName= mUserLname.getText().toString();
-        final String email= mUserEmail.getText().toString();
-        final String pass =mUserPass.getText().toString();
-        final int    age  =Integer.parseInt(mUserDOB.getText().toString());
-        final int    height_ft= Integer.parseInt(mUserHeightInFeet.getText().toString());
-        final int    height_in= Integer.parseInt(mUserHeightInInches.getText().toString());
-        final int    weight=Integer.parseInt(mUserWeight.getText().toString());
-
-
-
-        int temGender=1;
-
-        if(mUserGender.getText().toString().toLowerCase().equals("male"))
-        {
-            temGender=1;
-        }
-        else
-        {
-            temGender=2;
-        }
-        final int    gender=temGender;
-
-        mRealm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-
-                DB_User db_user = realm.createObject(DB_User.class);
-                db_user.setId("12345");
-                db_user.setAge(age);
-                db_user.setEmail(email);
-                db_user.setPass(pass);
-                db_user.setF_name(fName);
-                db_user.setL_name(lName);
-                db_user.setProfile_image("");
-                db_user.setRole("c");
-                db_user.setUser_gender(gender);
-                db_user.setHeight_in_cm(height_ft);
-                db_user.setHeight_in_inches(height_in);
-                db_user.setHeight_unit("ft");
-                db_user.setWeight(weight);
-                db_user.setWeight_unit("kg");
-
-
-            }
-        });
-
-        return true;
-    }
 
 
     @Override
@@ -303,244 +296,6 @@ public class ActivityFragment extends Fragment {
 
     }
 
-
-
-
-    private  boolean  validateData( )
-    {
-
-        if(mUserFname.getText().toString().trim().length()==0)
-        {
-            mUserFname.requestFocus();
-            mUserFname.setError("Enter first name");
-            return false;
-
-        }
-
-        if(mUserLname.getText().toString().trim().length()==0)
-        {
-            mUserLname.requestFocus();
-            mUserLname.setError("Enter last name");
-            return false;
-
-        }
-
-
-
-        if(mUserEmail.getText().toString().trim().length()==0)
-        {
-            mUserEmail.requestFocus();
-            mUserEmail.setError("Enter email");
-            return false;
-
-        }
-
-        if(!Constants.isValidEmailId(mUserEmail.getText().toString()))
-        {
-            mUserEmail.requestFocus();
-            mUserEmail.setError("Enter valid email");
-            return false;
-        }
-
-        if(mUserPass.getText().toString().trim().length()==0)
-        {
-            mUserPass.requestFocus();
-            mUserPass.setError("Enter password");
-            return false;
-
-        }
-
-        if(mUserDOB.getText().toString().trim().length()==0)
-        {
-            mUserDOB.requestFocus();
-            mUserDOB.setError("Select date of birth");
-            return false;
-
-        }
-
-        if(mUserHeightInFeet.getText().toString().trim().length()==0)
-        {
-            mUserHeightInFeet.requestFocus();
-            mUserHeightInFeet.setError("Enter height in feet");
-            return false;
-
-        }
-
-        if(mUserHeightInInches.getText().toString().trim().length()==0)
-        {
-            mUserHeightInInches.requestFocus();
-            mUserHeightInInches.setError("Enter height in feet");
-            return false;
-
-        }
-
-        if(mUserWeight.getText().toString().trim().length()==0)
-        {
-            mUserWeight.requestFocus();
-            mUserWeight.setError("Enter weight in lbs");
-            return false;
-
-        }
-
-        if(mUserGender.getText().toString().trim().length()==0)
-        {
-            mUserGender.requestFocus();
-            mUserGender.setError("Select gender");
-            return false;
-
-        }
-
-
-
-        return  true;
-    }
-
-
-
-    public void onSexClick(View view) {
-
-        final EditText gender= (EditText) view;
-
-        try {
-
-            GenderPickerDialog dialog = new GenderPickerDialog(getActivity());
-            dialog.setOnSelectingGender(new GenderPickerDialog.OnGenderSelectListener() {
-                @Override
-                public void onSelectingGender(String value) {
-                    gender.setText(value);
-                }
-            });
-            dialog.show();
-        }catch (Exception ex)
-        {
-            ex.toString();
-        }
-
-    }
-
-    public void onAgeClick(View view) {
-
-
-        Constants.hideSoftKeyboard(view,getActivity());
-
-        final EditText DOB= (EditText) view;
-
-
-        final MaterialNumberPicker numberPicker = new MaterialNumberPicker.Builder(getActivity())
-                .minValue(1)
-                .maxValue(120)
-                .defaultValue(30)
-                .backgroundColor(Color.WHITE)
-                .separatorColor(Color.TRANSPARENT)
-                .textColor(Color.BLACK)
-                .textSize(20)
-                .enableFocusability(false)
-                .wrapSelectorWheel(true)
-                .build();
-
-
-        new AlertDialog.Builder(getActivity())
-                .setTitle("Your Age")
-                .setView(numberPicker)
-                .setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        DOB.setText(numberPicker.getValue()+"");
-                    }
-                })
-                .show();
-
-
-    }
-
-    public void onHeightInFeetClick(View view) {
-
-        final MaterialNumberPicker numberPicker = new MaterialNumberPicker.Builder(getActivity())
-                .minValue(1)
-                .maxValue(10)
-                .defaultValue(5)
-                .backgroundColor(Color.WHITE)
-                .separatorColor(Color.TRANSPARENT)
-                .textColor(Color.BLACK)
-                .textSize(20)
-                .enableFocusability(false)
-                .wrapSelectorWheel(true)
-                .build();
-
-
-        new AlertDialog.Builder(getActivity())
-                .setTitle("Height in Feet")
-                .setView(numberPicker)
-                .setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        mUserHeightInFeet.setText(numberPicker.getValue()+"");
-                    }
-                })
-                .show();
-
-    }
-
-    public void onHeightInIncheClick(View view) {
-
-
-        final MaterialNumberPicker numberPicker = new MaterialNumberPicker.Builder(getActivity())
-                .minValue(1)
-                .maxValue(12)
-                .defaultValue(1)
-                .backgroundColor(Color.WHITE)
-                .separatorColor(Color.TRANSPARENT)
-                .textColor(Color.BLACK)
-                .textSize(20)
-                .enableFocusability(false)
-                .wrapSelectorWheel(true)
-                .build();
-
-
-        new AlertDialog.Builder(getActivity())
-                .setTitle("Height in Inches")
-                .setView(numberPicker)
-                .setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        mUserHeightInInches.setText(numberPicker.getValue()+"");
-                    }
-                })
-                .show();
-
-    }
-
-    public void onWeightClick(View view) {
-
-        final MaterialNumberPicker numberPicker = new MaterialNumberPicker.Builder(getActivity())
-                .minValue(1)
-                .maxValue(200)
-                .defaultValue(70)
-                .backgroundColor(Color.WHITE)
-                .separatorColor(Color.TRANSPARENT)
-                .textColor(Color.BLACK)
-                .textSize(20)
-                .enableFocusability(false)
-                .wrapSelectorWheel(true)
-                .build();
-
-
-        new AlertDialog.Builder(getActivity())
-                .setTitle("Weight in kg")
-                .setView(numberPicker)
-                .setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        mUserWeight.setText(numberPicker.getValue()+"");
-                    }
-                })
-                .show();
-
-    }
 
 
 

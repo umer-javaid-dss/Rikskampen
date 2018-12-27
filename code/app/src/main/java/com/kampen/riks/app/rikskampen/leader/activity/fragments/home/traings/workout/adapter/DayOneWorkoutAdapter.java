@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kampen.riks.app.rikskampen.R;
-import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.workout.model.DailyVideo;
+import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.workout.detail.model.DailyVideo;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.workout.detail.VideoPlayActivity;
 
 import java.util.ArrayList;

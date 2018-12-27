@@ -1,4 +1,4 @@
-package com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.model;
+package com.kampen.riks.app.rikskampen.leader.activity.fragments.home.traings.workout.model;
 
 import io.realm.RealmObject;
 

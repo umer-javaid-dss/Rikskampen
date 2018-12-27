@@ -1,7 +1,5 @@
 package com.kampen.riks.app.rikskampen.leader.activity;
 
-import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.net.Uri;
@@ -13,7 +11,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,19 +22,15 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
-import com.kampen.riks.app.rikskampen.LoginSignupActivity;
-import com.kampen.riks.app.rikskampen.MyApplication;
 import com.kampen.riks.app.rikskampen.R;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.LeaderBordTab.LeaderBoardFragment;
-import com.kampen.riks.app.rikskampen.leader.activity.fragments.account.ProfileFragment;
+import com.kampen.riks.app.rikskampen.leader.activity.fragments.account.profile.ProfileFragment;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.home.HomeFragment;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.map.MapFragment;
 import com.kampen.riks.app.rikskampen.leader.activity.fragments.order_history.OrderHistoryFragment;
 import com.kampen.riks.app.rikskampen.user.module.DB_User_Module;
-import com.kampen.riks.app.rikskampen.utils.SaveSharedPreference;
 
 import java.io.File;
-import java.io.IOException;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;

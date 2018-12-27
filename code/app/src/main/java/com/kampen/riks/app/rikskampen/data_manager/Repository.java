@@ -39,6 +39,8 @@ public class Repository {
 
     public  static  final int  API_HIT_FAILED =102;
 
+    public  static  final String  TOKEN ="token";
+
 
 
     public static   boolean addUserLocal(Realm realm,RemoteUser userJson)
@@ -263,7 +265,7 @@ public class Repository {
         Realm      mLocalService;
 
         mWebService  = ((RemoteApiService) ServiceLocator.getService(RemoteApiService.NAME)).getApiService();
-        mLocalService= ((LocalApiService)  ServiceLocator.getService(LocalApiService.NAME)).getmRealm();
+
 
         HashMap<String,String> hm=new HashMap();
         hm.put(L_NAME,lname);
@@ -286,7 +288,6 @@ public class Repository {
                 responseStatus.setCode(obj.getCode());
                 responseStatus.setMsg(obj.getMsg());
                 responseStatus.setStatus(obj.getStatus());
-
                 responseStatus.onResult(responseStatus);
 
 
@@ -296,8 +297,6 @@ public class Repository {
             public void onFailure(Call<Generic_Result<String>> call, Throwable t) {
 
                 t.toString();
-
-
 
                 responseStatus.setCode(API_HIT_FAILED);
                 responseStatus.setMsg(t.getMessage());
@@ -312,6 +311,64 @@ public class Repository {
 
 
     }
+
+
+
+    public  static    void   logoutUser(String token,final ResponseStatus responseStatus)
+    {
+        APIService mWebService;
+
+        mWebService  = ((RemoteApiService) ServiceLocator.getService(RemoteApiService.NAME)).getApiService();
+
+
+        HashMap<String,String> hm=new HashMap();
+        hm.put(TOKEN,token);
+
+        Call<Generic_Result<String>> call = mWebService.logoutUser(hm);
+
+        call.enqueue(new Callback<Generic_Result<String>>() {
+            @Override
+            public void onResponse(Call<Generic_Result<String>> call, Response<Generic_Result<String>> response) {
+
+                Generic_Result<String> obj = null;
+
+                obj = response.body();
+
+
+                responseStatus.setCode(obj.getCode());
+                responseStatus.setMsg(obj.getMsg());
+                responseStatus.setStatus(obj.getStatus());
+                responseStatus.onResult(responseStatus);
+
+
+            }
+
+            @Override
+            public void onFailure(Call<Generic_Result<String>> call, Throwable t) {
+
+                t.toString();
+
+                responseStatus.setCode(API_HIT_FAILED);
+                responseStatus.setMsg(t.getMessage());
+                responseStatus.setStatus(STATUS_FAILED);
+
+                responseStatus.onResult(responseStatus);
+
+
+            }
+        });
+
+
+
+    }
+
+
+
+
+
+
+
+
 
 
 }
